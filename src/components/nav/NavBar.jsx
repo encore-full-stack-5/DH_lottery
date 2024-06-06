@@ -9,14 +9,14 @@ const NavBar = () => {
           <nav className="nav">
             <ul className="top-menu">
               <li className="nav-list">
-                복권구매
-                <ul className="dropdown">
+                로또구매
+                {/* <ul className="dropdown">
                   <li>옵션 1</li>
                   <li>옵션 2</li>
                   <li>옵션 3</li>
-                </ul>
+                </ul> */}
               </li>
-              <li className="nav-list">복권정보</li>
+              <li className="nav-list">연금복권구매</li>
               <li className="nav-list">당첨결과</li>
               <li className="nav-list">판매점</li>
               <li className="nav-list">이벤트</li>

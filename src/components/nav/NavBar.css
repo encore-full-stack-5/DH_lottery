@@ -37,15 +37,15 @@
 
 .nav-list {
   position: relative;
-  color: #fff;
   text-decoration: none;
   transition: background-color 0.3s ease;
+  color: black;
   cursor: pointer;
 }
 
 .nav-list:hover {
   background-color: #007bc3;
-  color: #fff;
+  color: black;
 }
 
 @media (max-width: 768px) {
@@ -61,12 +61,5 @@
     margin: 10px 0;
     text-align: center;
     position: relative;
-  }
-  .dropdown {
-    position: static;
-    box-shadow: none;
-  }
-  .dropdown.active {
-    display: block; /* Show dropdown on hover for small screens */
   }
 }
