@@ -25,7 +25,7 @@
   line-height: 1em;
 }
 
-.nav li {
+.nav-list {
   position: relative;
   display: block;
   color: #252525;
@@ -33,10 +33,6 @@
   line-height: 62px;
   padding: 0 49px;
   font-size: 18px;
-}
-
-.nav-list {
-  position: relative;
   text-decoration: none;
   transition: background-color 0.3s ease;
   color: black;
@@ -45,7 +41,7 @@
 
 .nav-list:hover {
   background-color: #007bc3;
-  color: black;
+  color: white;
 }
 
 @media (max-width: 768px) {
