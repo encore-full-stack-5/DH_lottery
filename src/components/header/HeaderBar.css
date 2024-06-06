@@ -1,0 +1,98 @@
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo-image {
+  width: 195px;
+  height: 72px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  margin-left: 150px;
+  margin-top: 12px;
+}
+.top-menu ul {
+  display: flex;
+  list-style-type: none;
+  margin-right: 200px;
+  margin-top: 50px;
+}
+.top-menu li {
+  margin-right: 10px;
+}
+.username {
+  font-size: medium;
+  font-weight: bold;
+}
+.money {
+  color: gray;
+}
+.won {
+  font-size: 15px;
+  margin-right: 5px;
+}
+.price {
+  margin-right: 10px;
+}
+.header-button {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 13px;
+  text-decoration: none;
+  color: white;
+  background-color: #666666;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.header-right-button {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 13px;
+  text-decoration: none;
+  color: white;
+  background-color: #08857f;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.h-bar {
+  color: #ebebeb;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-image {
+    margin: 10px 0;
+    width: 150px;
+    height: auto;
+  }
+
+  .top-menu ul {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .top-menu li {
+    margin: 5px 0;
+  }
+
+  .header-button,
+  .header-right-button {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .h-bar {
+    display: none;
+  }
+}
