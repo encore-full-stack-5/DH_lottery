@@ -62,3 +62,37 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-image {
+    margin: 10px 0;
+    width: 150px;
+    height: auto;
+  }
+
+  .top-menu ul {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .top-menu li {
+    margin: 5px 0;
+  }
+
+  .header-button,
+  .header-right-button {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .h-bar {
+    display: none;
+  }
+}
