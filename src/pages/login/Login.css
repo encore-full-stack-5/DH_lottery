@@ -1,0 +1,19 @@
+/* Centering the container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height for vertical centering */
+  flex-direction: column; /* Stack the items vertically */
+}
+
+/* Centering the inner content */
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-content p {
+  margin: 10px 0;
+}

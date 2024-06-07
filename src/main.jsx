@@ -6,6 +6,7 @@ import P_WinningResult from "./pages/P_WinningResult.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
 import Payment from "./pages/Payment.jsx";
+import Login from "./pages/login/Login.jsx";
 
 import { RecoilRoot } from "recoil";
 
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       // { path: "/login", element: <Login /> },
       { path: "/winResult", element: <P_WinningResult /> },
       { path: "/payment", element: <Payment /> },
+      { path: "/login", element: <Login /> },
     ],
   },
 ]);
