@@ -1,0 +1,88 @@
+.sidebar {
+  display: block;
+  margin-top: 120px;
+  margin-left: 160px;
+  margin-bottom: 300px;
+  width: 250px;
+  min-height: 10vh;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  color: black;
+  overflow-y: auto;
+}
+
+.sidebar h1 {
+  margin-top: 0;
+  text-align: left;
+  font-size: 1.5em;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  font-size: 33px;
+}
+
+.sidebar-list {
+  list-style-type: none;
+}
+
+.sidebar-list a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+}
+
+.sidebar-list a:hover {
+  background-color: #007bc3;
+  color: white;
+}
+
+.sidebar-list ul {
+  list-style-type: none;
+  border: 1px solid #dededede;
+}
+
+.sidebar-list ul li {
+  font-size: 0.9em;
+  background-color: #f5f5f5;
+  color: #6a6c6a;
+  padding-left: 20px;
+}
+
+.sidebar-list ul li a:hover {
+  background-color: #f5f5f5;
+  color: red;
+}
+
+.sidebar-list > li > span {
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  color: black;
+  border: 1px solid #dededede;
+}
+.mypage {
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  color: black;
+  border: 1px solid #dededede;
+}
+
+.sidebar-list > li > span:hover {
+  background-color: #007bc3;
+  color: white;
+}
+
+.active {
+  background-color: #007bc3;
+  color: white !important;
+}
+.sidebar-list ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-list ul li {
+  border-top: 0.5px solid #dededede;
+}
