@@ -26,7 +26,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RecoilRoot>
     <RouterProvider router={router}>
-      <App />
+      <Layout />
     </RouterProvider>
   </RecoilRoot>
 );
