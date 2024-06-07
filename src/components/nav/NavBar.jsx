@@ -8,7 +8,7 @@ const NavBar = () => {
         <div className="nav_wrap">
           <nav className="nav">
             <ul className="top-menu">
-              <Link to="/lotto" className="nav-list">
+              <Link to="/Lotto" className="nav-list">
                 로또구매
               </Link>
               <Link to="/" className="nav-list">

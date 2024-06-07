@@ -1,0 +1,57 @@
+.container {
+  padding: 0 18px;
+  display: flex;
+  margin-top: 10px;
+}
+
+.left {
+  border: solid 5px #f56d6d;
+  border-radius: 5px;
+  width: 50%;
+  margin-right: 10px;
+}
+
+.picknumber {
+  padding: 17px 14px 0;
+}
+
+.paper {
+  border: 2px solid #fab6b6;
+  text-align: center;
+}
+
+.amount {
+  font-size: 25px;
+  color: #fff;
+  background-color: #f56d6d;
+}
+
+.button-checked {
+  background-color: lightgreen;
+  color: white;
+  padding: 10px 20px;
+  margin: 2px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 10px;
+  text-align: center;
+}
+
+.button-unchecked {
+  background-color: lightcoral;
+  color: white;
+  padding: 10px 20px;
+  margin: 2px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 10px;
+  text-align: center;
+}
+
+.right {
+  border: solid 5px #4f93e5;
+  width: 50%;
+  border-radius: 5px;
+}
