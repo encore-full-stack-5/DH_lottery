@@ -5,7 +5,8 @@ import "./index.css";
 import P_WinningResult from "./pages/P_WinningResult.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
-import Payment from "./pages/Payment.jsx";
+import Withdraw from "./pages/withdraw/Withdraw.jsx";
+import Payment from "./pages/payment/Payment.jsx";
 
 import { RecoilRoot } from "recoil";
 import LottoResult from "./components/lotto-result/LottoResult.jsx";
@@ -20,13 +21,14 @@ const router = createBrowserRouter([
       { path: "/winResult", element: <P_WinningResult /> },
       { path: "/payment", element: <Payment /> },
       { path: "/lotto_result", element: <LottoResult /> },
+      { path: "/withdraw", element: <Withdraw /> },
     ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RecoilRoot>
     <RouterProvider router={router}>
-      <App />
+      <Layout />
     </RouterProvider>
   </RecoilRoot>
 );
