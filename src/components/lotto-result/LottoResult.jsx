@@ -44,9 +44,10 @@ export const LottoResult = () => {
   };
 
   return (
-    <div style={{ marginTop: "5%" }}>
+    <div style={{ marginTop: "67px" }}>
+      <h1 style={{ marginBottom: "5%", marginLeft: "50px" }}>로또 당첨번호</h1>
       <div className="card-container">
-        <div className="card" style={{ maxWidth: "70%" }}>
+        <div className="card" style={{ maxWidth: "95%" }}>
           <div className="base">
             <h1>
               <strong style={{ color: "red" }}>{data.id}</strong> 당첨결과

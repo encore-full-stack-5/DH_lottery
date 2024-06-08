@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { RecoilRoot } from "recoil";
 import App from "./App.jsx";
 import "./index.css";
-import P_WinningResult from "./pages/P_WinningResult.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import P_WinningResult from "./pages/P_WinningResult.jsx";
 import Layout from "./pages/Layout.jsx";
 import Withdraw from "./pages/withdraw/Withdraw.jsx";
 import Payment from "./pages/payment/Payment.jsx";
-
-import { RecoilRoot } from "recoil";
-import LottoResult from "./components/lotto-result/LottoResult.jsx";
+import { LottoResultPage } from "./pages/lotto/LottoResultPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       // { path: "/login", element: <Login /> },
       { path: "/winResult", element: <P_WinningResult /> },
       { path: "/payment", element: <Payment /> },
-      { path: "/lotto_result", element: <LottoResult /> },
+      { path: "/lotto_result", element: <LottoResultPage /> },
       { path: "/withdraw", element: <Withdraw /> },
     ],
   },
