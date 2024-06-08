@@ -1,0 +1,39 @@
+/* 기본 스타일 */
+/* button {
+  padding: 8px 16px;
+  margin: 4px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+} */
+
+/* 모든 조 버튼 전체 너비 */
+.full-width {
+  width: 100%;
+  margin-bottom: 8px; /* 여백 추가 */
+}
+
+/* 버튼 그룹 레이아웃 */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px; /* 그룹 간 여백 */
+}
+
+/* 그룹 내부 버튼 너비 */
+.button-group button {
+  flex: 1;
+  margin: 0 4px;
+}
+
+/* 첫 번째 버튼 여백 왼쪽 제거 */
+.button-group button:first-of-type {
+  margin-left: 0;
+}
+
+/* 마지막 버튼 여백 오른쪽 제거 */
+.button-group button:last-of-type {
+  margin-right: 0;
+}
