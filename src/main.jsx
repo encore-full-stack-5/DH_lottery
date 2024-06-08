@@ -9,6 +9,7 @@ import Withdraw from "./pages/withdraw/Withdraw.jsx";
 import Payment from "./pages/payment/Payment.jsx";
 
 import { RecoilRoot } from "recoil";
+import LottoResult from "./components/lotto-result/LottoResult.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       // { path: "/login", element: <Login /> },
       { path: "/winResult", element: <P_WinningResult /> },
       { path: "/payment", element: <Payment /> },
+      { path: "/lotto_result", element: <LottoResult /> },
       { path: "/withdraw", element: <Withdraw /> },
     ],
   },
