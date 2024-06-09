@@ -4,11 +4,24 @@ const P_WinningResult = () => {
   return (
     <>
       <div className="winResult">
-        <h4>213회 당첨결과</h4>
+        <h4 style={{ fontSize: "28px", fontWeight: "300" }}>
+          <strong
+            style={{
+              fontWeight: "500",
+              color: "#d43301",
+              paddingRight: "10px",
+            }}
+          >
+            213회
+          </strong>
+          당첨결과
+        </h4>
         <p>(2024년 05월 30일 추첨)</p>
         <div className="numWrap">
           <dl className="prize-winner">
-            <dt className="prize-winner-place">1등</dt>
+            <dt className="prize-winner-place" style={{ paddingRight: "10px" }}>
+              1등
+            </dt>
             <dd>
               월<span className="num"> 700</span>
               만원x
@@ -18,9 +31,8 @@ const P_WinningResult = () => {
           <div className="win720-num">
             <div className="group">
               <span className="group-num-wrap">
-                <span className="group-num">1</span>
+                <span className="group-num">1조</span>
               </span>
-              <em>조</em>
             </div>
             <span className="group-num-wrap">
               <span className="group-num num1">1</span>

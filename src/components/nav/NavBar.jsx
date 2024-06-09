@@ -11,17 +11,14 @@ const NavBar = () => {
               <Link to="/Lotto" className="nav-list">
                 로또구매
               </Link>
-              <Link to="/" className="nav-list">
+              <Link to="/buying720" className="nav-list">
                 연금복권구매
               </Link>
-              <Link to="/" className="nav-list">
-                당첨결과
+              <Link to="/lotto_result" className="nav-list">
+                로또 당첨결과
               </Link>
-              <Link to="/" className="nav-list">
-                판매점
-              </Link>
-              <Link to="/" className="nav-list">
-                이벤트
+              <Link to="/winResult" className="nav-list">
+                연금복권 당첨결과
               </Link>
               <Link to="/" className="nav-list">
                 통계
