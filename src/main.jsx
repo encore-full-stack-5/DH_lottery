@@ -10,6 +10,7 @@ import P_WinningResult from "./pages/P_WinningResult.jsx";
 import Layout from "./pages/Layout.jsx";
 import Withdraw from "./pages/withdraw/Withdraw.jsx";
 import Payment from "./pages/payment/Payment.jsx";
+import Lotto from "./components/lotto/lotto.jsx";
 import Transaction from "./pages/transaction/Transaction.jsx";
 import { LottoResultPage } from "./pages/lotto/LottoResultPage.jsx";
 import P_MyWin720 from "./pages/p_lottery/P_MyWin720.jsx";
@@ -26,7 +27,9 @@ const router = createBrowserRouter([
       { path: "/winResult", element: <P_WinningResult /> },
       { path: "/buying720", element: <P_Buying /> },
       { path: "/payment", element: <Payment /> },
+      { path: "/lotto", element: <Lotto /> },
       { path: "/lotto_result", element: <LottoResultPage /> },
+
       { path: "/withdraw", element: <Withdraw /> },
       { path: "/myWin720", element: <P_MyWin720 /> },
       { path: "/transaction", element: <Transaction /> },
