@@ -53,7 +53,7 @@ const Payment = () => {
               </tr>
             </tbody>
           </table>
-          <div class="container">
+          <div class="payment_container">
             <button class="confirm-button">확인</button>
           </div>
           <div className="list_text_common">

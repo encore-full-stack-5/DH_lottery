@@ -52,7 +52,7 @@ const MyPageSideBar = () => {
           {openCategories["category3"] && (
             <ul>
               <li>
-                <Link to="/category3/sub1"> - 예치금 충전 내역</Link>
+                <Link to="/transaction"> - 예치금 충전 내역</Link>
               </li>
               <li>
                 <Link to="/payment"> - 충전하기</Link>
