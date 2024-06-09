@@ -1,3 +1,123 @@
 .winResult {
   border: 1px solid #ddd;
+  text-align: center;
+}
+.num {
+  color: #007bc3;
+}
+
+.numWrap {
+  display: block ruby;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.prize-winner {
+  display: block ruby;
+}
+
+.num-large {
+  padding-left: 10px;
+}
+
+.win720-num {
+  display: block ruby;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.group-num {
+  position: relative;
+  display: inline-block;
+  font-size: 28px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: white;
+  border: 3px solid #fefefe;
+}
+
+.group-num::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 8px solid #fefefe;
+}
+
+.group-num-wrap {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.win720-num {
+  font-family: "Noto Sans KR", "맑은 고딕", "Malgun Gothic", "돋움", Dotum,
+    sans-serif;
+  font-size: 26px;
+  font-style: normal;
+}
+
+.num1 {
+  border-color: #ff4c4c;
+}
+
+.num1::after {
+  border-color: #ff4c4c;
+}
+
+.num2 {
+  border-color: #ff8e4f;
+}
+
+.num2::after {
+  border-color: #ff8e4f;
+}
+
+.num3 {
+  border-color: #fcd153;
+}
+
+.num3::after {
+  border-color: #fcd153;
+}
+.num4 {
+  border-color: #3cbcff;
+}
+
+.num4::after {
+  border-color: #3cbcff;
+}
+
+.num5 {
+  border-color: #8d70da;
+}
+
+.num5::after {
+  border-color: #8d70da;
+}
+
+.num6 {
+  border-color: #777777;
+}
+
+.num6::after {
+  border-color: #777777;
+}
+
+.bonus-group {
+  font-weight: bold;
+}
+
+.prize-winner-place {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Noto Sans KR", "맑은 고딕", "Malgun Gothic", "돋움", Dotum,
+    sans-serif;
 }
