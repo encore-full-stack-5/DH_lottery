@@ -175,7 +175,7 @@ const Withdraw = () => {
               <tbody className="tbody_withdraw_search">
                 <tr>
                   <th>조회기간</th>
-                  <td className="withdraw_td" colSpan="3">
+                  <td className="withdraw_transaction_td" colSpan="3">
                     <div className="date_wrapper">
                       <div className="start-datepicker-container">
                         <DatePicker
