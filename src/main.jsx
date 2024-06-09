@@ -7,8 +7,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
 import Payment from "./pages/Payment.jsx";
 import Login from "./pages/login/Login.jsx";
-
+import SignUp from "./pages/singUp/SingUp.jsx";
 import { RecoilRoot } from "recoil";
+import JoinFormAgree from "./pages/singUp/JoinFormAgree.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
       { path: "/winResult", element: <P_WinningResult /> },
       { path: "/payment", element: <Payment /> },
       { path: "/login", element: <Login /> },
+      { path: "/singUp", element: <SignUp /> },
+      { path: "/joinFormAgree", element: <JoinFormAgree /> },
     ],
   },
 ]);

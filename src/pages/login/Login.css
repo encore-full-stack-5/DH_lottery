@@ -17,3 +17,16 @@
 .login-content p {
   margin: 10px 0;
 }
+
+.height-alignment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute; /* Position relative to its parent container */
+  top: 50%; /* Move to the vertical center of its parent */
+  left: 50%; /* Move to the horizontal center of its parent */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Offset by 50% of its own height and width to center it */
+}
