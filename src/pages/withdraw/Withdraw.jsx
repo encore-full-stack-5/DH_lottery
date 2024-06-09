@@ -1,8 +1,49 @@
 import MyPageSideBar from "../../components/sidebar/MyPageSideBar";
 import "./Withdraw.css";
 import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const Withdraw = () => {
   const [accountHolderName, setAccountHolderName] = useState("동행복권_박현서");
+  const [selectedBank, setSelectedBank] = useState("국민은행");
+  const [fee, setFee] = useState("300원");
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
+
+  const fees = {
+    국민은행: "300원",
+    기업은행: "250원",
+    신한은행: "200원",
+    하나은행: "350원",
+    우체국: "150원",
+    SC제일은행: "400원",
+    시티은행: "300원",
+    수협: "280원",
+    신협: "260원",
+  };
+
+  const data = [
+    {
+      requestDate: "2024/06/09",
+      bank: "국민은행",
+      accountNumber: "123-456-7890",
+      amount: "100,000",
+      status: "처리중",
+    },
+    {
+      requestDate: "2024/06/09",
+      bank: "신한은행",
+      accountNumber: "124095-120-23090",
+      amount: "1,000,000",
+      status: "처리중",
+    },
+  ];
+
+  const handleBankChange = (event) => {
+    const newBank = event.target.value;
+    setSelectedBank(newBank);
+    setFee(fees[newBank]);
+  };
   return (
     <>
       <main>
@@ -90,10 +131,14 @@ const Withdraw = () => {
                 <tr>
                   <th>은행명</th>
                   <td colSpan="3">
-                    <select className="select_withdraw">
+                    <select
+                      className="select_withdraw"
+                      value={selectedBank}
+                      onChange={handleBankChange}
+                    >
                       <option value="국민은행">국민은행</option>
                       <option value="기업은행">기업은행</option>
-                      <option value="우리은행">신한은행</option>
+                      <option value="신한은행">신한은행</option>
                       <option value="하나은행">하나은행</option>
                       <option value="우체국">우체국</option>
                       <option value="SC제일은행">SC제일은행</option>
@@ -103,7 +148,7 @@ const Withdraw = () => {
                     </select>
                   </td>
                   <th>이체수수료</th>
-                  <td colSpan="3">300원</td>
+                  <td colSpan="3">{fee}</td>
                 </tr>
                 <tr>
                   <th>계좌번호</th>
@@ -120,6 +165,94 @@ const Withdraw = () => {
                 </tr>
               </tbody>
             </table>
+            <div class="container_withdraw">
+              <button class="cancel_button">취소</button>
+              <button class="confirm_button">등록</button>
+            </div>
+            <img src="withdraw_process.png" className="withdraw_process" />
+            <h4 className="title">출금신청 내역 조회</h4>
+            <table className="table_withdraw_search">
+              <tbody className="tbody_withdraw_search">
+                <tr>
+                  <th>조회기간</th>
+                  <td className="withdraw_td" colSpan="3">
+                    <div className="date_wrapper">
+                      <div className="start-datepicker-container">
+                        <DatePicker
+                          selected={selectedStartDate}
+                          onChange={(date) => setSelectedStartDate(date)}
+                          dateFormat="yyyy/MM/dd"
+                          className="startDatepicker"
+                          placeholderText="시작일"
+                        />
+                        <img
+                          src="calendar.png"
+                          className="date_picker_img"
+                          alt="조회 시작날짜 선택"
+                          title="조회 시작날짜 선택"
+                          onClick={() =>
+                            document.querySelector(".startDatepicker").focus()
+                          }
+                        />
+                      </div>
+                      <a className="gap"> ~ </a>
+                      <div className="end-datepicker-container">
+                        <DatePicker
+                          selected={selectedEndDate}
+                          onChange={(date) => setSelectedEndDate(date)}
+                          dateFormat="yyyy/MM/dd"
+                          className="endDatepicker"
+                          placeholderText="종료일"
+                        />
+                        <img
+                          src="calendar.png"
+                          className="date_picker_img"
+                          alt="조회 종료날짜 선택"
+                          title="조회 종료날짜 선택"
+                          onClick={() =>
+                            document.querySelector(".endDatepicker").focus()
+                          }
+                        />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="ta_right_submit">
+                    <button className="btn_common" id="submit_btn">
+                      조회
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="search_table">
+              <thead>
+                <tr>
+                  <th>출금요청일</th>
+                  <th>은행</th>
+                  <th>출금계좌번호</th>
+                  <th>출금액</th>
+                  <th>상태</th>
+                </tr>
+              </thead>
+              <tbody className="search_tbody">
+                {data.length === 0 ? (
+                  <tr>
+                    <td colSpan="5">데이터가 없습니다.</td>
+                  </tr>
+                ) : (
+                  data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.requestDate}</td>
+                      <td>{item.bank}</td>
+                      <td>{item.accountNumber}</td>
+                      <td>{item.amount}</td>
+                      <td>{item.status}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+            <div className="empty"></div>
           </div>
         </div>
       </main>

@@ -150,6 +150,7 @@ main {
   border-collapse: separate;
   width: 100%;
   border-top: 1px solid#333;
+  border-left: 1px solid #ddd;
   max-width: 85%;
 }
 .table_withdraw th {
@@ -158,24 +159,19 @@ main {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
+  width: 15%;
+  background-color: #f5f5f5;
+  font-weight: bold;
 }
 .table_withdraw td {
   width: 35%;
   border-bottom: 1px solid #ddd;
   padding: 10px;
   text-align: left;
-}
-
-.table_withdraw th {
-  width: 15%;
-  background-color: #f5f5f5;
-  font-weight: bold;
-}
-
-.table_withdraw th,
-.table_withdraw td {
   border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
+
 .select_withdraw {
   width: 50%;
   padding: 10px;
@@ -204,4 +200,160 @@ main {
   background-position: right 10px center;
   background-size: 10px 5px;
   cursor: pointer;
+}
+
+.cancel_button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  color: black;
+  border: 1px solid #eaeaea;
+  cursor: pointer;
+  margin-top: 25px;
+}
+
+.confirm_button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bc3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 25px;
+}
+.container_withdraw {
+  text-align: center;
+  max-width: 85%;
+}
+.withdraw_process {
+  margin-top: 40px;
+  max-width: 85%;
+  margin-bottom: 50px;
+}
+.empty {
+  height: 200px;
+}
+
+.table_withdraw_search {
+  margin-top: 25px;
+  border-spacing: 0;
+  font-size: 13px;
+  color: #333;
+  border-collapse: separate;
+  width: 100%;
+  border-top: 1px solid#333;
+  max-width: 85%;
+}
+.table_withdraw_search th {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  width: 15%;
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+.table_withdraw_search td {
+  width: 35%;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  padding-right: 30px;
+  text-align: right;
+}
+.withdraw_td {
+  border-right: 0;
+}
+.start-datepicker-container {
+  display: flex;
+  align-items: center;
+}
+.end-datepicker-container {
+  display: flex;
+  align-items: center;
+}
+.startDatepicker {
+  width: 90px;
+  display: inline-block;
+  height: 34px;
+  line-height: 31px;
+  padding: 0 9px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.endDatepicker {
+  width: 90px;
+  display: inline-block;
+  height: 34px;
+  line-height: 31px;
+  padding: 0 9px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.date_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.date_picker_img {
+  cursor: pointer;
+  vertical-align: middle;
+  height: 36px;
+}
+
+.react-datepicker-wrapper {
+  display: inline-block;
+}
+
+.react-datepicker__input-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+.gap {
+  padding: 10px;
+}
+.btn_common {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bc3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 35px;
+}
+.search_table {
+  margin-top: 25px;
+  border-spacing: 0;
+  font-size: 13px;
+  color: #333;
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid#333;
+  max-width: 85%;
+}
+.search_table th,
+.search_table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+.search_table th {
+  border-top: 1px solid #333;
+  text-align: center;
+  background-color: #f5f5f5;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
 }
