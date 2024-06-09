@@ -10,6 +10,7 @@ import P_WinningResult from "./pages/P_WinningResult.jsx";
 import Layout from "./pages/Layout.jsx";
 import Withdraw from "./pages/withdraw/Withdraw.jsx";
 import Payment from "./pages/payment/Payment.jsx";
+import Transaction from "./pages/transaction/Transaction.jsx";
 import { LottoResultPage } from "./pages/lotto/LottoResultPage.jsx";
 import HorizontalBar from "./components/lotto-analytics/HoryzontalBar.jsx";
 import PieChart from "./components/lotto-analytics/PieChart.jsx";
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/payment", element: <Payment /> },
       { path: "/lotto_result", element: <LottoResultPage /> },
       { path: "/withdraw", element: <Withdraw /> },
+      { path: "/transaction", element: <Transaction /> },
       { path: "/horizontal", element: <HorizontalBar /> },
       { path: "/pie", element: <PieChart /> },
     ],
