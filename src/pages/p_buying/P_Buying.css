@@ -1,0 +1,135 @@
+.buying_container {
+  margin: auto 200px;
+}
+
+.buying_header {
+  margin: auto 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+.buying_header-left,
+.buying_header-center,
+.buying_header-right {
+  align-content: center;
+  font-size: 13px;
+}
+.buying_result_btn {
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+.buying_lotto_logo {
+  width: 250px;
+  height: 70px;
+}
+
+.buying_header-center {
+  text-align: center;
+}
+
+.buying_small-text {
+  font-size: 0.8rem;
+}
+
+.buying_large-text {
+  font-size: 1.8rem;
+}
+
+.buying_header-right {
+  text-align: right;
+}
+
+.buying_medium-text {
+  font-size: 0.9rem;
+}
+
+.buying_large-text {
+  font-size: 1.2rem;
+}
+
+.buying_main-content {
+  padding: 20px;
+  margin: auto 80px;
+  background-color: skyblue;
+}
+
+.buying_price {
+  text-align: right;
+}
+
+.buying_button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buying_large-button {
+  font-size: large;
+  padding: 20px 2px;
+}
+
+.buying_info {
+  display: flex;
+}
+
+.buying_info-left {
+  margin-right: 10px;
+}
+
+.buying_info-right {
+  margin-left: 10px;
+}
+
+.buying_selection {
+  display: flex;
+  margin: auto 80px;
+}
+
+.buying_selection-column {
+  flex: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.buying_full-width {
+  width: 100%;
+}
+
+.buying_zero-button {
+  width: 31.5%;
+}
+
+.buying_selection-summary {
+  flex: 2;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.buying_footer {
+  display: flex;
+  align-items: center;
+  background-color: whitesmoke;
+}
+
+.buying_footer-section {
+  flex: 1;
+  text-align-last: center;
+}
+
+.buying_deposit-info {
+  display: flex;
+  justify-content: center;
+}
+
+.buying_payment-info {
+  flex: 1.5;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.buying_payment-info div {
+  text-align: right;
+}

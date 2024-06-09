@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import P_Buying from "./pages/P_Buying.jsx";
+import P_Buying from "./pages/p_buying/P_Buying.jsx";
 import P_WinningResult from "./pages/P_WinningResult.jsx";
 import Layout from "./pages/Layout.jsx";
 import Withdraw from "./pages/withdraw/Withdraw.jsx";
