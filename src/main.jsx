@@ -1,11 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
-import App from "./App.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
-import { RecoilRoot } from "recoil";
 import P_Buying from "./pages/P_Buying.jsx";
 import P_WinningResult from "./pages/P_WinningResult.jsx";
 import Layout from "./pages/Layout.jsx";
