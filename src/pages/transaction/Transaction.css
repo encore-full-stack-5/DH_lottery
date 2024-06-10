@@ -1,0 +1,89 @@
+.header_article {
+  margin-bottom: 20px;
+}
+main {
+  position: relative;
+}
+
+.start-datepicker-container {
+  display: flex;
+  align-items: center;
+}
+.end-datepicker-container {
+  display: flex;
+  align-items: center;
+}
+.startDatepicker {
+  width: 90px;
+  display: inline-block;
+  height: 34px;
+  line-height: 31px;
+  padding: 0 9px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.endDatepicker {
+  width: 90px;
+  display: inline-block;
+  height: 34px;
+  line-height: 31px;
+  padding: 0 9px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.date_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.date_picker_img {
+  cursor: pointer;
+  vertical-align: middle;
+  height: 36px;
+}
+
+.react-datepicker-wrapper {
+  display: inline-block;
+}
+
+.react-datepicker__input-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+.transaction_title {
+  float: left;
+  position: relative;
+  padding-left: 12px;
+  font-size: 20px;
+  font-weight: 500;
+  font-size: 19px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.transaction_title::before {
+  content: "• ";
+  margin-right: 5px;
+}
+.transaction_content_wrap {
+  position: absolute;
+  float: left;
+  top: 0;
+  left: 470px;
+  width: calc(100% - 470px);
+  margin-top: 50px;
+}
+.table_transaction_search {
+  max-width: 85%;
+}
+.transaction_btn_wrapper {
+  max-width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+.transaction_table {
+  max-width: 85%;
+}

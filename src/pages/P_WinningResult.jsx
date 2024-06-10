@@ -1,6 +1,11 @@
 import "../css/P_WinningResult.css";
 import React from "react";
+//
 const P_WinningResult = () => {
+  const handleSearch = () => {
+    alert("Search button clicked!");
+  };
+
   return (
     <>
       <div className="winResult">
