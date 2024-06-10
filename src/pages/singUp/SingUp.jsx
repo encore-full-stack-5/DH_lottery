@@ -81,7 +81,7 @@ const SignUp = () => {
         </div>
 
         <div className="signup-field">
-          <label htmlFor="dateOfBirth">생일</label>
+          <label htmlFor="dateOfBirth">생년월일</label>
           <input
             name="dateOfBirth"
             type="date"

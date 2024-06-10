@@ -4,8 +4,8 @@ import "./style.css";
 const JoinFormAgree = () => {
   return (
     <div>
-      <div className="join-form">
-        <div className="terms-header">
+      <div className="container" style={{ marginTop: "500px" }}>
+        <div className="terms-header" style={{ marginTop: "50px" }}>
           <h2>
             이용약관 <span className="required">[필수]</span>
           </h2>
@@ -31,20 +31,22 @@ const JoinFormAgree = () => {
             </li>
           </ol>
         </div>
-      </div>
-      <div className="container">
-        <div className="agree-checkbox">
-          <input type="checkbox" id="agree" />
-          <label htmlFor="agree">이용약관에 동의합니다.</label>
+
+        <div className="auth-content" style={{ marginBottom: "20px" }}>
+          <div className="agree-checkbox">
+            <input type="checkbox" id="agree" />
+            <label htmlFor="agree">이용약관에 동의합니다.</label>
+          </div>
         </div>
-        <div class="auth-container">
+
+        <div class="auth-container" style={{ marginBottom: "500px" }}>
           <div class="auth-header">
             <h2>인증방식 선택</h2>
           </div>
           <div class="auth-tabs">
             <button class="tab-button active">이메일 본인인증</button>
           </div>
-          <div class="auth-content">
+          <div className="auth-content">
             <div class="auth-method">
               <h3>이메일 본인인증</h3>
               <p>본인 명의로 가입된 이메일 인증하실 수 있습니다.</p>
