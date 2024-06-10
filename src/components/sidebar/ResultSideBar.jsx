@@ -47,6 +47,9 @@ const ResultSideBar = () => {
                 <Link to="/lotto_result">- 당첨 결과</Link>
               </li>
               <li>
+                <Link to="/myWin720">- 내 당첨 결과</Link>
+              </li>
+              <li>
                 <Link to="/">- 통계</Link>
               </li>
             </ul>
