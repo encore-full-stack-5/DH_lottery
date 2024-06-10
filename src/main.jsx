@@ -26,6 +26,7 @@ import LottoAnalytics from "./components/lotto-analytics/LottoAnalytics.jsx";
 import VerticalBar from "./components/lotto-analytics/VerticalBar.jsx";
 import P_statistics from "./pages/p_lottery/P_statistics.jsx";
 import MyPage from "./pages/myPage/MyPage.jsx";
+import { LottoHistoryPage } from "./pages/lotto/LottoHistoryPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       { path: "/joinFormAgree", element: <JoinFormAgree /> },
       { path: "/lotto", element: <Lotto /> },
       { path: "/lotto_result", element: <LottoResultPage /> },
+      { path: "/lotto_history", element: <LottoHistoryPage /> },
       { path: "/withdraw", element: <Withdraw /> },
       { path: "/myWin720", element: <P_MyWin720 /> },
       { path: "/transaction", element: <Transaction /> },
