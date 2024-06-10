@@ -2,10 +2,10 @@
   font-family: "Noto Sans KR", "맑은 고딕", "Malgun Gothic", "돋움", Dotum,
     sans-serif;
 }
-
 .winResult {
   border: 1px solid #ddd;
   text-align: center;
+  margin-top: 80px;
 }
 .num {
   color: #007bc3;
@@ -33,18 +33,19 @@
 
 .group-num {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   font-size: 28px;
   font-weight: bold;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 50px;
+  height: 50px;
+  line-height: 1;
   text-align: center;
   border-radius: 50%;
   background-color: white;
   border: 3px solid #fefefe;
 }
-
 .group-num::after {
   content: "";
   position: absolute;
@@ -125,4 +126,24 @@
   font-weight: bold;
   font-family: "Noto Sans KR", "맑은 고딕", "Malgun Gothic", "돋움", Dotum,
     sans-serif;
+}
+
+.container-wrap {
+  display: flex;
+}
+
+.result-nav {
+  position: fixed;
+  padding-top: 100px;
+  left: 0;
+  height: auto;
+  width: 300px;
+  background-color: #007bc3;
+  padding: 20px;
+}
+
+.content-section {
+  margin-left: 100px;
+  padding: 20px;
+  width: calc(100% - 320px); /* Ensure the content doesn't overflow */
 }

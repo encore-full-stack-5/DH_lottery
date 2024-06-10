@@ -1,0 +1,295 @@
+.buying_container {
+  margin: auto 200px;
+}
+
+.buying_header {
+  margin: auto 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
+.buying_header-left,
+.buying_header-center,
+.buying_header-right {
+  align-content: center;
+  font-size: 13px;
+}
+.buying_result_btn {
+  border: 2px solid #ddd;
+  padding: 8px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+.buying_lotto_logo {
+  width: 250px;
+  height: 70px;
+}
+
+.buying_header-center {
+  text-align: center;
+}
+
+.buying_small-text {
+  font-size: 0.8rem;
+}
+
+.buying_large-text {
+  font-size: 1.8rem;
+}
+
+.buying_header-right {
+  text-align: right;
+}
+
+.buying_medium-text {
+  font-size: 0.9rem;
+}
+
+.buying_large-text {
+  font-size: 1.2rem;
+}
+.buying_main-content {
+  margin-top: 20px;
+}
+.buying_main-wrapper {
+  padding: 20px;
+  height: 200px;
+  background-color: rgb(230, 194, 218);
+}
+.buying_sub-wrapper {
+  height: 50px;
+}
+.buying_ticket-wrapper {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  box-shadow: 4px 6px 6px rgba(0, 0, 0, 0.2);
+  margin-left: 140px;
+  margin-right: 140px;
+}
+.buying_numbers {
+  display: flex;
+  width: 150px;
+  height: 65px;
+  gap: 20px;
+}
+.buying_price {
+  text-align: right;
+  font-size: 30px;
+  color: black;
+  text-shadow: 1px 1px 0 white, -1px -1px 0 #fff, 1px -1px 0 #fff,
+    -1px 1px 0 #fff, 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff,
+    -2px 2px 0 #fff;
+  margin-bottom: 30px;
+}
+/* .buying_numbers button {
+  flex: 1;
+} */
+.buying_line {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    orange,
+    orange 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+.buying_button-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buying_input_button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.buying_input_button-group button {
+  flex: 1;
+  padding: 8px 12px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.buying_zero-button {
+  width: 31.5%;
+  flex: 1;
+  padding: 8px 12px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.buying_input_button-group button:hover {
+  background-color: #d4d4d4;
+}
+
+.buying_input_button-group button:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.buying_btn_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 80%;
+
+  height: 70px;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 10px;
+}
+
+.buying_large-button {
+  font-size: large;
+  height: 70px;
+  width: 76px;
+  padding: 23px 0px;
+  /* gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; */
+  background-color: rgba(219, 231, 244, 1);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.buying_btn {
+  /* min-width: 10px; */
+  border: 1px solid #ddd;
+  background-color: rgba(219, 231, 244, 1);
+  margin: 5px;
+  height: 70px;
+  width: 70px;
+}
+.buying_numbers {
+  justify-content: space-between;
+  display: flex;
+}
+.buying_auto_num {
+  font-weight: 900;
+  padding-right: 15px;
+  white-space: nowrap;
+}
+.buying_auto_num:hover {
+  color: #fff;
+  font-weight: 900;
+  padding-right: 15px;
+  white-space: nowrap;
+}
+
+.buying_info {
+  display: flex;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.buying_info-left {
+  margin-right: 10px;
+}
+
+.buying_info-right {
+  margin-left: 10px;
+}
+
+.buying_input_selection {
+  display: flex;
+  margin: auto 80px;
+}
+
+.buying_input_selection-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 중앙 정렬 */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px; /* 원하는 너비로 조정 */
+}
+
+.buying_input_selection-column p {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+
+.buying_full-width {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.buying_full-width:hover {
+  background-color: #0056b3;
+}
+
+.buying_selection-summary {
+  flex: 2;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buying_footer {
+  display: flex;
+  align-items: center;
+  background-color: whitesmoke;
+  margin-top: 10px;
+}
+
+.buying_footer-section {
+  flex: 1;
+  text-align-last: center;
+}
+
+.buying_deposit-info {
+  display: flex;
+  justify-content: center;
+}
+
+.buying_payment-info {
+  flex: 1.5;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.buying_payment-info div {
+  text-align: right;
+}

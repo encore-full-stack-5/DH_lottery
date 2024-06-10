@@ -1,0 +1,265 @@
+body {
+  height: 100%;
+}
+
+.container {
+  padding: 0 18px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: inherit;
+  margin-top: 10px;
+  height: 500px;
+}
+
+.left {
+  border: solid 5px #f56d6d;
+  border-radius: 5px;
+  width: 50%;
+  margin-right: 10px;
+  max-height: 100%;
+}
+
+.picknumber {
+  padding: 17px 14px 0;
+}
+
+.number {
+  padding-top: 10px;
+  display: flex;
+  align-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.action {
+  padding-top: 40px;
+}
+
+.auto-button-checked,
+.auto-button-unchecked,
+.reset-button {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 6px;
+}
+
+.auto-button-checked {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+}
+
+.auto-button-unchecked {
+  background-color: #f1f1f1;
+  color: black;
+  border: 2px solid #ddd;
+}
+
+.reset-button {
+  background-color: #f1f1f1;
+  color: black;
+  border: 2px solid #ddd;
+}
+
+.reset-button:hover,
+.auto-button-checked:hover,
+.auto-button-unchecked:hover {
+  background-color: #ddd;
+}
+
+.paper {
+  border: 2px solid #fab6b6;
+  text-align: center;
+  height: 400px;
+}
+
+.amount {
+  font-size: 25px;
+  color: #fff;
+  background-color: #f56d6d;
+}
+
+.paperamount {
+  display: flex;
+  padding-top: 20px;
+}
+
+.selects {
+  width: 65px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid #a7a7a7;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  flex: 1 0 auto;
+  text-align: center;
+}
+
+.max5 {
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+  margin-right: 15px;
+  flex: 1 0 auto;
+}
+
+.confirm {
+  flex: 1 0 auto;
+}
+
+.button-checked,
+.button-unchecked {
+  background-color: lightcoral;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 40px; /* Increased width for better alignment */
+  text-align: center;
+  margin: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the text */
+}
+
+.button-checked {
+  background-color: lightgreen;
+}
+
+.right {
+  border: solid 5px #4f93e5;
+  width: 50%;
+  border-radius: 5px;
+  margin-top: 150px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ccc;
+}
+
+.reset-button {
+  background-color: #f56d6d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.right-reset-button {
+  background-color: #4f93e5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.game {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add some spacing between rows */
+}
+
+.set-row {
+  display: flex;
+  align-items: center;
+  width: 100%; /* Ensure the row takes the full width */
+  margin: 18.5px 0 18px 0;
+}
+
+.set-label {
+  width: 70px;
+  font-weight: bold;
+  flex: 0.5 0 auto;
+}
+
+.set-numbers {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+  justify-content: space-evenly;
+}
+
+.set-number {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+  color: #fff;
+  background: #eee;
+  border-radius: 50%;
+}
+
+.yellow-circle {
+  background-color: rgb(255 179 0 / 66%);
+}
+
+.blue-circle {
+  background-color: blue;
+}
+
+.red-circle {
+  background-color: red;
+}
+
+.black-circle {
+  background-color: black;
+}
+
+.green-circle {
+  background-color: green;
+}
+
+.set-button {
+  background-color: #4f93e5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box; /* Ensure footer takes full width */
+}
+
+.amount-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+  flex: 0.8 2 0;
+}
+
+.buy-button {
+  background-color: #4f93e5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  flex: 0.5 1 0;
+}
