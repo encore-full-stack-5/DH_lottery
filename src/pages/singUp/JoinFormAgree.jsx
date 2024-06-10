@@ -1,35 +1,59 @@
+import React from "react";
 import "./style.css";
+
 const JoinFormAgree = () => {
   return (
-    <>
-      <div className="height-alignment">
-        <div className="login-content">
-          <p>동의약관</p>
-
-          <div className="login-content">
-            <p>
-              제2조(용어의 정의) ① 본 약관에서 사용하는 용어의 정의는 다음과
-              같습니다. “사이트”라 함은 회사가 서비스를 제공하기 위하여 컴퓨터
-              등 정보통신설비를 이용하여 사용할 수 있도록 설정한 가상의
-              공간(회사가 운영하는 웹사이트 및 모바일 웹, 앱 등을 모두 포함)을
-              의미합니다.
-            </p>
+    <div>
+      <div className="join-form">
+        <div className="terms-header">
+          <h2>
+            이용약관 <span className="required">[필수]</span>
+          </h2>
+          <a href="#" className="view-all">
+            이용약관 전체보기 &gt;
+          </a>
+        </div>
+        <div className="terms-content">
+          <p>
+            회사는 서비스의 제공에 필요한 경우, 정기점검을 실시할 수 있으며,
+            정기점검시간은 사이트에 공지한 바에 따릅니다.
+          </p>
+          <h3>제6조(서비스의 변경)</h3>
+          <ol>
+            <li>
+              회사는 기술 및 운영상 상당한 이유가 있는 경우, 서비스의 전부 또는
+              일부를 변경할 수 있습니다.
+            </li>
+            <li>
+              서비스의 내용, 이용방법, 이용시간에 대해 변경이 있는 경우에는 해당
+              서비스 초기화면에 변경사유, 변경될 서비스의 내용 및 제공일자 등을
+              게시합니다.
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div className="container">
+        <div className="agree-checkbox">
+          <input type="checkbox" id="agree" />
+          <label htmlFor="agree">이용약관에 동의합니다.</label>
+        </div>
+        <div class="auth-container">
+          <div class="auth-header">
+            <h2>인증방식 선택</h2>
           </div>
-          <button></button>
+          <div class="auth-tabs">
+            <button class="tab-button active">이메일 본인인증</button>
+          </div>
+          <div class="auth-content">
+            <div class="auth-method">
+              <h3>이메일 본인인증</h3>
+              <p>본인 명의로 가입된 이메일 인증하실 수 있습니다.</p>
+              <button class="auth-button">인증하기</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <div className="login-content">
-          <p>이용약관[필수]이용약관 전체보기</p>
-        </div>
-        <div className="login-content">
-          이용약관 제1조(목적) 이 약관은 (이하 “회사”라 합니다)이 운영하는
-          사이트(이하 “사이트”)를 통해 제공하는 서비스와 이용자(이하 “회원”이라
-          합니다)의 권리, 의무 및 책임 사항을 규정하는 것을 목적으로 합니다.
-        </div>
-        <button></button>
-      </div>
-    </>
+    </div>
   );
 };
 

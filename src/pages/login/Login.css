@@ -1,32 +1,87 @@
-/* Centering the container */
+body {
+  font-family: Arial, sans-serif;
+}
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh; /* Full viewport height for vertical centering */
-  flex-direction: column; /* Stack the items vertically */
 }
 
-/* Centering the inner content */
 .login-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid #ccc;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.login-content p {
-  margin: 10px 0;
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
-.height-alignment {
+.login-field {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-options {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  position: absolute; /* Position relative to its parent container */
-  top: 50%; /* Move to the vertical center of its parent */
-  left: 50%; /* Move to the horizontal center of its parent */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Offset by 50% of its own height and width to center it */
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.login-options input {
+  margin-right: 10px;
+}
+
+.login-actions {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.login-links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.link-button:hover {
+  text-decoration: underline;
 }

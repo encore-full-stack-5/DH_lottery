@@ -17,41 +17,39 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="login-content height-alignment">
-        <div>
-          <div className="login-content">
-            <p>아이디</p>
-            <input
-              name="username"
-              placeholder="아이디"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              onKeyPress={handleKeyPress}
-            />
-          </div>
-          <div className="login-content">
-            <p>비밀번호</p>
-            <input
-              name="password"
-              type="password"
-              placeholder="비밀번호"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={handleKeyPress}
-              ref={passwordInputRef}
-            />
-          </div>
+    <div className="login-container">
+      <div className="login-content">
+        <h1>LOGIN</h1>
+        <div className="login-field">
+          <input
+            name="username"
+            placeholder="아이디"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
         </div>
-        <div>
-          <div>
-            <button>
-              <p>회원가입</p>
-            </button>
-            <button>
-              <p>아이디,비밀번호찾기</p>
-            </button>
-          </div>
+        <div className="login-field">
+          <input
+            name="password"
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={handleKeyPress}
+            ref={passwordInputRef}
+          />
+        </div>
+        <div className="login-options">
+          <input type="checkbox" id="remember-me" />
+          <label htmlFor="remember-me">ID저장</label>
+        </div>
+        <div className="login-actions">
+          <button className="login-button">로그인</button>
+        </div>
+        <div className="login-links">
+          <button className="link-button">회원가입</button>
+          <button className="link-button">아이디/비밀번호찾기</button>
         </div>
       </div>
     </div>
