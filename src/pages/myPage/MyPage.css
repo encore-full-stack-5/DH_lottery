@@ -1,6 +1,7 @@
-/* style.css */
+/* MyPage.css */
 .my-page-container {
   display: flex;
+  padding: 20px;
 }
 
 .sidebar {
@@ -15,7 +16,7 @@
 }
 
 .sidebar-menu div {
-  padding: 5px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
@@ -26,19 +27,28 @@
 
 .main-content {
   flex: 1;
-  padding: 20px;
+  padding-left: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
 }
 
 .user-info,
 .deposit-info {
+  width: 48%;
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 20px;
 }
 
-.user-info h2,
-.deposit-info h2 {
+.user-info h3,
+.deposit-info h3 {
   margin-top: 0;
 }
 
@@ -47,6 +57,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.user-actions {
+  margin-top: 20px;
 }
 
 .user-actions button {
@@ -66,9 +80,4 @@
   justify-content: space-between;
   margin-bottom: 20px;
   font-weight: bold;
-}
-
-.deposit-details div {
-  display: flex;
-  justify-content: space-between;
 }
