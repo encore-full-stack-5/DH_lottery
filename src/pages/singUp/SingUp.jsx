@@ -27,7 +27,7 @@ const SignUp = () => {
 
   return (
     <div className="container">
-      <h1 style={{ color: " #0a2a0b" }}>회원가입</h1>
+      <h1 style={{ color: "#0a2a0b", paddingTop: "300px" }}>회원가입</h1>
 
       <div>
         <div className="signup-field">
