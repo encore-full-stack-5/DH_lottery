@@ -2,6 +2,36 @@ import "./P_Buying.css";
 import React, { useEffect, useState } from "react";
 
 const P_Buying = () => {
+  const [sessionNumber, setSessionNumber] = useState(214);
+  const [drawDate, setDrawDate] = useState("2024.06.13");
+  const [drawEndDate, setDrawEndDate] = useState("2025.06.13");
+  const [autoNumber, setAutoNumber] = useState(["모든 조"]);
+
+  const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+
+  // 자동 번호 생성 로직
+  const generateAutoNumber = () => {
+    const randomSelect = ["모든 조", "1조", "2조", "3조", "4조", "5조"];
+    const selectedGroup =
+      randomSelect[getRandomNumber(0, randomSelect.length - 1)];
+
+    const randomNumbers = Array.from({ length: 6 }, () =>
+      getRandomNumber(0, 9)
+    );
+
+    setAutoNumber([selectedGroup, ...randomNumbers]);
+  };
+
+  // 자동번호 버튼 클릭 시 동작
+  const handleAutoNumberClick = () => {
+    generateAutoNumber();
+  };
+
+  useEffect(() => {
+    setAutoNumber(["모든 조", "", "", "", "", "", ""]);
+  }, []);
   const calculateTimeLeft = () => {
     const targetDate = new Date("2024-06-26T00:00:00");
     const now = new Date();
@@ -38,7 +68,7 @@ const P_Buying = () => {
       <div className="buying_header">
         <div className="buying_header-left">
           <a href="/winResult" className="buying_result_btn">
-            제 214회 당첨결과 →
+            제 {sessionNumber}회 당첨결과 →
           </a>
         </div>
         <div className="buying_header-center">
@@ -49,32 +79,45 @@ const P_Buying = () => {
           <p className="buying_large-text">{formatTimeLeft()}</p>
         </div>
       </div>
-      {/*  */}
       <hr />
+      {/* 티켓 */}
       <div className="buying_main-content">
-        <div className="buying_price">
-          <h2>1,000원</h2>
-        </div>
-        <div className="buying_button-group">
-          <button>자동번호</button>
-          <button className="buying_large-button">모든 조</button>
-          <button> </button>
-          <button> </button>
-          <button> </button>
-          <button> </button>
-          <button> </button>
-          <button> </button>
-          <button>선택완료</button>
-        </div>
-        <br />
-        <div className="buying_info">
-          <div className="buying_info-left">
-            제 <strong>??</strong>회 추 첨 일 날짜 ~~~
+        <div className="buying_ticket-wrapper">
+          <div className="buying_main-wrapper">
+            <h2 className="buying_price">1,000원</h2>
+            <div className="buying_button-group">
+              <a className="buying_auto_num" onClick={handleAutoNumberClick}>
+                자동번호
+              </a>
+              <a className="buying_large-button">{autoNumber[0]}</a>
+              <div className="buying_btn_wrapper">
+                {autoNumber.slice(1).map((number, index) => (
+                  <a key={index} className="buying_btn">
+                    {number}
+                  </a>
+                ))}
+              </div>
+              <button>선택완료</button>
+            </div>
+
+            <br />
           </div>
-          <hr />
-          <div className="buying_info-right">지급기한 날짜 ~~~</div>
+
+          <div className="buying_sub-wrapper">
+            <div className="buying_line"></div>
+            <div className="buying_info">
+              <div className="buying_info-left">
+                제 {sessionNumber}회 추 첨 일 날짜 {drawDate}
+              </div>
+              <hr />
+              <div className="buying_info-right">
+                지급기한 날짜 {drawEndDate}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
       <br />
       <div className="buying_selection">
         <div className="buying_selection-column">
