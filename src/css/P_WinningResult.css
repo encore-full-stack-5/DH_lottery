@@ -5,6 +5,7 @@
 .winResult {
   border: 1px solid #ddd;
   text-align: center;
+  margin-top: 80px;
 }
 .num {
   color: #007bc3;
@@ -45,7 +46,6 @@
   background-color: white;
   border: 3px solid #fefefe;
 }
-
 .group-num::after {
   content: "";
   position: absolute;
@@ -126,4 +126,24 @@
   font-weight: bold;
   font-family: "Noto Sans KR", "맑은 고딕", "Malgun Gothic", "돋움", Dotum,
     sans-serif;
+}
+
+.container-wrap {
+  display: flex;
+}
+
+.result-nav {
+  position: fixed;
+  padding-top: 100px;
+  left: 0;
+  height: auto;
+  width: 300px;
+  background-color: #007bc3;
+  padding: 20px;
+}
+
+.content-section {
+  margin-left: 100px;
+  padding: 20px;
+  width: calc(100% - 320px); /* Ensure the content doesn't overflow */
 }
