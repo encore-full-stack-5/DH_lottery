@@ -24,7 +24,7 @@ const HorizontalBar = () => {
     labels: labels,
     datasets: [
       {
-        label: "lotto horizontal bar",
+        label: "각 로또 번호 당첨 기록",
         data: count,
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",
@@ -39,8 +39,8 @@ const HorizontalBar = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          autoSkip: false, // 라벨을 생략하지 않음
-          maxTicksLimit: 45, // 최대 라벨 수를 설정
+          autoSkip: false,
+          maxTicksLimit: 45,
         },
       },
     },
