@@ -5,6 +5,8 @@ body {
 .container {
   padding: 0 18px;
   display: flex;
+  justify-content: space-between;
+  flex-direction: inherit;
   margin-top: 10px;
   height: 500px;
 }
@@ -134,6 +136,7 @@ body {
   border: solid 5px #4f93e5;
   width: 50%;
   border-radius: 5px;
+  margin-top: 150px;
 }
 
 .header {
@@ -188,7 +191,6 @@ body {
   gap: 5px;
   flex: 1;
   justify-content: space-evenly;
-
 }
 
 .set-number {
