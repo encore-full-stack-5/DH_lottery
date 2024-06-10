@@ -32,7 +32,7 @@ const ResultSideBar = () => {
                 <Link to="/lotto_history">- 당첨 내역</Link>
               </li>
               <li>
-                <Link to="/">- 통계</Link>
+                <Link to="/lotto_analytics">- 통계</Link>
               </li>
             </ul>
           )}
@@ -47,7 +47,7 @@ const ResultSideBar = () => {
           {selectedCategory["annuity"] && (
             <ul>
               <li>
-                <Link to="/lotto_result">- 당첨 결과</Link>
+                <Link to="/winResult">- 당첨 결과</Link>
               </li>
               <li>
                 <Link to="/myWin720">- 내 당첨 결과</Link>
