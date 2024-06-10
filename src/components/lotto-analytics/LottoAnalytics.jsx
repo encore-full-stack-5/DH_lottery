@@ -87,7 +87,7 @@ const LottoAnalytics = () => {
                 >
                   회차별로 홀짝 비율 및 번호합 확인
                 </p>
-                <a href="/pie" className="details-button">
+                <a href="/even_odd" className="details-button">
                   자세히 보기
                 </a>
               </div>

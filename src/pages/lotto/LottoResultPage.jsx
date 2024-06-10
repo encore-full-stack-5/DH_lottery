@@ -6,10 +6,10 @@ import "../../css/LottoResultPage.css";
 export const LottoResultPage = () => {
   return (
     <>
-      <main style={{ display: "flex" }}>
+      <div style={{ display: "flex" }}>
         <ResultSideBar />
         <LottoResult />
-      </main>
+      </div>
     </>
   );
 };
