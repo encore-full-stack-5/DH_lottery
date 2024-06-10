@@ -32,7 +32,7 @@
 
 .group-num {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   font-size: 28px;
   font-weight: bold;
   width: 40px;
