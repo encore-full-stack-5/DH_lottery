@@ -62,6 +62,7 @@ const P_Buying = () => {
       timeLeft.minutes || 0
     }분`;
   };
+
   return (
     <div className="buying_container">
       {/* header */}
@@ -97,7 +98,14 @@ const P_Buying = () => {
                   </a>
                 ))}
               </div>
-              <button>선택완료</button>
+              <button
+                style={{
+                  width: "40px",
+                  padding: "2px",
+                }}
+              >
+                선택완료
+              </button>
             </div>
 
             <br />
@@ -119,33 +127,33 @@ const P_Buying = () => {
       </div>
 
       <br />
-      <div className="buying_selection">
-        <div className="buying_selection-column">
+      <div className="buying_input_selection">
+        <div className="buying_input_selection-column">
           <p>조선택</p>
           <button className="buying_full-width">모든 조</button>
-          <div className="buying_button-group">
+          <div className="buying_input_button-group">
             <button>1조</button>
             <button>2조</button>
             <button>3조</button>
           </div>
-          <div className="buying_button-group">
+          <div className="buying_input_button-group">
             <button>4조</button>
             <button>5조</button>
           </div>
         </div>
-        <div className="buying_selection-column">
+        <div className="buying_input_selection-column">
           <p>6자리 번호 선택</p>
-          <div className="buying_button-group">
+          <div className="buying_input_button-group">
             <button>1</button>
             <button>2</button>
             <button>3</button>
           </div>
-          <div className="buying_button-group">
+          <div className="buying_input_button-group">
             <button>4</button>
             <button>5</button>
             <button>6</button>
           </div>
-          <div className="buying_button-group">
+          <div className="buying_input_button-group">
             <button>7</button>
             <button>8</button>
             <button>9</button>
@@ -168,7 +176,7 @@ const P_Buying = () => {
           </div>
           <p>0원</p>
         </div>
-        <div className="buying_footer-section payment-info">
+        <div className="buying_footer-section buying_payment-info">
           <div>
             <p>결제 예정 금액</p>
             <p>0 원</p>
