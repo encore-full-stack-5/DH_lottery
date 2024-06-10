@@ -19,6 +19,7 @@ import { LottoResultPage } from "./pages/lotto/LottoResultPage.jsx";
 import P_MyWin720 from "./pages/p_lottery/P_MyWin720.jsx";
 import HorizontalBar from "./components/lotto-analytics/HoryzontalBar.jsx";
 import PieChart from "./components/lotto-analytics/PieChart.jsx";
+import P_statistics from "./pages/p_lottery/P_statistics.jsx";
 import MyPage from "./pages/myPage/MyPage.jsx";
 
 const router = createBrowserRouter([
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       { path: "/transaction", element: <Transaction /> },
       { path: "/horizontal", element: <HorizontalBar /> },
       { path: "/pie", element: <PieChart /> },
+      { path: "/stat720", element: <P_statistics /> },
       { path: "/myPage", element: <MyPage /> },
     ],
   },
