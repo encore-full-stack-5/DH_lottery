@@ -1,0 +1,93 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: last baseline;
+  margin-right: 50px;
+}
+
+.card {
+  padding: 100px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  text-align: center;
+  align-content: last baseline;
+}
+
+.base {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.lotto-ball {
+  width: 80px;
+  height: 70px;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.color-1 {
+  background-color: #ff5733;
+}
+
+.color-2 {
+  background-color: #33c1ff;
+}
+
+.color-3 {
+  background-color: #33ff57;
+}
+
+.color-4 {
+  background-color: #8a2be2;
+}
+
+.color-5 {
+  background-color: darkgrey;
+}
+
+.table-container {
+  margin-top: 50px;
+  width: 95%;
+  overflow-x: auto;
+  align-content: last baseline;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-top: 1px solid #000;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.end_line {
+  border-bottom: 1px solid #000;
+  margin-bottom: 100px;
+}
