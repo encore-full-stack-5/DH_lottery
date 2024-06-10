@@ -4,7 +4,7 @@ import { RecoilRoot } from "recoil";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import P_Buying from "./pages/P_Buying.jsx";
+// import P_Buying from "./pages/P_Buying.jsx";
 
 import P_Buying from "./pages/p_buying/P_Buying.jsx";
 

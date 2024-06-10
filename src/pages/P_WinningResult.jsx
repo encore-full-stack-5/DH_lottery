@@ -36,7 +36,7 @@ const P_WinningResult = () => {
           <div className="win720-num">
             <div className="group">
               <span className="group-num-wrap">
-                <span className="group-num">1조</span>
+                <div className="group-num">1조</div>
               </span>
             </div>
             <span className="group-num-wrap">
