@@ -1,4 +1,5 @@
 import "./LottoAnalytics.css";
+import React from "react";
 
 const LottoAnalytics = () => {
   return (
