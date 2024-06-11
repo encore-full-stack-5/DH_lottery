@@ -46,27 +46,27 @@ export const LottoResult = () => {
   return (
     <div style={{ marginTop: "67px" }}>
       <h1 style={{ marginBottom: "5%", marginLeft: "50px" }}>로또 당첨번호</h1>
-      <div className="card-container">
-        <div className="card" style={{ maxWidth: "95%" }}>
+      <div className="card-container-lr">
+        <div className="card-lr" style={{ maxWidth: "95%" }}>
           <div className="base">
             <h1>
               <strong style={{ color: "red" }}>{data.id}</strong> 당첨결과
             </h1>
           </div>
-          <div className="base">
+          <div className="base-lr">
             <p
               style={{ marginTop: "5px", marginBottom: "15px" }}
             >{`(${data.createAt})`}</p>
           </div>
 
-          <div className="base">
+          <div className="base-lr">
             {data.number.map((num, index) => {
               const colorClass = getColorClass(num);
 
               return (
                 <div
                   key={index}
-                  className={`lotto-ball ${colorClass}`}
+                  className={`lotto-ball-lr ${colorClass}`}
                   style={{
                     marginTop: "20px",
                     marginRight: "30px",
@@ -95,7 +95,7 @@ export const LottoResult = () => {
               +
             </p>
             <div
-              className={`lotto-ball ${getColorClass(data.bonus)}`}
+              className={`lotto-ball-lr ${getColorClass(data.bonus)}`}
               style={{
                 marginTop: "20px",
                 marginRight: "30px",
@@ -107,7 +107,7 @@ export const LottoResult = () => {
             </div>
           </div>
         </div>
-        <div className="table-container">
+        <div className="table-container-lr">
           <table>
             <thead>
               <tr>
@@ -132,7 +132,7 @@ export const LottoResult = () => {
             </tbody>
           </table>
         </div>
-        <div className="end_line">
+        <div className="end_line-lr">
           <p>- 총판매금액 : {data.totalMoney} 원</p>
         </div>
       </div>

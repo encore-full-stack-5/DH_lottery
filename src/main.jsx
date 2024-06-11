@@ -20,14 +20,13 @@ import Lotto from "./components/lotto/lotto.jsx";
 import Transaction from "./pages/transaction/Transaction.jsx";
 import { LottoResultPage } from "./pages/lotto/LottoResultPage.jsx";
 import P_MyWin720 from "./pages/p_lottery/P_MyWin720.jsx";
-import HorizontalBar from "./components/lotto-analytics/HoryzontalBar.jsx";
-import PieChart from "./components/lotto-analytics/PieChart.jsx";
-import LottoAnalytics from "./components/lotto-analytics/LottoAnalytics.jsx";
-import VerticalBar from "./components/lotto-analytics/VerticalBar.jsx";
+import HorizontalBar from "./components/lotto-analytics/chart/HoryzontalBar.jsx";
+import PieChart from "./components/lotto-analytics/chart/PieChart.jsx";
+import VerticalBar from "./components/lotto-analytics/chart/VerticalBar.jsx";
 import P_statistics from "./pages/p_lottery/P_statistics.jsx";
 import MyPage from "./pages/myPage/MyPage.jsx";
 import { LottoHistoryPage } from "./pages/lotto/LottoHistoryPage.jsx";
-import EvenOddResult from './components/lotto-analytics/EvenOddResult.jsx'
+import EvenOddResult from "./components/lotto-analytics/chart/EvenOddResult.jsx";
 import LottoAnalyticsPage from "./pages/lotto/LottoAnalyticsPage.jsx";
 
 const router = createBrowserRouter([
