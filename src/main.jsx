@@ -28,6 +28,9 @@ import MyPage from "./pages/myPage/MyPage.jsx";
 import { LottoHistoryPage } from "./pages/lotto/LottoHistoryPage.jsx";
 import EvenOddResult from "./components/lotto-analytics/chart/EvenOddResult.jsx";
 import LottoAnalyticsPage from "./pages/lotto/LottoAnalyticsPage.jsx";
+import { CheckoutPage } from "./pages/payment/Checkout.jsx";
+import { SuccessPage } from "./pages/payment/Success.jsx";
+import { FailPage } from "./pages/payment/Fail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +40,9 @@ const router = createBrowserRouter([
       { path: "/winResult", element: <P_WinningResult /> },
       { path: "/buying720", element: <P_Buying /> },
       { path: "/payment", element: <Payment /> },
+      { path: "/checkout", element: <CheckoutPage /> },
+      { path: "/success", element: <SuccessPage /> },
+      { path: "/fail", element: <FailPage /> },
       { path: "/login", element: <Login /> },
       { path: "/singUp", element: <SignUp /> },
       { path: "/joinFormAgree", element: <JoinFormAgree /> },
