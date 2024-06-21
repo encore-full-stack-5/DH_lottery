@@ -76,7 +76,7 @@ main {
 .table td:first-child {
   width: 200px;
 }
-select {
+.select_payment {
   width: 25%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -90,7 +90,7 @@ select {
   cursor: pointer;
 }
 
-select:focus {
+.select_payment:focus {
   border-color: black;
   outline: none;
 }
