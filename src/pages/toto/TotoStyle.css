@@ -1,0 +1,194 @@
+.toto-main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.t-c{
+    text-align: center;
+}
+.t-fc{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toto-box{
+    min-width: 800px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.game-calender{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.game-calender-head{
+    width: 100%;
+    height: 40px;
+    display: table;
+    border-collapse: collapse;
+    color: white;
+    cursor: pointer;
+    border: 0.5px solid #00000020;
+}
+.game-calender-head-item{
+    display: table-cell;
+    vertical-align: middle;
+    width: 108px;
+    height: 100%;
+    background-color: #47b0ec;
+    border-left: 0.5px solid #ffffff60;
+    border-right: 0.5px solid #ffffff60;
+}
+.game-calender-arrow{
+    display: table-cell;
+    vertical-align: middle;
+    width: 20px;
+    height: 100%;
+    background-color: #3897ce;
+}
+.game-calender-games{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #00000020;
+}
+.game-calender-games > div:nth-last-child(1){
+    border-right: 0.5px solid #00000020;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 0.5px solid #00000020;
+    margin-top: 10px;
+}
+.game-list-head{
+    width: 100%;
+    height: 45px;
+    border-bottom: 0.5px solid #00000020;
+    font-size: 14pt;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+.game-list-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+.game-list-box-head{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    background-color: orange;
+    color: white;
+    font-size: 9pt;
+}
+.game-list-box-head > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-list-more{
+    width: 100%;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+
+.order-box{
+    min-width: 260px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    max-height: 600px;
+    overflow: auto;
+}
+.order-box2{
+    border: 0.5px solid #00000020;
+}
+.order-box-header{
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.5px solid #00000020;
+}
+.order-box-header > div{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12pt;
+    background-color: #f8f8f8;
+}
+.order-box-cart{
+    min-height: calc(100vh - 290px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.order-box-cart-sum{
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    border-top: 0.5px solid #00000020;
+    padding: 10px;
+    font-size: 9.5pt;
+}
+.order-box-cart-sum > div{
+    height: 26px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+}
+.order-box-cart-sum > div > div:nth-child(1){
+    color: #606060;
+}
+.order-box-cart-sum > div > div:nth-child(2){
+    text-align: right;
+    margin-right: 5px;
+    font-size: 10pt;
+}
+.order-box-cart-sum > div > div:nth-child(2) > input{
+    width: 80%;
+    text-align: right;
+}
+.order-box-cart-sum > div > div:nth-child(3){
+    font-weight: normal;
+}
+.order-box-buy{
+    width: 260px;
+    height: 40px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.5px solid #00000020;
+    font-size: 12pt;
+    cursor: pointer;
+}
+.order-box-buy:hover{
+    background-color: #f4f4f4;
+}

@@ -31,6 +31,7 @@ import LottoAnalyticsPage from "./pages/lotto/LottoAnalyticsPage.jsx";
 import { CheckoutPage } from "./pages/payment/Checkout.jsx";
 import { SuccessPage } from "./pages/payment/Success.jsx";
 import { FailPage } from "./pages/payment/Fail.jsx";
+import TotoMain from "./pages/toto/TotoMain.jsx";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
       { path: "/even_odd", element: <EvenOddResult /> },
       { path: "/stat720", element: <P_statistics /> },
       { path: "/myPage", element: <MyPage /> },
+      { path: "/toto", element: <TotoMain /> },
     ],
   },
 ]);
