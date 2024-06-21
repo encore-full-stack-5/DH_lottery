@@ -76,7 +76,7 @@ main {
 .table td:first-child {
   width: 200px;
 }
-select {
+.select_payment {
   width: 25%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -90,7 +90,7 @@ select {
   cursor: pointer;
 }
 
-select:focus {
+.select_payment:focus {
   border-color: black;
   outline: none;
 }
@@ -175,4 +175,24 @@ select:focus {
   background-size: cover;
   background-position: center;
   margin-bottom: 100px;
+}
+.pay_button {
+  background-color: #3282f6;
+  color: #f9fcff;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+}
+.payment_wrapper {
+  max-width: 540px;
+  height: 100vh;
+  margin: 0 auto;
+}
+.payment_wrapper > div,
+.payment_wrapper > button {
+  display: block;
+  margin: 0 auto;
 }

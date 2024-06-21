@@ -18,9 +18,12 @@ Chart.register(
   ChartDataLabels
 );
 
-const labels = ["1~10", "11~20", "21~30", "31~40", "41~45"];
+const labels = ["1번~10번", "11번~20번", "21번~30번", "31번~40번", "41번~45번"];
 
-const count = [123, 245, 168, 114, 50];
+const count = [];
+for (let i = 0; i < 5; i++) {
+  count.push(Math.floor(Math.random() * 100));
+}
 
 const PieChart = () => {
   const data = {
@@ -51,6 +54,9 @@ const PieChart = () => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
+      legend: {
+        display: false,
+      },
       datalabels: {
         formatter: (value, context) => {
           const total = context.chart.data.datasets[0].data.reduce(
@@ -70,21 +76,44 @@ const PieChart = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <div
         style={{
           width: "500px",
           height: "500px",
-          margin: "0 auto",
+          // margin: "0 auto",
           display: "flex",
           justifyContent: "center",
           alignContent: "center",
           marginTop: "100px",
+          marginRight: "120px",
         }}
       >
         <Pie data={data} options={options} />
       </div>
-    </>
+      <div style={{ marginTop: "50px" }}>
+        {data.labels.map((label, index) => (
+          <div key={index} style={{ marginBottom: "5px" }}>
+            <span
+              style={{
+                display: "inline-block",
+                width: "12px",
+                height: "12px",
+                backgroundColor: data.datasets[0].backgroundColor[index],
+                marginRight: "10px",
+              }}
+            ></span>
+            {label}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

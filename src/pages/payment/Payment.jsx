@@ -1,9 +1,15 @@
 import MyPageSideBar from "../../components/sidebar/MyPageSideBar";
 import "./Payment.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
   const [accountHolderName, setAccountHolderName] = useState("동행복권_박현서");
+  const navigate = useNavigate();
+
+  const handleConfirmClick = () => {
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -26,7 +32,7 @@ const Payment = () => {
               <tr>
                 <th>금액</th>
                 <td>
-                  <select>
+                  <select className="select_payment">
                     <option value="5000">5,000원</option>
                     <option value="10000">10,000원</option>
                     <option value="30000">30,000원</option>
@@ -54,7 +60,9 @@ const Payment = () => {
             </tbody>
           </table>
           <div class="payment_container">
-            <button class="confirm-button">확인</button>
+            <button class="confirm-button" onClick={handleConfirmClick}>
+              확인
+            </button>
           </div>
           <div className="list_text_common">
             <ul className="list_content">

@@ -1,3 +1,4 @@
+import { getSelectedTicket, selectNum } from "../../api/pensionBuy";
 import "./P_Buying.css";
 import React, { useEffect, useState } from "react";
 
@@ -5,23 +6,30 @@ const P_Buying = () => {
   const [sessionNumber, setSessionNumber] = useState(214);
   const [drawDate, setDrawDate] = useState("2024.06.13");
   const [drawEndDate, setDrawEndDate] = useState("2025.06.13");
+  const [groupNum, setGroupNum] = useState("모든 조");
   const [autoNumber, setAutoNumber] = useState(["모든 조"]);
-
+  const [selectNumber, setSelectNumber] = useState(["", "", "", "", "", ""]);
+  const [getSelectedNum, setGetSelectedNum] = useState([]);
+  const [loading, setLoading] = useState(true);
   const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
   // 자동 번호 생성 로직
   const generateAutoNumber = () => {
-    const randomSelect = ["모든 조", "1조", "2조", "3조", "4조", "5조"];
-    const selectedGroup =
-      randomSelect[getRandomNumber(0, randomSelect.length - 1)];
+    // const groupNum = "모든 조";
+    // const randomSelect = ["모든 조", "1조", "2조", "3조", "4조", "5조"];
+    // const selectedGroup =
+    //   randomSelect[getRandomNumber(0, randomSelect.length - 1)];
 
     const randomNumbers = Array.from({ length: 6 }, () =>
       getRandomNumber(0, 9)
     );
 
-    setAutoNumber([selectedGroup, ...randomNumbers]);
+    setSelectNumber([...randomNumbers]);
+
+    // setAutoNumber([selectedGroup, ...randomNumbers]);
+    setAutoNumber([groupNum, ...randomNumbers]);
   };
 
   // 자동번호 버튼 클릭 시 동작
@@ -29,11 +37,46 @@ const P_Buying = () => {
     generateAutoNumber();
   };
 
+  // 조 선택 버튼 클릭 시 동작
+  const handleGroupSelection = (group) => {
+    setGroupNum(group);
+    setAutoNumber((prevAutoNumber) => [group, ...prevAutoNumber.slice(1)]);
+  };
+
+  const saveSelectNumber = async () => {
+    let data;
+    if (
+      selectNumber[0] === "" ||
+      selectNumber[1] === "" ||
+      selectNumber[2] === "" ||
+      selectNumber[3] === "" ||
+      selectNumber[4] === "" ||
+      selectNumber[5] === ""
+    ) {
+      alert("구매할 번호는 선택해주세요.");
+      return;
+    }
+    if (autoNumber[0] === "모든 조") {
+      for (let i = 1; i <= 5; i++) {
+        data = [i, ...selectNumber];
+        await selectNum(data);
+      }
+    } else {
+      const num = Number(autoNumber[0].split("조")[0]);
+      data = [num, ...selectNumber];
+      await selectNum(data);
+    }
+    setSelectNumber(["", "", "", "", "", ""]);
+    setAutoNumber(["모든 조", "", "", "", "", "", ""]);
+    getSelected();
+  };
+
   useEffect(() => {
     setAutoNumber(["모든 조", "", "", "", "", "", ""]);
   }, []);
+
   const calculateTimeLeft = () => {
-    const targetDate = new Date("2024-06-26T00:00:00");
+    const targetDate = new Date("2024-07-01T00:00:00");
     const now = new Date();
     const difference = targetDate - now;
 
@@ -62,6 +105,23 @@ const P_Buying = () => {
       timeLeft.minutes || 0
     }분`;
   };
+
+  const getSelected = async () => {
+    try {
+      const response = await getSelectedTicket("abcd"); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
+      setGetSelectedNum(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+    console.log(response);
+  };
+
+  useEffect(() => {
+    getSelected();
+  }, []);
+
   return (
     <div className="buying_container">
       {/* header */}
@@ -97,7 +157,15 @@ const P_Buying = () => {
                   </a>
                 ))}
               </div>
-              <button>선택완료</button>
+              <button
+                style={{
+                  width: "40px",
+                  padding: "2px",
+                }}
+                onClick={saveSelectNumber}
+              >
+                선택완료
+              </button>
             </div>
 
             <br />
@@ -119,33 +187,38 @@ const P_Buying = () => {
       </div>
 
       <br />
-      <div className="buying_selection">
-        <div className="buying_selection-column">
+      <div className="buying_input_selection">
+        <div className="buying_input_selection-column">
           <p>조선택</p>
-          <button className="buying_full-width">모든 조</button>
-          <div className="buying_button-group">
-            <button>1조</button>
-            <button>2조</button>
-            <button>3조</button>
+          <button
+            className="buying_full-width"
+            onClick={() => handleGroupSelection("모든 조")}
+          >
+            모든 조
+          </button>
+          <div className="buying_input_button-group">
+            <button onClick={() => handleGroupSelection("1조")}>1조</button>
+            <button onClick={() => handleGroupSelection("2조")}>2조</button>
+            <button onClick={() => handleGroupSelection("3조")}>3조</button>
           </div>
-          <div className="buying_button-group">
-            <button>4조</button>
-            <button>5조</button>
+          <div className="buying_input_button-group">
+            <button onClick={() => handleGroupSelection("4조")}>4조</button>
+            <button onClick={() => handleGroupSelection("5조")}>5조</button>
           </div>
         </div>
-        <div className="buying_selection-column">
+        <div className="buying_input_selection-column">
           <p>6자리 번호 선택</p>
-          <div className="buying_button-group">
+          <div className="buying_input_button-group">
             <button>1</button>
             <button>2</button>
             <button>3</button>
           </div>
-          <div className="buying_button-group">
+          <div className="buying_input_button-group">
             <button>4</button>
             <button>5</button>
             <button>6</button>
           </div>
-          <div className="buying_button-group">
+          <div className="buying_input_button-group">
             <button>7</button>
             <button>8</button>
             <button>9</button>
@@ -154,7 +227,19 @@ const P_Buying = () => {
         </div>
         <div className="buying_selection-summary">
           <p>내가 선택한 번호</p>
-          <p>선택번호가 존재하지 않습니다.</p>
+          {loading ? (
+            <p>로딩 중...</p>
+          ) : getSelectedNum.length === 0 ? (
+            <p>선택번호가 존재하지 않습니다.</p>
+          ) : (
+            <ul style={{ marginLeft: "1.05rem" }}>
+              {getSelectedNum.map((number, index) => (
+                <li key={index} style={{ fontSize: "1.2rem" }}>
+                  {`${number.group}조 ${number.first} ${number.second} ${number.third} ${number.fourth} ${number.fifth} ${number.sixth}`}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <div className="buying_footer">
@@ -168,7 +253,7 @@ const P_Buying = () => {
           </div>
           <p>0원</p>
         </div>
-        <div className="buying_footer-section payment-info">
+        <div className="buying_footer-section buying_payment-info">
           <div>
             <p>결제 예정 금액</p>
             <p>0 원</p>
