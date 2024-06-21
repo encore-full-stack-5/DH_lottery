@@ -177,6 +177,9 @@
 .buying_btn {
   /* min-width: 10px; */
   border: 1px solid #ddd;
+  font-size: 2rem;
+  text-align: center;
+  align-content: center;
   background-color: rgba(219, 231, 244, 1);
   margin: 5px;
   height: 70px;
