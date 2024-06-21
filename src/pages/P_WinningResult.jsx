@@ -13,6 +13,38 @@ const P_WinningResult = () => {
       <div className="container-wrap">
         <ResultSideBar></ResultSideBar>
         <section className="content-section">
+        <div className="header-container">  
+        <div className="search-container" style={{ margin: "20px 0" }}>
+              <select
+                className="result-select"
+                style={{
+                  padding: "10px",
+                  fontSize: "16px",
+                  marginRight: "10px",
+                }}
+              >
+                <option value="213">213회</option>
+                <option value="212">212회</option>
+                <option value="211">211회</option>
+                <option value="210">210회</option>
+                
+              </select>
+              <button
+                className="search-button"
+                onClick={handleSearch}
+                style={{
+                  padding: "10px 20px",
+                  fontSize: "16px",
+                  backgroundColor: "#blue",
+                  color: "#fff",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Search
+              </button>
+            </div>
+            </div>
           <div className="winResult">
             <h4 style={{ fontSize: "28px", fontWeight: "300" }}>
               <strong

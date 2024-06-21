@@ -147,3 +147,14 @@
   padding: 20px;
   width: calc(100% - 320px); /* Ensure the content doesn't overflow */
 }
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.search-container {
+  margin: 20px 0;
+}
