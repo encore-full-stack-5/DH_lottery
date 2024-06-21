@@ -145,7 +145,7 @@
 .content-section {
   margin-left: 100px;
   padding: 20px;
-  width: calc(100% - 320px); /* Ensure the content doesn't overflow */
+  width: calc(100% - 320px); 
 }
 
 .header-container {
@@ -157,4 +157,18 @@
 
 .search-container {
   margin: 20px 0;
+}
+
+.result-select {
+  width: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  position: relative;
+  background-position: right 10px center;
+  background-size: 10px 5px;
+  cursor: pointer;
 }
