@@ -70,6 +70,12 @@
   font-style: normal;
 }
 
+.g-num{
+  border-color: #D4D4D4;
+}
+.g-num::after{
+  border-color: #D4D4D4;
+}
 .num1 {
   border-color: #ff4c4c;
 }

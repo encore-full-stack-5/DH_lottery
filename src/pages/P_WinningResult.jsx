@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAll, getDrawByRound } from "../api/pensionResult"
+import { getAll, getBonusByRound, getDrawByRound } from "../api/pensionResult"
 import ResultSideBar from "../components/sidebar/ResultSideBar";
 import "../components/sidebar/ResultSideBar.css";
 import "../css/P_WinningResult.css";
@@ -9,6 +9,7 @@ const P_WinningResult = () => {
   const [results, setResults] = useState([]);
   const [allResult, setAllResult] = useState([]);
   const [date, setDate]= useState("");
+  const [bonus, setBonus]= useState([]);
 
   useEffect(() => {
     getAllResult();
@@ -31,14 +32,18 @@ const P_WinningResult = () => {
   const handleRoundChange = (e) => {
     setSelectedRound(e.target.value);
   };
+  
 
   const handleSearch = async () => {
     console.log(selectedRound);
     try {
       const response = await getDrawByRound(selectedRound);
+      const res = await getBonusByRound(selectedRound);
       setResults(response.data);
+      setBonus(res.data);
       setDate(response.data[0].drawDate);
       console.log(response.data);
+      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -89,11 +94,6 @@ const P_WinningResult = () => {
                   value={selectedRound}
                   onChange={handleRoundChange}
                 >
-                  {/* <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option> */}
-                  {/* Add more options as needed */}
                   {allResult.length > 0 && renderRoundOptions()}
                 </select>
                 <button
@@ -129,7 +129,7 @@ const P_WinningResult = () => {
                     <div className="win720-num">
                       <div className="group">
                         <span className="group-num-wrap">
-                          <span className="group-num">{result.groupNum}조</span>
+                          <span className="group-num g-num">{result.groupNum}조</span>
                         </span>
                       </div>
                       <span className="group-num-wrap">
@@ -155,6 +155,47 @@ const P_WinningResult = () => {
                 ))}
               </div>
             )}
+
+        {bonus.length > 0 && (
+                    <div className="results-container">
+                  {bonus.map((bonus) => (
+                    <div key={bonus.id} className="numWrap">
+                      <dl className="prize-winner">
+                        <dt className="prize-winner-place" style={{ paddingRight: "10px" }}>
+                          보너스
+                        </dt>
+                        <dd>
+                          월<span className="num"> 100</span>만원x
+                          <span className="num">10</span>년
+                        </dd>
+                      </dl>
+                      <div className="win720-num">
+                        <div className="group">
+                         
+                        </div>
+                        <span className="group-num-wrap">
+                          <span className="group-num num1">{bonus.firstNum}</span>
+                        </span>
+                        <span className="group-num-wrap">
+                          <span className="group-num num2">{bonus.secondNum}</span>
+                        </span>
+                        <span className="group-num-wrap">
+                          <span className="group-num num3">{bonus.thirdNum}</span>
+                        </span>
+                        <span className="group-num-wrap">
+                          <span className="group-num num4">{bonus.fourthNum}</span>
+                        </span>
+                        <span className="group-num-wrap ">
+                          <span className="group-num num5">{bonus.fifthNum}</span>
+                        </span>
+                        <span className="group-num-wrap num6">
+                          <span className="group-num num6">{bonus.sixthNum}</span>
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
           </div>
         </section>
       </div>
