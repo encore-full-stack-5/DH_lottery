@@ -32,7 +32,7 @@ const Payment = () => {
               <tr>
                 <th>금액</th>
                 <td>
-                  <select>
+                  <select className="select_payment">
                     <option value="5000">5,000원</option>
                     <option value="10000">10,000원</option>
                     <option value="30000">30,000원</option>
