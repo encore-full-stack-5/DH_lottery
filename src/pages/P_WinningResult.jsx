@@ -5,7 +5,7 @@ import "../components/sidebar/ResultSideBar.css";
 import "../css/P_WinningResult.css";
 
 const P_WinningResult = () => {
-  const [selectedRound, setSelectedRound] = useState();
+  const [selectedRound, setSelectedRound] = useState(1);
   const [results, setResults] = useState([]);
   const [allResult, setAllResult] = useState([]);
   const [date, setDate]= useState("");
@@ -75,7 +75,7 @@ const P_WinningResult = () => {
                 </strong>
                 당첨결과
               </h4>
-              <p>({date})</p>
+              <p>({date}  추첨) </p>
 
               <div className="search-container">
                 <select
