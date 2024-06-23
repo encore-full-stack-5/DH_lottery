@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
-  const [accountHolderName, setAccountHolderName] = useState("동행복권_박현서");
+  const [selectedUserEmail, setUserEmail] = useState();
+  const [selectedAmount, setSelectedAmount] = useState(5000);
   const navigate = useNavigate();
 
   const handleConfirmClick = () => {
-    navigate("/checkout");
+    navigate("/checkout", { state: { selectedUserEmail, selectedAmount } });
   };
 
   return (
@@ -32,7 +33,9 @@ const Payment = () => {
               <tr>
                 <th>금액</th>
                 <td>
-                  <select className="select_payment">
+                  <select className="select_payment" 
+                          value={selectedAmount}
+                          onChange={(e) => setSelectedAmount(Number(e.target.value))}>
                     <option value="5000">5,000원</option>
                     <option value="10000">10,000원</option>
                     <option value="30000">30,000원</option>
@@ -47,12 +50,12 @@ const Payment = () => {
                 </td>
               </tr>
               <tr>
-                <th>계좌주명</th>
+                <th>이메일</th>
                 <td>
                   <input
                     type="text"
-                    value={accountHolderName}
-                    onChange={(e) => setAccountHolderName(e.target.value)}
+                    value={selectedUserEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
                     className="input_box"
                   />
                 </td>
