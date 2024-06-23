@@ -19,7 +19,7 @@ const Payment = () => {
         <div className="header_article">
           <h3 className="sub_title">충전하기</h3>
           <div>
-            <a className="tab_box">가상계좌 입금</a>
+            <a className="tab_box">간편결제 입금</a>
             <a className="content-box"></a>
           </div>
         </div>
@@ -28,14 +28,16 @@ const Payment = () => {
             <tbody>
               <tr>
                 <th>입금내역</th>
-                <td>복권 예치금</td>
+                <td>예치금 입금</td>
               </tr>
               <tr>
                 <th>금액</th>
                 <td>
-                  <select className="select_payment" 
-                          value={selectedAmount}
-                          onChange={(e) => setSelectedAmount(Number(e.target.value))}>
+                  <select
+                    className="select_payment"
+                    value={selectedAmount}
+                    onChange={(e) => setSelectedAmount(Number(e.target.value))}
+                  >
                     <option value="5000">5,000원</option>
                     <option value="10000">10,000원</option>
                     <option value="30000">30,000원</option>
