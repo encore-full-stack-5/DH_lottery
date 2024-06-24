@@ -57,7 +57,7 @@
     display: flex;
     flex-direction: column;
 }
-.game-list-item > div:last-child > div{
+.game-list-item-plus > div{
     width: 19px;
     height: 19px;
     background: url("https://www.betman.co.kr/images/btn_tbl_onoff.png") no-repeat 0 0;
