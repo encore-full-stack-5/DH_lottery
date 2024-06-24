@@ -21,6 +21,7 @@ import HorizontalBar from "./components/lotto-analytics/HoryzontalBar.jsx";
 import PieChart from "./components/lotto-analytics/PieChart.jsx";
 import P_statistics from "./pages/p_lottery/P_statistics.jsx";
 import MyPage from "./pages/myPage/MyPage.jsx";
+import UserModify from "./pages/userModify/UserModify.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: "/pie", element: <PieChart /> },
       { path: "/stat720", element: <P_statistics /> },
       { path: "/myPage", element: <MyPage /> },
+      { path: "/userModify", element: <UserModify /> },
     ],
   },
 ]);

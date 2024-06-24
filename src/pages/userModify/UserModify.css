@@ -1,4 +1,4 @@
-/* PersonalInfo.css */
+/* UserModify.css */
 body {
   font-family: Arial, sans-serif;
 }
@@ -29,8 +29,23 @@ body {
   cursor: pointer;
 }
 
+.menu-item .sub-menu-item {
+  padding-left: 20px;
+  border-bottom: none;
+}
+
 .menu-item:hover,
 .menu-item.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.menu-item.active .sub-menu-item {
+  background-color: #d3e9ff;
+  color: #007bff;
+}
+
+.menu-item.active .sub-menu-item.active {
   background-color: #007bff;
   color: white;
 }
@@ -38,6 +53,10 @@ body {
 .main-content {
   flex: 1;
   padding: 40px;
+}
+
+.breadcrumb {
+  margin-bottom: 20px;
 }
 
 h2 {
@@ -61,32 +80,77 @@ h2 {
 
 .form-group {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   margin-bottom: 20px;
 }
 
 .form-group label {
-  margin-bottom: 5px;
+  width: 150px;
   font-weight: bold;
 }
 
-.form-group input[type="text"],
-.form-group input[type="password"] {
+.form-group input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.birth-date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.birth-date input {
+  width: 60px;
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.birth-date {
+.verify-btn {
+  margin-left: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.verify-btn:hover {
+  background-color: #0056b3;
+}
+
+.email-input {
   display: flex;
-  gap: 10px;
+  align-items: center;
 }
 
-.birth-date input {
-  width: 33%;
+.email-input input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.form-group input[type="checkbox"] {
-  margin-right: 10px;
+.email-input span {
+  margin: 0 10px;
+}
+
+.find-address-btn {
+  margin-left: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.find-address-btn:hover {
+  background-color: #0056b3;
 }
