@@ -41,6 +41,10 @@ const Transaction = () => {
     fetchData();
   };
 
+  const formatPrice = (price) => {
+    return `${price.toLocaleString()}원`;
+  };
+
   return (
     <>
       <main>
@@ -146,10 +150,15 @@ const Transaction = () => {
                       <td>{new Date(item.createdAt).toLocaleDateString()}</td>
                       <td>{item.transactionStatus}</td>
                       <td>
-                        {item.transactionStatus === "입금" ? item.price : "-"}
+                        {item.transactionStatus.includes("입금") ||
+                        item.transactionStatus.includes("당첨금 수령")
+                          ? formatPrice(item.price)
+                          : "-"}
                       </td>
                       <td>
-                        {item.transactionStatus === "출금" ? item.price : "-"}
+                        {item.transactionStatus === "출금"
+                          ? formatPrice(item.price)
+                          : "-"}
                       </td>
                     </tr>
                   ))
