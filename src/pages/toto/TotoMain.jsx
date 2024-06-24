@@ -13,33 +13,9 @@ const TotoMain = () => {
     const [orderSum, setOrderSum] = useState();
     const [gameData, setGameData] = useState();
     const daytoText = ["일", "월", "화", "수", "목", "금", "토"];
+    const serverAddr = "http://192.168.0.16:8000/api/v1/toto"
 
-    const testGameArray = [
-        {
-            gameId: 101,
-            gameStartAt: new Date(),
-            betEndAt: new Date(),
-            teamHomeId: 3,
-            teamAwayId: 6,
-            teamHome: "포켓몬 마스터",
-            teamAway: "풀스택 마스터",
-            rtpHome: 1.5,
-            rtpAway: 2.1,
-            result: 0
-        },
-        {
-            gameId: 102,
-            gameStartAt: new Date(),
-            betEndAt: new Date(),
-            teamHomeId: 1,
-            teamAwayId: 4,
-            teamHome: "불을뿜는 리자몽",
-            teamAway: "카레색깔 라이츄",
-            rtpHome: 1.2,
-            rtpAway: 3.1,
-            result: 0
-        }
-    ];
+    const testUUIDToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTkyMzUyNjJ9.1LKcVeCusjr0aVnPlFMyInHZ_UG4J32YUat5MDEIL1Zc33ZjNP6RPL27m12YL3dP";
 
     const changeWeek = (e = 0) => {
         if(e != 0) changeDay(-1);
@@ -111,7 +87,7 @@ const TotoMain = () => {
         setOrderSum({
             count: Object.keys(bettingOrder).length,
             rtp: Math.round(sumRtp*100)/100,
-            result: Math.round(document.getElementById("betting-amount").value * sumRtp * 100) / 100
+            result: Math.round(document.getElementById("betting-amount").value * sumRtp)
         });
     }
 
@@ -172,11 +148,42 @@ const TotoMain = () => {
 
     const getGameData = async (date = null) => {
         try{
-            const response = await axios.get(date ? "http://localhost:8000/api/v1/toto/games?date="+date : "http://localhost:8000/api/v1/toto/games");
+            const response = await axios.get(date ? serverAddr + "/games?date="+date : serverAddr + "/games");
             setGameData(response.data);
             // console.log(response.data);
         } catch(error) {
             alert(error);
+        }
+    }
+    const sendBettingData = async () => {
+        try {
+            if (Object.keys(bettingOrder).length == 0) throw new Error("선택한 경기가 없습니다.");
+            if (document.getElementById("betting-amount").value < 1000) throw new Error("1000원 이상 배팅해 주세요.");
+            const bettingList = {
+                pointAmount: document.getElementById("betting-amount").value,
+                bettingGames: Object.keys(bettingOrder).map(e => {
+                    if (bettingOrder[e].isEnd) throw new Error("배팅이 종료된 경기를 제외해 주세요.");
+                    return {
+                        gameId: e,
+                        team: bettingOrder[e].team
+                    };
+                })
+            }
+            await axios.post(
+                "http://localhost:8000/api/v1/toto/betting",
+                bettingList,
+                { headers: { Authorization: testUUIDToken }}
+            );
+            alert("구매가 완료되었습니다.");
+            setBettingOrder({});
+            document.getElementById("betting-amount").value = 0;
+            setOrderSum({
+                count: 0,
+                rtp: 0,
+                result: 0
+            });
+        } catch (error) {
+            alert(error.message);
         }
     }
 
@@ -278,7 +285,7 @@ const TotoMain = () => {
                         </div>
                     </div>
                 </div>
-                <div className="order-box-buy">
+                <div className="order-box-buy" onClick={sendBettingData}>
                     구매하기
                 </div>
             </div>

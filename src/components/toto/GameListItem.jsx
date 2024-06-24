@@ -9,27 +9,36 @@ const GameListItem = (props) => {
     }
 
     const setBetting = (e) => {
+        if(new Date().getTime() > props.bettingEnd.getTime()) return;
         if (e == props.bettingState) e = 0;
         const bettingTeam = {
             gameId: props.gameId,
             state: e,
             teamName: e==1 ? props.teamHome : props.teamAway,
             teamRtp: e==1 ? props.rtpHome : props.rtpAway,
+            isEnd: () => {return new Date().getTime() > props.bettingEnd.getTime()}
         };
         props.setBetting(bettingTeam);
     }
 
     useEffect(() => {
-        document.getElementById("rtp-home"+props.gameId).style.backgroundColor = null;
-        document.getElementById("rtp-home"+props.gameId).style.color = null
-        document.getElementById("rtp-away"+props.gameId).style.backgroundColor = null;
-        document.getElementById("rtp-away"+props.gameId).style.color = null
-        if(props.bettingState == 1) {
-            document.getElementById("rtp-home"+props.gameId).style.backgroundColor = "orange";
-            document.getElementById("rtp-home"+props.gameId).style.color = "white";
-        } else if(props.bettingState == 2) {
-            document.getElementById("rtp-away"+props.gameId).style.backgroundColor = "orange";
-            document.getElementById("rtp-away"+props.gameId).style.color = "white";
+        if(new Date().getTime() > props.bettingEnd.getTime()) {
+            document.getElementById("rtp-home"+props.gameId).style.backgroundColor = "#ccc";
+            document.getElementById("rtp-away"+props.gameId).style.backgroundColor = "#ccc";
+            document.getElementById("rtp-home"+props.gameId).style.cursor = "default";
+            document.getElementById("rtp-away"+props.gameId).style.cursor = "default";
+        } else {
+            document.getElementById("rtp-home"+props.gameId).style.backgroundColor = null;
+            document.getElementById("rtp-home"+props.gameId).style.color = null
+            document.getElementById("rtp-away"+props.gameId).style.backgroundColor = null;
+            document.getElementById("rtp-away"+props.gameId).style.color = null
+            if(props.bettingState == 1) {
+                document.getElementById("rtp-home"+props.gameId).style.backgroundColor = "orange";
+                document.getElementById("rtp-home"+props.gameId).style.color = "white";
+            } else if(props.bettingState == 2) {
+                document.getElementById("rtp-away"+props.gameId).style.backgroundColor = "orange";
+                document.getElementById("rtp-away"+props.gameId).style.color = "white";
+            }
         }
     },[props.bettingState])
 
