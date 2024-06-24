@@ -1,0 +1,100 @@
+.history_container {
+    width: 80%;
+    margin: 0 auto;
+    margin: 50px;
+  }
+  
+.history_title {
+font-size: 24px;
+margin: 20px 0;
+}
+
+.filter-section {
+display: flex;
+flex-direction: column;
+margin-bottom: 20px;
+border: 1px solid #ddd;
+padding: 20px;
+background-color: #f9f9f9;
+border-radius: 8px;
+}
+
+.filter-row {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+padding: 10px;
+border: 1px solid #ddd;
+background-color: #fff;
+border-radius: 4px;
+}
+
+.filter-row label {
+margin-right: 10px;
+font-weight: bold;
+}
+
+.filter-row .radio-group {
+display: flex;
+align-items: center;
+}
+
+.filter-row .radio-group label {
+margin-right: 20px;
+font-weight: normal;
+}
+
+.filter-row input[type="date"], .filter-row select {
+margin: 0 5px;
+padding: 5px;
+border: 1px solid #ddd;
+border-radius: 4px;
+}
+
+.filter-row button {
+margin-left: 5px;
+padding: 5px 10px;
+border: 1px solid #ddd;
+border-radius: 4px;
+background-color: #f0f0f0;
+cursor: pointer;
+}
+
+.filter-row button:hover {
+background-color: #e0e0e0;
+}
+
+.search-button {
+align-self: center;
+padding: 10px 20px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.search-button:hover {
+background-color: #0056b3;
+}
+
+.result-table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+.result-table th, .result-table td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: center;
+}
+
+.result-table th {
+background-color: #f2f2f2;
+}
+
+.result-table tbody tr td {
+font-size: 14px;
+color: #888;
+}

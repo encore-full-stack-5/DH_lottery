@@ -4,16 +4,23 @@ import "./Lotto.css";
 const Lotto = () => {
   const [isChecked, setIsChecked] = useState(Array(45).fill(false));
   const [quantity, setQuantity] = useState(1);
-  const [tentativeAutoSelectedNumbers, setTentativeAutoSelectedNumbers] = useState([]);
+  const [tentativeAutoSelectedNumbers, setTentativeAutoSelectedNumbers] =
+    useState([]);
   const [generatedSets, setGeneratedSets] = useState([[], [], [], [], []]);
-  const [setLabels, setSetLabels] = useState(["미지정", "미지정", "미지정", "미지정", "미지정"]);
+  const [setLabels, setSetLabels] = useState([
+    "미지정",
+    "미지정",
+    "미지정",
+    "미지정",
+    "미지정",
+  ]);
   const [autoSelectActive, setAutoSelectActive] = useState(false);
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
 
   const handleButtonClick = (index) => {
     setIsChecked((prevState) => {
       const newState = [...prevState];
-      const selectedCount = newState.filter(checked => checked).length;
+      const selectedCount = newState.filter((checked) => checked).length;
       if (selectedCount >= 6 && !newState[index]) {
         alert("최대 6개의 숫자만 선택할 수 있습니다.");
         return prevState;
@@ -49,32 +56,34 @@ const Lotto = () => {
 
   const handleConfirm = () => {
     const selectedNumbers = isChecked
-        .map((checked, index) => (checked ? index + 1 : null))
-        .filter((num) => num !== null);
+      .map((checked, index) => (checked ? index + 1 : null))
+      .filter((num) => num !== null);
 
     let numbersToConfirm = selectedNumbers;
 
     if (autoSelectActive) {
-        numbersToConfirm = tentativeAutoSelectedNumbers;
+      numbersToConfirm = tentativeAutoSelectedNumbers;
     }
 
     if (numbersToConfirm.length < 6) {
-        alert("숫자를 6개 입력하세요.");
-        return;
+      alert("숫자를 6개 입력하세요.");
+      return;
     }
 
-    let newLabel = "수동";  // 기본값을 수동으로 설정
+    let newLabel = "수동"; // 기본값을 수동으로 설정
 
     if (autoSelectActive) {
-        newLabel = selectedNumbers.length > 0 ? "반자동" : "자동";
+      newLabel = selectedNumbers.length > 0 ? "반자동" : "자동";
     }
 
     if (currentEditIndex === null) {
-        const currentSetCount = generatedSets.filter(set => set.length > 0).length;
-        if (currentSetCount + quantity > 5) {
-            alert("1회 최대 5게임만 구매할 수 있습니다. (5,000원)");
-            return;
-        }
+      const currentSetCount = generatedSets.filter(
+        (set) => set.length > 0
+      ).length;
+      if (currentSetCount + quantity > 5) {
+        alert("1회 최대 5게임만 구매할 수 있습니다. (5,000원)");
+        return;
+      }
     }
 
     setIsChecked(Array(45).fill(false));
@@ -85,34 +94,36 @@ const Lotto = () => {
     const labels = [...setLabels];
 
     if (currentEditIndex !== null) {
-        sets[currentEditIndex] = numbersToConfirm.sort((a, b) => a - b);
-        labels[currentEditIndex] = newLabel;
-        setGeneratedSets(sets);
-        setSetLabels(labels);
-        setCurrentEditIndex(null);
-        return;
+      sets[currentEditIndex] = numbersToConfirm.sort((a, b) => a - b);
+      labels[currentEditIndex] = newLabel;
+      setGeneratedSets(sets);
+      setSetLabels(labels);
+      setCurrentEditIndex(null);
+      return;
     }
 
     let setIndex = 0;
     for (let i = 0; i < quantity; i++) {
-        while (sets[setIndex].length > 0 && setIndex < sets.length) {
-            setIndex++;
-        }
-        if (setIndex >= sets.length) break;
-
-        if (autoSelectActive) {
-            sets[setIndex] = generateRandomNumbers(selectedNumbers).sort((a, b) => a - b);
-            labels[setIndex] = selectedNumbers.length > 0 ? "반자동" : "자동";
-        } else {
-            sets[setIndex] = numbersToConfirm.sort((a, b) => a - b);
-            labels[setIndex] = "수동";
-        }
+      while (sets[setIndex].length > 0 && setIndex < sets.length) {
         setIndex++;
+      }
+      if (setIndex >= sets.length) break;
+
+      if (autoSelectActive) {
+        sets[setIndex] = generateRandomNumbers(selectedNumbers).sort(
+          (a, b) => a - b
+        );
+        labels[setIndex] = selectedNumbers.length > 0 ? "반자동" : "자동";
+      } else {
+        sets[setIndex] = numbersToConfirm.sort((a, b) => a - b);
+        labels[setIndex] = "수동";
+      }
+      setIndex++;
     }
 
     setGeneratedSets(sets);
     setSetLabels(labels);
-};
+  };
 
   const handleLeftReset = () => {
     setIsChecked(Array(45).fill(false));
@@ -170,7 +181,7 @@ const Lotto = () => {
   };
 
   const calculateTotalAmount = () => {
-    return generatedSets.filter(set => set.length > 0).length * 1000;
+    return generatedSets.filter((set) => set.length > 0).length * 1000;
   };
 
   return (
@@ -248,7 +259,9 @@ const Lotto = () => {
           <div className="game">
             {["A", "B", "C", "D", "E"].map((label, index) => (
               <div key={index} className="set-row">
-                <span className="set-label">{label} ({setLabels[index]})</span>
+                <span className="set-label">
+                  {label} ({setLabels[index]})
+                </span>
                 <div className="set-numbers">
                   {generatedSets[index].length > 0
                     ? generatedSets[index].map(renderNumberCircle)
@@ -256,8 +269,18 @@ const Lotto = () => {
                         renderNumberCircle(null, idx)
                       )}
                 </div>
-                <button className="set-button" onClick={() => handleEditSet(index)}>수정</button>
-                <button className="set-button" onClick={() => handleDeleteSet(index)}>삭제</button>
+                <button
+                  className="set-button"
+                  onClick={() => handleEditSet(index)}
+                >
+                  수정
+                </button>
+                <button
+                  className="set-button"
+                  onClick={() => handleDeleteSet(index)}
+                >
+                  삭제
+                </button>
               </div>
             ))}
           </div>

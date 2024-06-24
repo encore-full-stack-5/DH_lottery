@@ -1,15 +1,15 @@
 import React from "react";
-import LottoResult from "../../components/lotto-result/LottoResult";
 import ResultSideBar from "../../components/sidebar/ResultSideBar";
 import "../../css/LottoResultPage.css";
+import LottoHistory from "../../components/lotto-history/LottoHistory";
 
-export const LottoResultPage = () => {
+export const LottoHistoryPage = () => {
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <main style={{ display: "flex" }}>
         <ResultSideBar />
-        <LottoResult />
-      </div>
+        <LottoHistory />
+      </main>
     </>
   );
 };

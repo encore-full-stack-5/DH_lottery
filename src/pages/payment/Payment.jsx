@@ -1,9 +1,16 @@
 import MyPageSideBar from "../../components/sidebar/MyPageSideBar";
 import "./Payment.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
-  const [accountHolderName, setAccountHolderName] = useState("동행복권_박현서");
+  const [selectedUserEmail, setUserEmail] = useState();
+  const [selectedAmount, setSelectedAmount] = useState(5000);
+  const navigate = useNavigate();
+
+  const handleConfirmClick = () => {
+    navigate("/checkout", { state: { selectedUserEmail, selectedAmount } });
+  };
 
   return (
     <>
@@ -12,7 +19,7 @@ const Payment = () => {
         <div className="header_article">
           <h3 className="sub_title">충전하기</h3>
           <div>
-            <a className="tab_box">가상계좌 입금</a>
+            <a className="tab_box">간편결제 입금</a>
             <a className="content-box"></a>
           </div>
         </div>
@@ -21,12 +28,16 @@ const Payment = () => {
             <tbody>
               <tr>
                 <th>입금내역</th>
-                <td>복권 예치금</td>
+                <td>예치금 입금</td>
               </tr>
               <tr>
                 <th>금액</th>
                 <td>
-                  <select>
+                  <select
+                    className="select_payment"
+                    value={selectedAmount}
+                    onChange={(e) => setSelectedAmount(Number(e.target.value))}
+                  >
                     <option value="5000">5,000원</option>
                     <option value="10000">10,000원</option>
                     <option value="30000">30,000원</option>
@@ -41,12 +52,12 @@ const Payment = () => {
                 </td>
               </tr>
               <tr>
-                <th>계좌주명</th>
+                <th>이메일</th>
                 <td>
                   <input
                     type="text"
-                    value={accountHolderName}
-                    onChange={(e) => setAccountHolderName(e.target.value)}
+                    value={selectedUserEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
                     className="input_box"
                   />
                 </td>
@@ -54,7 +65,9 @@ const Payment = () => {
             </tbody>
           </table>
           <div class="payment_container">
-            <button class="confirm-button">확인</button>
+            <button class="confirm-button" onClick={handleConfirmClick}>
+              확인
+            </button>
           </div>
           <div className="list_text_common">
             <ul className="list_content">

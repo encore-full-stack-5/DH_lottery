@@ -105,21 +105,85 @@
   justify-content: space-between;
 }
 
-.buying_btn_wrapper {
+.buying_input_button-group {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+  margin-bottom: 10px;
+}
+
+.buying_input_button-group button {
+  flex: 1;
+  padding: 8px 12px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.buying_zero-button {
+  width: 31.5%;
+  flex: 1;
+  padding: 8px 12px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.buying_input_button-group button:hover {
+  background-color: #d4d4d4;
+}
+
+.buying_input_button-group button:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.buying_btn_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 80%;
 
   height: 70px;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   gap: 10px;
 }
-.buying_btn {
-  min-width: 10px;
-  border: 1px solid #ddd;
-  background-color: rgba(219, 231, 244, 1);
-  margin: 10px;
+
+.buying_large-button {
+  font-size: large;
   height: 70px;
-  width: 100px;
+  width: 76px;
+  padding: 23px 0px;
+  /* gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; */
+  background-color: rgba(219, 231, 244, 1);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.buying_btn {
+  /* min-width: 10px; */
+  border: 1px solid #ddd;
+  font-size: 2rem;
+  text-align: center;
+  align-content: center;
+  background-color: rgba(219, 231, 244, 1);
+  margin: 5px;
+  height: 70px;
+  width: 70px;
 }
 .buying_numbers {
   justify-content: space-between;
@@ -127,29 +191,13 @@
 }
 .buying_auto_num {
   font-weight: 900;
-  padding: 15px;
+  padding-right: 15px;
   white-space: nowrap;
 }
 .buying_auto_num:hover {
   color: #fff;
   font-weight: 900;
-  padding: 15px;
-  white-space: nowrap;
-}
-
-.buying_large-button {
-  font-size: large;
-  height: 70px;
-  width: 90px;
-  padding: 23px 2px;
-  gap: 10px;
-  flex-direction: column;
-  align-items: center;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  background-color: rgba(219, 231, 244, 1);
-  text-align: center;
+  padding-right: 15px;
   white-space: nowrap;
 }
 
@@ -169,35 +217,64 @@
   margin-left: 10px;
 }
 
-.buying_selection {
+.buying_input_selection {
   display: flex;
   margin: auto 80px;
 }
 
-.buying_selection-column {
+.buying_input_selection-column {
   flex: 1;
-  padding-left: 10px;
-  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 중앙 정렬 */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px; /* 원하는 너비로 조정 */
+}
+
+.buying_input_selection-column p {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
 }
 
 .buying_full-width {
   width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
 }
 
-.buying_zero-button {
-  width: 31.5%;
+.buying_full-width:hover {
+  background-color: #0056b3;
 }
 
 .buying_selection-summary {
   flex: 2;
   padding-left: 10px;
   padding-right: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .buying_footer {
   display: flex;
   align-items: center;
   background-color: whitesmoke;
+  margin-top: 10px;
 }
 
 .buying_footer-section {
@@ -218,4 +295,10 @@
 
 .buying_payment-info div {
   text-align: right;
+}
+
+
+.buying_btn.selected {
+  border: 1px solid blue;
+  background-color: #f0f0f0;
 }
