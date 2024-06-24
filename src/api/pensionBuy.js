@@ -23,3 +23,17 @@ export const getSelectedTicket = async (userId) => {
   const res = await api("/api/v1/pension/selected?userId=" + userId, "get");
   return res;
 };
+
+export const deleteSelectedTicket = async (selectedNumberId) => {
+  await api("/api/v1/pension/" + selectedNumberId, "delete");
+};
+
+export const purchase = async (data) => {
+  const purchaseItem = {
+    userId: data[0],
+    userEmail: data[1],
+    balance: data[2],
+  };
+
+  await api("/api/v1/pension/buying", "post", purchaseItem);
+};

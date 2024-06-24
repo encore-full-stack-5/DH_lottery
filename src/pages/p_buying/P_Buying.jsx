@@ -1,4 +1,9 @@
-import { getSelectedTicket, selectNum } from "../../api/pensionBuy";
+import {
+  deleteSelectedTicket,
+  getSelectedTicket,
+  purchase,
+  selectNum,
+} from "../../api/pensionBuy";
 import "./P_Buying.css";
 import React, { useEffect, useState } from "react";
 
@@ -11,6 +16,9 @@ const P_Buying = () => {
   const [selectNumber, setSelectNumber] = useState(["", "", "", "", "", ""]);
   const [getSelectedNum, setGetSelectedNum] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
@@ -29,7 +37,7 @@ const P_Buying = () => {
     setSelectNumber([...randomNumbers]);
 
     // setAutoNumber([selectedGroup, ...randomNumbers]);
-    setAutoNumber([groupNum, ...randomNumbers]);
+    // setAutoNumber([groupNum, ...randomNumbers]);
   };
 
   // 자동번호 버튼 클릭 시 동작
@@ -43,37 +51,66 @@ const P_Buying = () => {
     setAutoNumber((prevAutoNumber) => [group, ...prevAutoNumber.slice(1)]);
   };
 
+  const handleNumberInput = (number) => {
+    setSelectNumber((prevSelectNumber) => {
+      const newSelectNumber = [...prevSelectNumber];
+      if (selectedIndex !== null) {
+        newSelectNumber[selectedIndex] = number;
+        setSelectedIndex((prevIndex) => {
+          let nextIndex = (prevIndex + 1) % 6;
+          while (newSelectNumber[nextIndex] !== "" && nextIndex !== prevIndex) {
+            nextIndex = (nextIndex + 1) % 6;
+          }
+          return nextIndex === prevIndex ? null : nextIndex;
+        });
+      } else {
+        for (let i = 0; i < newSelectNumber.length; i++) {
+          if (newSelectNumber[i] === "") {
+            newSelectNumber[i] = number;
+            break;
+          }
+        }
+      }
+      return newSelectNumber;
+    });
+  };
+
+  const handleSelectNumberClick = (index) => {
+    setSelectedIndex(index);
+  };
+
   const saveSelectNumber = async () => {
     let data;
-    if (
-      selectNumber[0] === "" ||
-      selectNumber[1] === "" ||
-      selectNumber[2] === "" ||
-      selectNumber[3] === "" ||
-      selectNumber[4] === "" ||
-      selectNumber[5] === ""
-    ) {
-      alert("구매할 번호는 선택해주세요.");
-      return;
-    }
-    if (autoNumber[0] === "모든 조") {
-      for (let i = 1; i <= 5; i++) {
-        data = [i, ...selectNumber];
+    try {
+      if (selectNumber.some((num) => num === "")) {
+        alert("구매할 번호를 선택해주세요.");
+        return;
+      }
+      if (groupNum === "모든 조") {
+        for (let i = 1; i <= 5; i++) {
+          data = [i, ...selectNumber];
+          await selectNum(data); // selectNum이 비동기 함수로 가정
+        }
+      } else {
+        const num = Number(groupNum.split("조")[0]);
+        data = [num, ...selectNumber];
         await selectNum(data);
       }
-    } else {
-      const num = Number(autoNumber[0].split("조")[0]);
-      data = [num, ...selectNumber];
-      await selectNum(data);
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+      alert(errorMessage);
     }
     setSelectNumber(["", "", "", "", "", ""]);
-    setAutoNumber(["모든 조", "", "", "", "", "", ""]);
-    getSelected();
+    setSelectedIndex(null);
+    setGroupNum("모든 조");
+    // setAutoNumber(["모든 조", "", "", "", "", "", ""]);
+    getSelected(); // getSelected 함수가 있어야 함
   };
 
   useEffect(() => {
-    setAutoNumber(["모든 조", "", "", "", "", "", ""]);
-  }, []);
+    setSelectNumber(["", "", "", "", "", ""]);
+    // setAutoNumber(["모든 조", "", "", "", "", "", ""]);
+  }, [errorMessage]);
 
   const calculateTimeLeft = () => {
     const targetDate = new Date("2024-07-01T00:00:00");
@@ -110,17 +147,41 @@ const P_Buying = () => {
     try {
       const response = await getSelectedTicket("abcd"); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
       setGetSelectedNum(response.data);
+      console.log(response);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
-    console.log(response);
+  };
+
+  const deleteSelectNum = async (selectedNumberId) => {
+    try {
+      await deleteSelectedTicket(selectedNumberId);
+    } catch (error) {
+      console.log(error);
+    }
+    getSelected();
   };
 
   useEffect(() => {
     getSelected();
   }, []);
+
+  const purchaseTicket = async () => {
+    try {
+      const data = ["abcd", "aaa@aaa.com", 200000];
+      await purchase(data);
+      alert("구매 완료");
+      getSelected();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat("ko-KR").format(number);
+  };
 
   return (
     <div className="buying_container">
@@ -149,10 +210,16 @@ const P_Buying = () => {
               <a className="buying_auto_num" onClick={handleAutoNumberClick}>
                 자동번호
               </a>
-              <a className="buying_large-button">{autoNumber[0]}</a>
+              <a className="buying_large-button">{groupNum}</a>
               <div className="buying_btn_wrapper">
-                {autoNumber.slice(1).map((number, index) => (
-                  <a key={index} className="buying_btn">
+                {selectNumber.map((number, index) => (
+                  <a
+                    key={index}
+                    className={`buying_btn ${
+                      selectedIndex === index ? "selected" : ""
+                    }`}
+                    onClick={() => handleSelectNumberClick(index)}
+                  >
                     {number}
                   </a>
                 ))}
@@ -209,37 +276,64 @@ const P_Buying = () => {
         <div className="buying_input_selection-column">
           <p>6자리 번호 선택</p>
           <div className="buying_input_button-group">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
+            <button onClick={() => handleNumberInput(1)}>1</button>
+            <button onClick={() => handleNumberInput(2)}>2</button>
+            <button onClick={() => handleNumberInput(3)}>3</button>
           </div>
           <div className="buying_input_button-group">
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
+            <button onClick={() => handleNumberInput(4)}>4</button>
+            <button onClick={() => handleNumberInput(5)}>5</button>
+            <button onClick={() => handleNumberInput(6)}>6</button>
           </div>
           <div className="buying_input_button-group">
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
+            <button onClick={() => handleNumberInput(7)}>7</button>
+            <button onClick={() => handleNumberInput(8)}>8</button>
+            <button onClick={() => handleNumberInput(9)}>9</button>
           </div>
-          <button className="buying_zero-button">0</button>
+          <button
+            className="buying_zero-button"
+            onClick={() => handleNumberInput(0)}
+          >
+            0
+          </button>
         </div>
         <div className="buying_selection-summary">
           <p>내가 선택한 번호</p>
-          {loading ? (
-            <p>로딩 중...</p>
-          ) : getSelectedNum.length === 0 ? (
-            <p>선택번호가 존재하지 않습니다.</p>
-          ) : (
-            <ul style={{ marginLeft: "1.05rem" }}>
-              {getSelectedNum.map((number, index) => (
-                <li key={index} style={{ fontSize: "1.2rem" }}>
-                  {`${number.group}조 ${number.first} ${number.second} ${number.third} ${number.fourth} ${number.fifth} ${number.sixth}`}
-                </li>
-              ))}
-            </ul>
-          )}
+          <div
+            style={{
+              overflowY: "auto",
+              maxHeight: "200px" /* 원하는 높이로 조정 */,
+            }}
+          >
+            {loading ? (
+              <p>로딩 중...</p>
+            ) : getSelectedNum.length === 0 ? (
+              <p>선택번호가 존재하지 않습니다.</p>
+            ) : (
+              <ul>
+                {getSelectedNum.map((number, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      padding: "2px 0",
+                      marginLeft: "5px",
+                      fontSize: "1.2rem",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    {`${number.group}조 ${number.first} ${number.second} ${number.third} ${number.fourth} ${number.fifth} ${number.sixth}`}
+                    <button
+                      style={{ padding: "2px 4px" }}
+                      onClick={() => deleteSelectNum(number.selectedNumberId)}
+                    >
+                      삭제
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
       <div className="buying_footer">
@@ -256,9 +350,11 @@ const P_Buying = () => {
         <div className="buying_footer-section buying_payment-info">
           <div>
             <p>결제 예정 금액</p>
-            <p>0 원</p>
+            <p>
+              <b>{formatNumber(getSelectedNum.length * 1000)}</b> 원
+            </p>
           </div>
-          <button>구매하기</button>
+          <button onClick={purchaseTicket}>구매하기</button>
         </div>
       </div>
     </div>
