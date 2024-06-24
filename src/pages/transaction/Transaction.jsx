@@ -13,7 +13,7 @@ const Transaction = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const userId = "1"; // 여기에 실제 사용자 ID를 넣으세요.
+  const userId = "1";
 
   const fetchData = async () => {
     setLoading(true);
@@ -144,12 +144,12 @@ const Transaction = () => {
                   data.map((item, index) => (
                     <tr key={index}>
                       <td>{new Date(item.createdAt).toLocaleDateString()}</td>
-                      <td>{item.transaction_status}</td>
+                      <td>{item.transactionStatus}</td>
                       <td>
-                        {item.transaction_status === "입금" ? item.price : "-"}
+                        {item.transactionStatus === "입금" ? item.price : "-"}
                       </td>
                       <td>
-                        {item.transaction_status === "출금" ? item.price : "-"}
+                        {item.transactionStatus === "출금" ? item.price : "-"}
                       </td>
                     </tr>
                   ))

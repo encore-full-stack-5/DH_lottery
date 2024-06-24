@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import "./Success.css"; // 추가된 스타일 파일
 
 export function SuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [userId, setUserId] = useState("1");
-  
-  // const { userId } = useContext(UserContext);
+  const [paymentDetails, setPaymentDetails] = useState(null); // 상태 추가
 
   useEffect(() => {
-    // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
-    // 클라이언트에서 결제 금액을 조작하는 행위를 방지할 수 있습니다.
     const requestData = {
       orderId: searchParams.get("orderId"),
       amount: searchParams.get("amount"),
@@ -18,39 +16,75 @@ export function SuccessPage() {
     };
 
     async function confirm() {
-      console.log("user===========", userId);
-      const { orderId, amount, paymentKey } = requestData; // 변수 추출
+      const { orderId, amount, paymentKey } = requestData;
       const response = await fetch(
         `http://localhost:8080/api/v1/payments/success/${userId}?orderId=${orderId}&amount=${amount}&paymentKey=${paymentKey}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-          }
-        });
+          },
+        }
+      );
 
       const json = await response.json();
 
       if (!response.ok) {
-        // 결제 실패 비즈니스 로직을 구현하세요.
         navigate(`/fail?message=${json.message}&code=${json.code}`);
         return;
       }
 
-      // 결제 성공 비즈니스 로직을 구현하세요.
+      setPaymentDetails(json); // 응답 데이터를 상태에 저장
     }
     confirm();
-  },[searchParams, userId, navigate]);
+  }, [searchParams, userId, navigate]);
+
+  const formatApprovedAt = (approvedAt) => {
+    const date = new Date(approvedAt);
+    return date.toLocaleString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  };
 
   return (
-    <div className="result wrapper">
-      <div className="box_section">
+    <div className="success_wrapper">
+      <div className="success_box_section">
+        <div className="success-icon">✔️</div>
         <h2>결제 성공</h2>
-        <p>{`주문번호: ${searchParams.get("orderId")}`}</p>
-        <p>{`결제 금액: ${Number(
-          searchParams.get("amount")
-        ).toLocaleString()}원`}</p>
-        <p>{`paymentKey: ${searchParams.get("paymentKey")}`}</p>
+        {paymentDetails ? (
+          <>
+            <p>
+              <span>결제 방법:</span> {paymentDetails.method}
+            </p>
+            <p>
+              <span>총 결제 금액:</span>{" "}
+              {Number(paymentDetails.totalAmount).toLocaleString()}원
+            </p>
+            <p>
+              <span>결제 상태:</span>{" "}
+              {paymentDetails.status === "DONE"
+                ? "결제 완료"
+                : paymentDetails.status}
+            </p>
+            <p>
+              <span>승인 시간:</span>{" "}
+              {formatApprovedAt(paymentDetails.approvedAt)}
+            </p>
+            <p>
+              <span>결제 내용:</span> {paymentDetails.orderName}
+            </p>
+          </>
+        ) : (
+          <p>결제 정보를 불러오는 중...</p>
+        )}
+        <a href="/" className="success_button">
+          홈으로 돌아가기
+        </a>
       </div>
     </div>
   );
