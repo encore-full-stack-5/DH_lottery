@@ -16,6 +16,8 @@ const Withdraw = () => {
   const [withdrawHistory, setWithdrawHistory] = useState([]); // 출금 내역 상태 추가
 
   const [userId, setUserId] = useState("1");
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false); // 확인 팝업 상태
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 성공 메시지 상태
 
   const fees = {
     국민은행: "300원",
@@ -35,7 +37,7 @@ const Withdraw = () => {
     setFee(fees[newBank]);
   };
 
-  useEffect(() => {
+  const fetchTotalDeposit = () => {
     axios
       .get(`http://localhost:8080/api/v1/accounts/${userId}`)
       .then((response) => {
@@ -44,6 +46,10 @@ const Withdraw = () => {
       .catch((error) => {
         console.error("예치금을 가져오는 중 에러 발생:", error);
       });
+  };
+
+  useEffect(() => {
+    fetchTotalDeposit();
   }, [userId]);
 
   const handleWithdraw = () => {
@@ -62,6 +68,9 @@ const Withdraw = () => {
       )
       .then((response) => {
         console.log("출금 요청 성공:", response);
+        fetchTotalDeposit(); // 출금 후 총 예치금 다시 가져오기
+        setShowSuccessMessage(true); // 성공 메시지 표시
+        setTimeout(() => setShowSuccessMessage(false), 3000); // 3초 후 성공 메시지 숨기기
       })
       .catch((error) => {
         console.error("출금 요청 중 에러 발생:", error);
@@ -213,7 +222,7 @@ const Withdraw = () => {
                   <td colSpan="3">{fee}</td>
                 </tr>
                 <tr>
-                  <th>계좌번호(-제외)</th>
+                  <th>출금계좌번호</th>
                   <td colSpan="3">
                     <input
                       type="text"
@@ -237,7 +246,10 @@ const Withdraw = () => {
             </table>
             <div className="container_withdraw">
               <button className="cancel_button">취소</button>
-              <button className="confirm_button" onClick={handleWithdraw}>
+              <button
+                className="confirm_button"
+                onClick={() => setShowConfirmationPopup(true)} // 팝업 상태를 true로 설정
+              >
                 확인
               </button>
             </div>
@@ -331,6 +343,31 @@ const Withdraw = () => {
             <div className="empty"></div>
           </div>
         </div>
+
+        {showConfirmationPopup && (
+          <div className="popup">
+            <div className="popup_inner">
+              <h3>출금을 진행하시겠습니까?</h3>
+              <button
+                onClick={() => {
+                  handleWithdraw();
+                  setShowConfirmationPopup(false);
+                }}
+              >
+                확인
+              </button>
+              <button onClick={() => setShowConfirmationPopup(false)}>
+                취소
+              </button>
+            </div>
+          </div>
+        )}
+
+        {showSuccessMessage && (
+          <div className="success_message">
+            <p>출금이 성공적으로 진행되었습니다.</p>
+          </div>
+        )}
       </main>
     </>
   );
