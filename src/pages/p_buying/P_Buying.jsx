@@ -1,14 +1,15 @@
 import {
   deleteSelectedTicket,
+  getRound,
   getSelectedTicket,
   purchase,
   selectNum,
 } from "../../api/pensionBuy";
 import "./P_Buying.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const P_Buying = () => {
-  const [sessionNumber, setSessionNumber] = useState(214);
   const [drawDate, setDrawDate] = useState("2024.06.13");
   const [drawEndDate, setDrawEndDate] = useState("2025.06.13");
   const [groupNum, setGroupNum] = useState("모든 조");
@@ -18,6 +19,8 @@ const P_Buying = () => {
   const [loading, setLoading] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [round, setRound] = useState(0);
+  const navigate = useNavigate();
 
   const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -145,7 +148,7 @@ const P_Buying = () => {
 
   const getSelected = async () => {
     try {
-      const response = await getSelectedTicket("abcd"); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
+      const response = await getSelectedTicket("abcd", round); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
       setGetSelectedNum(response.data);
       console.log(response);
     } catch (error) {
@@ -166,7 +169,17 @@ const P_Buying = () => {
 
   useEffect(() => {
     getSelected();
+    getCurrentRound();
   }, []);
+
+  const getCurrentRound = async () => {
+    try {
+      const response = await getRound();
+      setRound(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const purchaseTicket = async () => {
     try {
@@ -183,13 +196,22 @@ const P_Buying = () => {
     return new Intl.NumberFormat("ko-KR").format(number);
   };
 
+  const goToPayment = () => {
+    navigate('/payment');
+  };
+
+  const goToHistory = () => {
+    navigate('/pension_history');
+  };
+  
+
   return (
     <div className="buying_container">
       {/* header */}
       <div className="buying_header">
         <div className="buying_header-left">
           <a href="/winResult" className="buying_result_btn">
-            제 {sessionNumber}회 당첨결과 →
+            제 {round}회 당첨결과 →
           </a>
         </div>
         <div className="buying_header-center">
@@ -242,7 +264,7 @@ const P_Buying = () => {
             <div className="buying_line"></div>
             <div className="buying_info">
               <div className="buying_info-left">
-                제 {sessionNumber}회 추 첨 일 날짜 {drawDate}
+                제 {round}회 추 첨 일 날짜 {drawDate}
               </div>
               <hr />
               <div className="buying_info-right">
@@ -338,12 +360,12 @@ const P_Buying = () => {
       </div>
       <div className="buying_footer">
         <div className="buying_footer-section">
-          <button>구매내역 보기</button>
+          <button onClick={goToHistory}>구매내역 보기</button>
         </div>
         <div className="buying_footer-section">
           <div className="buying_deposit-info">
             <p>보유중인 예치금</p>
-            <button>충전</button>
+            <button onClick={goToPayment}>충전</button>
           </div>
           <p>0원</p>
         </div>

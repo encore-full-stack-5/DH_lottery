@@ -2,7 +2,7 @@ import { api } from "../config/network";
 
 export const selectNum = async (data) => {
   console.log(data);
-  const d = ["abcd", 1, ...data];
+  const d = [...data];
 
   const selectItem = {
     userId: d[0], // userId가 없으므로 null로 설정
@@ -16,7 +16,7 @@ export const selectNum = async (data) => {
     sixth: d[8],
   };
 
-  await api("/api/v1/pension/selection", "post", selectItem);
+  await api("/api/v1/pension/selected", "post", selectItem);
 };
 
 export const getSelectedTicket = async (userId) => {
@@ -35,5 +35,10 @@ export const purchase = async (data) => {
     balance: data[2],
   };
 
-  await api("/api/v1/pension/buying", "post", purchaseItem);
+  await api("/api/v1/pension/purchased", "post", purchaseItem);
 };
+
+export const getRound = async () => {
+  const res = await api("/api/v1/pension/round", "get");
+  return res;
+}
