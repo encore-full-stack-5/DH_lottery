@@ -70,11 +70,11 @@
   font-style: normal;
 }
 
-.g-num{
-  border-color: #D4D4D4;
+.g-num {
+  border-color: #d4d4d4;
 }
-.g-num::after{
-  border-color: #D4D4D4;
+.g-num::after {
+  border-color: #d4d4d4;
 }
 .num1 {
   border-color: #ff4c4c;
@@ -151,7 +151,7 @@
 .content-section {
   margin-left: 100px;
   padding: 20px;
-  width: calc(100% - 320px); 
+  width: calc(100% - 320px);
 }
 
 .header-container {
@@ -177,4 +177,8 @@
   background-position: right 10px center;
   background-size: 10px 5px;
   cursor: pointer;
+}
+
+.group-num.sml {
+  margin-right: 28px;
 }
