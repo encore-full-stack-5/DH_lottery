@@ -1,7 +1,7 @@
-import P_MyWin720Result from "../../components/plus720/P_MyWin720Result";
+import PensionHistory from "../../components/plus720/PensionHistory";
 import ResultSideBar from "../../components/sidebar/ResultSideBar";
 
-const P_MyWin720 = () => {
+const P_PensionHistory = () => {
   return (
     <div
       style={{
@@ -14,11 +14,11 @@ const P_MyWin720 = () => {
           <ResultSideBar />
         </div>
         <div style={{ flex: "2" }}>
-          <P_MyWin720Result />
+          <PensionHistory />
         </div>
       </div>
     </div>
   );
 };
 
-export default P_MyWin720;
+export default P_PensionHistory;

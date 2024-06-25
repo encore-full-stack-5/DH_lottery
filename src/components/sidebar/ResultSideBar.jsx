@@ -50,7 +50,7 @@ const ResultSideBar = () => {
                 <Link to="/winResult">- 당첨 결과</Link>
               </li>
               <li>
-                <Link to="/myWin720">- 내 당첨 결과</Link>
+                <Link to="/pension_history">- 당첨 내역</Link>
               </li>
               <li>
                 <Link to="/stat720">- 통계</Link>
