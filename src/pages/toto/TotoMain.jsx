@@ -16,7 +16,7 @@ const TotoMain = () => {
     const daytoText = ["일", "월", "화", "수", "목", "금", "토"];
     const serverAddr = "http://192.168.0.16:8000/api/v1/toto";
 
-    const testUUIDToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTkyMzUyNjJ9.1LKcVeCusjr0aVnPlFMyInHZ_UG4J32YUat5MDEIL1Zc33ZjNP6RPL27m12YL3dP";
+    const testUUIDToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTkzMzMyODR9.zb_cj5O2Yf18LrwvJERlTk-y2nEDaqUATfYqbsPy2RuEMEK2ut5Up6bRef1oW0mN";
 
     const changeWeek = (e = 0) => {
         if(e != 0) changeDay(-1);
@@ -33,7 +33,7 @@ const TotoMain = () => {
     const changeDay = (e) => {
         const gameCalender = document.getElementById("g-calender-head");
         setSelectedDay(e);
-        getGameData(new Date(new Date(selectedWeek).setDate(selectedWeek.getDate() + e -1)).toISOString().split('T')[0]);
+        getGameData(new Date(new Date(selectedWeek).setDate(selectedWeek.getDate() + e - 1)).toISOString().split('T')[0]);
 
         if (e != selectedDay && selectedDay != -1) {
             gameCalender.children[selectedDay].style.backgroundColor = null;
@@ -157,7 +157,7 @@ const TotoMain = () => {
                 {innerText == "" ? 
                     <div style={{height:"10px"}}/>
                  : 
-                    <div className="game-list-more" onClick={() => getGameData(null, pageData.page+1)}>
+                    <div className="game-list-more" onClick={() => getGameData(new Date(new Date(selectedWeek).setDate(selectedWeek.getDate() + selectedDay - 1)).toISOString().split('T')[0], pageData.page+1)}>
                         {innerText}
                     </div>}
             </>
@@ -167,7 +167,7 @@ const TotoMain = () => {
     const getGameData = async (date = null, page = 0) => {
         try{
             let url = serverAddr + "/games?page=" + page;
-            url += date != null ? "&date="+date : ""
+            url += date == null ? "" : "&date="+date;
             const response = await axios.get(url);
             if (page == 0) {
                 setGameData(response.data.content);
@@ -176,7 +176,7 @@ const TotoMain = () => {
                 setGameData([...beforeData, ...response.data.content]);
             }
             setPageData(response.data.pageInfo);
-            console.log(response.data);
+            // console.log(response.data);
         } catch(error) {
             alert(error);
         }

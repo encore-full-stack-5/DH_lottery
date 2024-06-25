@@ -120,6 +120,8 @@
     min-width: 260px;
     max-height: calc(100dvh - 190px);
     height: fit-content;
+    position: sticky;
+    top: 10px;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
