@@ -233,26 +233,32 @@ const P_WinningResult = () => {
                   {results.map((result) => (
                     <>
                       <div style={{ textAlign: "right" }}>
-                        <span className="group-num g-num sml">
+                        <span
+                          className="group-num-small g-num-s "
+                          style={{ marginRight: "15px", marginLeft: "3px" }}
+                        >
                           {result.groupNum}
                         </span>
-                        <span>조</span>
-                        <span className="group-num num1 sml">
+                        <span style={{ fontSize: "28px" }}>조</span>
+                        <span
+                          className="group-num-small s1"
+                          style={{ marginLeft: "15px" }}
+                        >
                           {result.firstNum}
                         </span>
-                        <span className="group-num num2 sml">
+                        <span className="group-num-small s2">
                           {result.secondNum}
                         </span>
-                        <span className="group-num num3 sml">
+                        <span className="group-num-small s3">
                           {result.thirdNum}
                         </span>
-                        <span className="group-num num4 sml">
+                        <span className="group-num-small  s4">
                           {result.fourthNum}
                         </span>
-                        <span className="group-num num5 sml">
+                        <span className="group-num-small s5 ">
                           {result.fifthNum}
                         </span>
-                        <span className="group-num num6  sml">
+                        <span className="group-num-small s6 ">
                           {result.sixthNum}
                         </span>
                       </div>
@@ -267,22 +273,22 @@ const P_WinningResult = () => {
                   {results.map((result) => (
                     <>
                       <div style={{ textAlign: "right" }}>
-                        <span className="group-num num1 sml">
+                        <span className="group-num-small s1">
                           {result.firstNum}
                         </span>
-                        <span className="group-num num2 sml">
+                        <span className="group-num-small s2">
                           {result.secondNum}
                         </span>
-                        <span className="group-num num3 sml">
+                        <span className="group-num-small s3">
                           {result.thirdNum}
                         </span>
-                        <span className="group-num num4 sml">
+                        <span className="group-num-small s4">
                           {result.fourthNum}
                         </span>
-                        <span className="group-num num5  sml">
+                        <span className="group-num-small s5">
                           {result.fifthNum}
                         </span>
-                        <span className="group-num num6 sml">
+                        <span className="group-num-small s6">
                           {result.sixthNum}
                         </span>
                       </div>
@@ -297,19 +303,19 @@ const P_WinningResult = () => {
                   {results.map((result) => (
                     <>
                       <div style={{ textAlign: "right" }}>
-                        <span className="group-num num2 sml">
+                        <span className="group-num-small s2">
                           {result.secondNum}
                         </span>
-                        <span className="group-num num3  sml">
+                        <span className="group-num-small s3">
                           {result.thirdNum}
                         </span>
-                        <span className="group-num num4 sml">
+                        <span className="group-num-small s4">
                           {result.fourthNum}
                         </span>
-                        <span className="group-num num5 sml">
+                        <span className="group-num-small s5">
                           {result.fifthNum}
                         </span>
-                        <span className="group-num num6 sml">
+                        <span className="group-num-small s6">
                           {result.sixthNum}
                         </span>
                       </div>
@@ -324,16 +330,16 @@ const P_WinningResult = () => {
                   {results.map((result) => (
                     <>
                       <div style={{ textAlign: "right" }}>
-                        <span className="group-num num3 sml">
+                        <span className="group-num-small s3">
                           {result.thirdNum}
                         </span>
-                        <span className="group-num num4 sml">
+                        <span className="group-num-small s4">
                           {result.fourthNum}
                         </span>
-                        <span className="group-num num5 sml">
+                        <span className="group-num-small s5">
                           {result.fifthNum}
                         </span>
-                        <span className="group-num num6 sml">
+                        <span className="group-num-small s6">
                           {result.sixthNum}
                         </span>
                       </div>
@@ -348,13 +354,13 @@ const P_WinningResult = () => {
                   {results.map((result) => (
                     <>
                       <div style={{ textAlign: "right" }}>
-                        <span className="group-num num4 sml">
+                        <span className="group-num-small s4">
                           {result.fourthNum}
                         </span>
-                        <span className="group-num num5 sml">
+                        <span className="group-num-small s5">
                           {result.fifthNum}
                         </span>
-                        <span className="group-num num6 sml">
+                        <span className="group-num-small s6">
                           {result.sixthNum}
                         </span>
                       </div>
@@ -369,10 +375,10 @@ const P_WinningResult = () => {
                   {results.map((result) => (
                     <>
                       <div style={{ textAlign: "right" }}>
-                        <span className="group-num num5 sml">
+                        <span className="group-num-small s5">
                           {result.fifthNum}
                         </span>
-                        <span className="group-num num6 sml">
+                        <span className="group-num-small s6">
                           {result.sixthNum}
                         </span>
                       </div>
@@ -387,7 +393,7 @@ const P_WinningResult = () => {
                   {results.map((result) => (
                     <>
                       <div style={{ textAlign: "right" }}>
-                        <span className="group-num num6 sml">
+                        <span className="group-num-small s6">
                           {result.sixthNum}
                         </span>
                       </div>
@@ -402,22 +408,22 @@ const P_WinningResult = () => {
                   {bonus.map((bonus) => (
                     <>
                       <div style={{ textAlign: "right" }}>
-                        <span className="group-num num1 sml">
+                        <span className="group-num-small s1">
                           {bonus.firstNum}
                         </span>
-                        <span className="group-num num2 sml">
+                        <span className="group-num-small s2">
                           {bonus.secondNum}
                         </span>
-                        <span className="group-num num3 sml">
+                        <span className="group-num-small s3">
                           {bonus.thirdNum}
                         </span>
-                        <span className="group-num num4 sml">
+                        <span className="group-num-small s4">
                           {bonus.fourthNum}
                         </span>
-                        <span className="group-num num5 sml">
+                        <span className="group-num-small s5">
                           {bonus.fifthNum}
                         </span>
-                        <span className="group-num num6 sml">
+                        <span className="group-num-small s6">
                           {bonus.sixthNum}
                         </span>
                       </div>
