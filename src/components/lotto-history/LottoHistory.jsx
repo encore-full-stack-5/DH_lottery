@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import './LottoHistory.css';
+import React, { useEffect, useState } from "react";
+import "./LottoHistory.css";
+import axios from "axios";
 
 const LottoHistory = () => {
-  const [selectedOption, setSelectedOption] = useState('전체보기');
-  const [startDate, setStartDate] = useState('2024-06-10');
-  const [endDate, setEndDate] = useState('2024-06-10');
-  const [orderBy, setOrderBy] = useState('recent');
+  const [selectedOption, setSelectedOption] = useState("전체보기");
+  const [startDate, setStartDate] = useState("2024-06-10");
+  const [endDate, setEndDate] = useState("2024-06-10");
+  const [orderBy, setOrderBy] = useState("recent");
+  const [userId, setUserId] = useState("daniel");
+  const [allHistory, setAllHistory] = useState([]); // Initialize as an empty array
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
@@ -23,8 +26,22 @@ const LottoHistory = () => {
     setOrderBy(e.target.value);
   };
 
-  const handleSearch = () => {
+  const fetchAllHistory = () => {
+    axios
+      .get(`http://localhost:8080/api/v1/lotto-history/${userId}`)
+      .then((response) => {
+        setAllHistory(response.data);
+      })
+      .catch((error) => {
+        console.error("에러 발생:", error);
+      });
   };
+
+  useEffect(() => {
+    fetchAllHistory();
+  }, [userId]);
+
+  const handleSearch = () => {};
 
   return (
     <div className="history_container">
@@ -32,7 +49,11 @@ const LottoHistory = () => {
       <div className="filter-section">
         <div className="filter-row">
           <label htmlFor="option">당/낙첨여부</label>
-          <select id="option" value={selectedOption} onChange={handleOptionChange}>
+          <select
+            id="option"
+            value={selectedOption}
+            onChange={handleOptionChange}
+          >
             <option value="전체보기">전체보기</option>
             <option value="당첨내역">당첨내역</option>
             <option value="낙첨내역">낙첨내역</option>
@@ -64,7 +85,7 @@ const LottoHistory = () => {
               <input
                 type="radio"
                 value="recent"
-                checked={orderBy === 'recent'}
+                checked={orderBy === "recent"}
                 onChange={handleOrderChange}
               />
               최근내역이 위로
@@ -73,14 +94,16 @@ const LottoHistory = () => {
               <input
                 type="radio"
                 value="past"
-                checked={orderBy === 'past'}
+                checked={orderBy === "past"}
                 onChange={handleOrderChange}
               />
               과거내역이 위로
             </label>
           </div>
         </div>
-        <button className="search-button" onClick={handleSearch}>조회</button>
+        <button className="search-button" onClick={handleSearch}>
+          조회
+        </button>
       </div>
       <table className="result-table">
         <thead>
@@ -89,16 +112,31 @@ const LottoHistory = () => {
             <th>복권명</th>
             <th>회차</th>
             <th>선택번호/복권번호</th>
-            {/* <th>구입매수</th> */}
+            <th>구입매수</th>
             <th>당첨결과</th>
             <th>당첨금</th>
             <th>추첨일</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td colSpan="8">조회 결과가 없습니다.</td>
-          </tr>
+          {allHistory.length > 0 ? (
+            allHistory.map((history) => (
+              <tr key={history.id}>
+                <td>{new Date(history.createdAt).toLocaleDateString()}</td>
+                <td>로또</td>
+                <td>{history.roundId}</td>
+                <td>{history.lotteryId}</td>
+                <td>{history.lotteryCount}</td>
+                <td>{history.result}</td>
+                <td>{history.resultMoney}</td>
+                <td></td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="8">조회 결과가 없습니다.</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
