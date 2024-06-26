@@ -4,6 +4,7 @@ import GameListItem from "../../components/toto/GameListItem";
 import OrderCartItem from "../../components/toto/OrderCartItem";
 import GameCalenderItem from "../../components/toto/GameCalenderItem";
 import axios from "axios";
+import OrderHistoryItem from "../../components/toto/OrderHistoryItem";
 
 const TotoMain = () => {
     const [selectedDay, setSelectedDay] = useState(new Date().getDay()+1);
@@ -13,10 +14,11 @@ const TotoMain = () => {
     const [orderSum, setOrderSum] = useState();
     const [gameData, setGameData] = useState();
     const [pageData, setPageData] = useState();
+    const [bettingData, setBettingData] = useState();
     const daytoText = ["일", "월", "화", "수", "목", "금", "토"];
     const serverAddr = "http://192.168.0.16:8000/api/v1/toto";
 
-    const testUUIDToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTkzMzMyODR9.zb_cj5O2Yf18LrwvJERlTk-y2nEDaqUATfYqbsPy2RuEMEK2ut5Up6bRef1oW0mN";
+    const testUUIDToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTk0MTU5OTF9.mzbQGv2YeM2HcYJDtGGmwoZ7keyChtafvf64trLz5CErfqoFtm8fo7oGkrD-xghy";
 
     const changeWeek = (e = 0) => {
         if(e != 0) changeDay(-1);
@@ -56,6 +58,7 @@ const TotoMain = () => {
         }
         orderBoxHeader.children[e].style.borderBottom = "3px solid #47b0ec";
         orderBoxHeader.children[e].style.backgroundColor = "white";
+        if(e == 1) getBettingData();
     }
     const changeOrder = (e) => {
         let bettingOrderChange = bettingOrder;
@@ -163,6 +166,56 @@ const TotoMain = () => {
             </>
         );
     }
+    const SetBettingHistory = () => {
+        return (
+            <div className="order-box-betting-box">
+                {bettingData?.map((e,i) => 
+                    <OrderHistoryItem 
+                        key={i}
+                        date={new Date(e.createdAt)}
+                        amount={e.pointAmount}
+                        bettingGames={e.bettingGames}
+                    />
+                // {
+                //     const buyDate = new Date(e.createdAt);
+                //     return (
+                //         <div key={i}>
+                //             <div>
+                //                 {`${buyDate.getMonth()+1}.${buyDate.getDate()}(${daytoText[buyDate.getDay()]})`}
+                //             </div>
+                //             <div>
+                //                 {e.pointAmount}
+                //             </div>
+                //             <div>
+                //                 {e.bettingGames.map((e,i) => {
+                //                     const startDate = new Date(e.gameStartAt);
+                //                     return (
+                //                     <div key={i}>
+                //                         <div>
+                //                             {`${startDate.getMonth()}.${startDate.getDate()}`}
+                //                         </div>
+                //                         <div>
+                //                             {`${e.teamHome}vs${e.teamAway}`}
+                //                         </div>
+                //                         <div>
+                //                             {e.gameRtp}
+                //                         </div>
+                //                         <div>
+                //                             {e.team == 1 ? e.teamHome : e.teamAway}
+                //                         </div>
+                //                         <div>
+                //                             {e.result}
+                //                         </div>
+                //                     </div>
+                //                 )})}
+                //             </div>
+                //         </div>
+                //     )
+                // }
+                )}
+            </div>
+        )
+    }
 
     const getGameData = async (date = null, page = 0) => {
         try{
@@ -176,6 +229,18 @@ const TotoMain = () => {
                 setGameData([...beforeData, ...response.data.content]);
             }
             setPageData(response.data.pageInfo);
+            // console.log(response.data);
+        } catch(error) {
+            alert(error);
+        }
+    }
+    const getBettingData = async () => {
+        try{
+            const response = await axios.get(
+                "http://localhost:8000/api/v1/toto/betting",
+                { headers: { Authorization: testUUIDToken }}
+            );
+            setBettingData(response.data);
             // console.log(response.data);
         } catch(error) {
             alert(error);
@@ -279,34 +344,42 @@ const TotoMain = () => {
                         </div>
                     </div>
                     <div className="order-box-cart">
-                        <SetCartOrder />
-                        <div className="order-box-cart-sum">
-                            <div>
-                                <div style={{flex:3}}>선택경기수</div>
-                                <div style={{flex:3}}>{orderSum?.count}</div>
-                                <div style={{flex:1}}>경기</div>
-                            </div>
-                            <div>
-                                <div style={{flex:3}}>예상적중배당률</div>
-                                <div style={{flex:3}}>{orderSum?.rtp}</div>
-                                <div style={{flex:1}}>배</div>
-                            </div>
-                            <div>
-                                <div style={{flex:3}}>개별투표금액</div>
-                                <div style={{flex:3}}>
-                                    <input id="betting-amount"
-                                        onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, "")}
-                                        onChange={changeOrderSum}
-                                        defaultValue={0}/>
+                        {selectedCart == 0 ? 
+                            <>
+                                <SetCartOrder />
+                                <div className="order-box-cart-sum">
+                                    <div>
+                                        <div style={{flex:3}}>선택경기수</div>
+                                        <div style={{flex:3}}>{orderSum?.count}</div>
+                                        <div style={{flex:1}}>경기</div>
+                                    </div>
+                                    <div>
+                                        <div style={{flex:3}}>예상적중배당률</div>
+                                        <div style={{flex:3}}>{orderSum?.rtp}</div>
+                                        <div style={{flex:1}}>배</div>
+                                    </div>
+                                    <div>
+                                        <div style={{flex:3}}>개별투표금액</div>
+                                        <div style={{flex:3}}>
+                                            <input id="betting-amount"
+                                                onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, "")}
+                                                onChange={changeOrderSum}
+                                                defaultValue={0}/>
+                                        </div>
+                                        <div style={{flex:1}}>원</div>
+                                    </div>
+                                    <div>
+                                        <div style={{flex:3}}>예상적중금액</div>
+                                        <div style={{flex:3}}>{orderSum?.result}</div>
+                                        <div style={{flex:1}}>원</div>
+                                    </div>
                                 </div>
-                                <div style={{flex:1}}>원</div>
-                            </div>
-                            <div>
-                                <div style={{flex:3}}>예상적중금액</div>
-                                <div style={{flex:3}}>{orderSum?.result}</div>
-                                <div style={{flex:1}}>원</div>
-                            </div>
-                        </div>
+                            </>
+                        : 
+                            <>
+                                <SetBettingHistory />
+                            </>
+                        }
                     </div>
                 </div>
                 <div className="order-box-buy" onClick={sendBettingData}>

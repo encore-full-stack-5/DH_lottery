@@ -1,0 +1,36 @@
+.order-box-betting-item{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #00000020;
+    margin-bottom: 3px;
+}
+
+.order-box-betting-item-col{
+    height: 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.order-box-betting-item-col:nth-child(1){
+    margin-top: 6px;
+}
+
+.order-box-betting-item-col:nth-child(2){
+    height: 18px;
+}
+.order-box-betting-item-col:nth-child(2) > div:nth-child(1){
+    font-size: 10pt;
+}
+.order-box-betting-item-col:nth-child(3){
+    height: fit-content;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    font-size: 9pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

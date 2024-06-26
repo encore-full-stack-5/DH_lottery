@@ -115,8 +115,8 @@
     cursor: pointer;
 }
 
-
 .order-box{
+    max-width: 260px;
     min-width: 260px;
     max-height: calc(100dvh - 190px);
     height: fit-content;
@@ -185,6 +185,11 @@
 }
 .order-box-cart-sum > div > div:nth-child(3){
     font-weight: normal;
+}
+
+.order-box-betting-box{
+    height: calc(100dvh - 280px);
+    overflow: auto;
 }
 
 .order-box-buy{
