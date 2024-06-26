@@ -1,14 +1,23 @@
 import MyPageSideBar from "../../components/sidebar/MyPageSideBar";
 import "./Withdraw.css";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 const Withdraw = () => {
-  const [accountHolderName, setAccountHolderName] = useState("동행복권_박현서");
+  const [accountHolderName, setAccountHolderName] = useState("");
   const [selectedBank, setSelectedBank] = useState("국민은행");
   const [fee, setFee] = useState("300원");
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [totalDeposit, setTotalDeposit] = useState(0);
+  const [withdrawPrice, setWithdrawPrice] = useState();
+  const [withdrawHistory, setWithdrawHistory] = useState([]); // 출금 내역 상태 추가
+
+  const [userId, setUserId] = useState("1");
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false); // 확인 팝업 상태
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 성공 메시지 상태
 
   const fees = {
     국민은행: "300원",
@@ -22,28 +31,88 @@ const Withdraw = () => {
     신협: "260원",
   };
 
-  const data = [
-    {
-      requestDate: "2024/06/09",
-      bank: "국민은행",
-      accountNumber: "123-456-7890",
-      amount: "100,000",
-      status: "처리중",
-    },
-    {
-      requestDate: "2024/06/09",
-      bank: "신한은행",
-      accountNumber: "124095-120-23090",
-      amount: "1,000,000",
-      status: "처리중",
-    },
-  ];
-
   const handleBankChange = (event) => {
     const newBank = event.target.value;
     setSelectedBank(newBank);
     setFee(fees[newBank]);
   };
+
+  const fetchTotalDeposit = () => {
+    axios
+      .get(`http://localhost:8080/api/v1/accounts/${userId}`)
+      .then((response) => {
+        setTotalDeposit(response.data.point);
+      })
+      .catch((error) => {
+        console.error("예치금을 가져오는 중 에러 발생:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchTotalDeposit();
+  }, [userId]);
+
+  const handleWithdraw = () => {
+    const withdrawData = {
+      price: withdrawPrice,
+      charge: parseInt(fee),
+      bankName: selectedBank,
+      accountNum: accountHolderName,
+      accountOwnerName: "박현서", // 예금주명 (고정값 또는 별도 처리)
+    };
+
+    axios
+      .put(
+        `http://localhost:8080/api/v1/accounts/${userId}/withdraw`,
+        withdrawData
+      )
+      .then((response) => {
+        console.log("출금 요청 성공:", response);
+        fetchTotalDeposit(); // 출금 후 총 예치금 다시 가져오기
+        setShowSuccessMessage(true); // 성공 메시지 표시
+        setTimeout(() => setShowSuccessMessage(false), 3000); // 3초 후 성공 메시지 숨기기
+      })
+      .catch((error) => {
+        console.error("출금 요청 중 에러 발생:", error);
+      });
+  };
+
+  const handleSearch = () => {
+    const startDateString = selectedStartDate?.toISOString();
+    const endDateString = selectedEndDate?.toISOString();
+
+    if (
+      selectedStartDate &&
+      selectedEndDate &&
+      selectedStartDate > selectedEndDate
+    ) {
+      alert("조회 종료일은 시작일보다 빠를 수 없습니다.");
+      return;
+    }
+
+    const params = {
+      startDate: startDateString?.split("T")[0],
+      endDate: endDateString?.split("T")[0],
+    };
+
+    axios
+      .get(
+        `http://localhost:8080/api/v1/accounts/${userId}/histories/withdraw`,
+        { params }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setWithdrawHistory(response.data);
+      })
+      .catch((error) => {
+        console.error("출금 내역 조회 중 에러 발생:", error);
+      });
+  };
+
+  const formatDate = (dateString) => {
+    return dateString.split("T")[0]; // 날짜 부분만 추출
+  };
+
   return (
     <>
       <main>
@@ -64,7 +133,7 @@ const Withdraw = () => {
               </li>
             </ul>
             <p className="show_total_money">
-              <a className="show_total_money_a">총 예치금 0 원</a>
+              <a className="show_total_money_a">총 예치금 {totalDeposit} 원</a>
             </p>
           </div>
           <div className="group_and_terms_wrapper">
@@ -123,9 +192,11 @@ const Withdraw = () => {
                 type="checkbox"
                 value="Y"
               ></input>
-              <label for="agreeChk">개인정보 수집 · 이용에 동의합니다.</label>
+              <label htmlFor="agreeChk">
+                개인정보 수집 · 이용에 동의합니다.
+              </label>
             </div>
-            <h4 className="title">출금 계좌 등록</h4>
+            <h4 className="title">출금</h4>
             <table className="table_withdraw">
               <tbody className="tbody_withdraw">
                 <tr>
@@ -151,7 +222,7 @@ const Withdraw = () => {
                   <td colSpan="3">{fee}</td>
                 </tr>
                 <tr>
-                  <th>계좌번호</th>
+                  <th>출금계좌번호</th>
                   <td colSpan="3">
                     <input
                       type="text"
@@ -160,14 +231,27 @@ const Withdraw = () => {
                       className="input_box_withdraw"
                     />
                   </td>
-                  <th>예금주명</th>
-                  <td colSpan="3">박현서</td>
+                  <th>출금액</th>
+                  <td colSpan="3">
+                    {" "}
+                    <input
+                      type="text"
+                      value={withdrawPrice}
+                      onChange={(e) => setWithdrawPrice(e.target.value)}
+                      className="input_box_withdraw"
+                    />
+                  </td>
                 </tr>
               </tbody>
             </table>
-            <div class="container_withdraw">
-              <button class="cancel_button">취소</button>
-              <button class="confirm_button">등록</button>
+            <div className="container_withdraw">
+              <button className="cancel_button">취소</button>
+              <button
+                className="confirm_button"
+                onClick={() => setShowConfirmationPopup(true)} // 팝업 상태를 true로 설정
+              >
+                확인
+              </button>
             </div>
             <img src="withdraw_process.png" className="withdraw_process" />
             <h4 className="title">출금신청 내역 조회</h4>
@@ -217,7 +301,11 @@ const Withdraw = () => {
                     </div>
                   </td>
                   <td className="ta_right_submit">
-                    <button className="btn_common" id="submit_btn">
+                    <button
+                      className="btn_common"
+                      id="submit_btn"
+                      onClick={handleSearch}
+                    >
                       조회
                     </button>
                   </td>
@@ -235,18 +323,18 @@ const Withdraw = () => {
                 </tr>
               </thead>
               <tbody className="search_tbody">
-                {data.length === 0 ? (
+                {withdrawHistory.length === 0 ? (
                   <tr>
                     <td colSpan="5">데이터가 없습니다.</td>
                   </tr>
                 ) : (
-                  data.map((item, index) => (
+                  withdrawHistory.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.requestDate}</td>
-                      <td>{item.bank}</td>
-                      <td>{item.accountNumber}</td>
-                      <td>{item.amount}</td>
-                      <td>{item.status}</td>
+                      <td>{formatDate(item.createdAt)}</td>
+                      <td>{item.withdrawBankName}</td>
+                      <td>{item.withdrawAccountNum}</td>
+                      <td>{item.price}</td>
+                      <td>{item.transactionStatus} 완료</td>
                     </tr>
                   ))
                 )}
@@ -255,6 +343,31 @@ const Withdraw = () => {
             <div className="empty"></div>
           </div>
         </div>
+
+        {showConfirmationPopup && (
+          <div className="popup">
+            <div className="popup_inner">
+              <h3>출금을 진행하시겠습니까?</h3>
+              <button
+                onClick={() => {
+                  handleWithdraw();
+                  setShowConfirmationPopup(false);
+                }}
+              >
+                확인
+              </button>
+              <button onClick={() => setShowConfirmationPopup(false)}>
+                취소
+              </button>
+            </div>
+          </div>
+        )}
+
+        {showSuccessMessage && (
+          <div className="success_message">
+            <p>출금이 성공적으로 진행되었습니다.</p>
+          </div>
+        )}
       </main>
     </>
   );

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 
@@ -6,14 +7,19 @@ import { nanoid } from "nanoid";
 // 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
 const widgetClientKey = import.meta.env.VITE_TOSS_API_CLIENT_KEY;
 const customerKey = "GEd1F_6x8k9HRkEg71dMU";
+const { selectedUserEmail, selectedAmount } = location.state || { selectedUserEmail:"", selectedAmount: 50000 };
 // const paymentWidget = PaymentWidget(widgetClientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
-
 export function CheckoutPage() {
-  console.log(widgetClientKey);
+  const location = useLocation();
+  const { selectedAmount } = location.state || { selectedAmount: 0 };
+  const { selectedUserEmail } = location.state || { selectedUserEmail: "" };
+
   const [paymentWidget, setPaymentWidget] = useState(null);
   const paymentMethodsWidgetRef = useRef(null);
-  const [price, setPrice] = useState(50_000);
-
+  const [price, setPrice] = useState(selectedAmount);
+  const [userEmail, setEmail] = useState(selectedUserEmail)
+  console.log(price);
+  console.log(userEmail);
   useEffect(() => {
     const fetchPaymentWidget = async () => {
       try {
@@ -62,9 +68,9 @@ export function CheckoutPage() {
     try {
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
-        orderName: "토스 티셔츠 외 2건",
-        customerName: "김토스",
-        customerEmail: "customer123@gmail.com",
+        orderName: "예치금 충전",
+        customerName: "todo",
+        customerEmail: userEmail,
         customerMobilePhone: "01012341234",
         successUrl: `${window.location.origin}/success`,
         failUrl: `${window.location.origin}/fail`,
