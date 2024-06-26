@@ -92,6 +92,13 @@
   border-color: #ff8e4f;
 }
 
+.org {
+  border-color: #ff8e4f;
+}
+.org {
+  border-color: #ff8e4f;
+}
+
 .num3 {
   border-color: #fcd153;
 }
@@ -181,4 +188,102 @@
 
 .group-num.sml {
   margin-right: 28px;
+}
+
+.Sgroup-num {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: bold;
+
+  text-align: center;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.Sgroup-num::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+}
+
+.group-num-small {
+  font-size: 20px; /* Adjust the font size for smaller circle */
+  width: 35px; /* Adjust the width for smaller circle */
+  height: 35px; /* Adjust the height for smaller circle */
+  border: 2px solid #fefefe; /* Adjust the border width for smaller circle */
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.group-num-small::after {
+  width: 45px; /* Adjust the width for the smaller circle's after element */
+  height: 45px; /* Adjust the height for the smaller circle's after element */
+  border: 5px solid #fefefe; /* Adjust the border width for the smaller circle's after element */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.g-num-s {
+  border-color: #d4d4d4;
+}
+.g-num-s::after {
+  border-color: #d4d4d4;
+}
+.s1 {
+  border-color: #ff4c4c;
+}
+.s1::after {
+  border-color: #ff4c4c;
+}
+
+.s2 {
+  border-color: #ff8e4f;
+}
+.s2::after {
+  border-color: #ff8e4f;
+}
+
+.s3 {
+  border-color: #fcd153;
+}
+.s3::after {
+  border-color: #fcd153;
+}
+
+.s4 {
+  border-color: #3cbcff;
+}
+.s4::after {
+  border-color: #3cbcff;
+}
+
+.s5 {
+  border-color: #8d70da;
+}
+.s5::after {
+  border-color: #8d70da;
+}
+
+.s6 {
+  border-color: #777777;
+}
+.s6::after {
+  border-color: #777777;
 }
