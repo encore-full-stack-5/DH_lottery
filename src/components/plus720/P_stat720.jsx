@@ -15,6 +15,9 @@ const P_stat720 = () => {
   const [firstNumFrequency, setFirstNumFrequency] = useState([]);
   const [secondNumFrequency, setSecondNumFrequency] = useState([]);
   const [thirdNumFrequncy, setThirdNumFrequency] = useState([]);
+  const [fourthNumFrequency, setFourthNumFrequency] = useState([]);
+  const [fifthNumFrequency, setFifthNumFrequency] = useState([]);
+  const [sixthNumFrequncy, setSixthNumFrequency] = useState([]);
 
   const group = groupNumFrequency.map((item, index) => ({
     번호: item.number,
@@ -27,6 +30,23 @@ const P_stat720 = () => {
   }));
 
   const second = secondNumFrequency.map((item, index) => ({
+    번호: item.number,
+    당첨횟수: item.frequency,
+  }));
+  const third = thirdNumFrequncy.map((item, index) => ({
+    번호: item.number,
+    당첨횟수: item.frequency,
+  }));
+  const fourth = fourthNumFrequency.map((item, index) => ({
+    번호: item.number,
+    당첨횟수: item.frequency,
+  }));
+
+  const fifth = fifthNumFrequency.map((item, index) => ({
+    번호: item.number,
+    당첨횟수: item.frequency,
+  }));
+  const sixth = sixthNumFrequncy.map((item, index) => ({
     번호: item.number,
     당첨횟수: item.frequency,
   }));
@@ -71,7 +91,7 @@ const P_stat720 = () => {
   const getThirdFreqData = async () => {
     try {
       const res = await getThirdFreq();
-      setThirdNumFrequency(res.data); // Assuming you have a state setter for thirdNumFrequency
+      setThirdNumFrequency(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +100,7 @@ const P_stat720 = () => {
   const getFourthFreqData = async () => {
     try {
       const res = await getFourthFreq();
-      setFourthNumFrequency(res.data); // Assuming you have a state setter for fourthNumFrequency
+      setFourthNumFrequency(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +109,7 @@ const P_stat720 = () => {
   const getFifthFreqData = async () => {
     try {
       const res = await getFifthFreq();
-      setFifthNumFrequency(res.data); // Assuming you have a state setter for fifthNumFrequency
+      setFifthNumFrequency(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -98,15 +118,11 @@ const P_stat720 = () => {
   const getSixthFreqData = async () => {
     try {
       const res = await getSixthFreq();
-      setSixthNumFrequency(res.data); // Assuming you have a state setter for sixthNumFrequency
+      setSixthNumFrequency(res.data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const click = () => {
-  //   console.log
-  // }
 
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
@@ -280,6 +296,154 @@ const P_stat720 = () => {
             </thead>
             <tbody>
               {second.map((item, index) => (
+                <tr key={index}>
+                  <td style={cellStyle2}>{item.번호}</td>
+                  <td style={cellStyle}>
+                    <div style={barContainerStyle}>
+                      <div
+                        style={{
+                          ...tenThouBarStyle,
+                          width: `${item.당첨횟수 * 10}%`,
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td style={cellStyle2}>{item.당첨횟수}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ padding: "20px" }}>
+          <caption style={captionStyle}>(천 단위)</caption>
+          <table
+            style={{
+              borderCollapse: "collapse",
+              width: "100%",
+              marginTop: "2px",
+            }}
+          >
+            <thead>
+              <tr>
+                <th style={(headerStyle, { width: "15%" })}>번호</th>
+                <th style={(headerStyle, { width: "60%" })}>그래프</th>
+                <th style={(headerStyle, { width: "25%" })}>당첨횟수</th>
+              </tr>
+            </thead>
+            <tbody>
+              {third.map((item, index) => (
+                <tr key={index}>
+                  <td style={cellStyle2}>{item.번호}</td>
+                  <td style={cellStyle}>
+                    <div style={barContainerStyle}>
+                      <div
+                        style={{
+                          ...tenThouBarStyle,
+                          width: `${item.당첨횟수 * 10}%`,
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td style={cellStyle2}>{item.당첨횟수}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ padding: "20px" }}>
+          <caption style={captionStyle}>(백 단위)</caption>
+          <table
+            style={{
+              borderCollapse: "collapse",
+              width: "100%",
+              marginTop: "2px",
+            }}
+          >
+            <thead>
+              <tr>
+                <th style={(headerStyle, { width: "15%" })}>번호</th>
+                <th style={(headerStyle, { width: "60%" })}>그래프</th>
+                <th style={(headerStyle, { width: "25%" })}>당첨횟수</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fourth.map((item, index) => (
+                <tr key={index}>
+                  <td style={cellStyle2}>{item.번호}</td>
+                  <td style={cellStyle}>
+                    <div style={barContainerStyle}>
+                      <div
+                        style={{
+                          ...tenThouBarStyle,
+                          width: `${item.당첨횟수 * 10}%`,
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td style={cellStyle2}>{item.당첨횟수}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ padding: "20px" }}>
+          <caption style={captionStyle}>(십 단위)</caption>
+          <table
+            style={{
+              borderCollapse: "collapse",
+              width: "100%",
+              marginTop: "2px",
+            }}
+          >
+            <thead>
+              <tr>
+                <th style={(headerStyle, { width: "15%" })}>번호</th>
+                <th style={(headerStyle, { width: "60%" })}>그래프</th>
+                <th style={(headerStyle, { width: "25%" })}>당첨횟수</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fifth.map((item, index) => (
+                <tr key={index}>
+                  <td style={cellStyle2}>{item.번호}</td>
+                  <td style={cellStyle}>
+                    <div style={barContainerStyle}>
+                      <div
+                        style={{
+                          ...tenThouBarStyle,
+                          width: `${item.당첨횟수 * 10}%`,
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td style={cellStyle2}>{item.당첨횟수}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ padding: "20px" }}>
+          <caption style={captionStyle}>(일 단위)</caption>
+          <table
+            style={{
+              borderCollapse: "collapse",
+              width: "100%",
+              marginTop: "2px",
+            }}
+          >
+            <thead>
+              <tr>
+                <th style={(headerStyle, { width: "15%" })}>번호</th>
+                <th style={(headerStyle, { width: "60%" })}>그래프</th>
+                <th style={(headerStyle, { width: "25%" })}>당첨횟수</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sixth.map((item, index) => (
                 <tr key={index}>
                   <td style={cellStyle2}>{item.번호}</td>
                   <td style={cellStyle}>
