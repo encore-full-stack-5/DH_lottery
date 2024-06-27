@@ -1,4 +1,6 @@
-import { authApi } from "../config/networkAuth";
+import axios from 'axios';
+
+const BASE_URL = 'http://localhost:3000'; // Adjust the base URL if necessary
 
 export const signUpRequest = async (data) => {
   const requestDto = {
@@ -9,8 +11,18 @@ export const signUpRequest = async (data) => {
     confirmationRequest: data.confirmationRequest,
   };
 
-  const res = await authApi("users/signUp", "post", requestDto);
-  return res;
+  const res = await axios.post(`${BASE_URL}/users/signUp`, requestDto);
+  return res.data;
+};
+
+export const certification = async (data) => {
+  const response = await axios.post(`${BASE_URL}/users/certification`, data, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  });
+  return response.data;
 };
 
 export const loginRequest = async (data) => {
@@ -18,12 +30,7 @@ export const loginRequest = async (data) => {
     email: data.email,
     password: data.password,
   };
-
-  const res = await authApi("users/login", "post", requestDto);
-  console.log('Response headers:', res.headers); // 응답 헤더 로그 추가
-  console.log('Response data:', res.data); // 응답 데이터 로그 추가
-
-  // 응답 헤더에서 authorization 값 추출
+  const res = await axios.post(`${BASE_URL}/users/login`, requestDto);
   const token = res.headers['authorization'];
 
   if (token) {
@@ -35,6 +42,6 @@ export const loginRequest = async (data) => {
 };
 
 export const mypageResponse = async () => {
-  const res = await authApi("users/mypage", "get");
-  return res;
+  const res = await axios.get(`${BASE_URL}/users/mypage`);
+  return res.data;
 };

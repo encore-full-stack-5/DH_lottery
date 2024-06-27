@@ -10,7 +10,7 @@ export const authApi = async (url, method, body) => {
   };
 
   if (token) {
-    headers['Authorization'] = token; // Bearer prefix is already included
+    headers['Authorization'] = token; 
   }
 
   try {
@@ -20,10 +20,10 @@ export const authApi = async (url, method, body) => {
       data: body,
       headers,
     });
-    console.log('API response:', res); // API 응답 로그 추가
+    console.log('API response:', res);
     return res;
   } catch (error) {
-    console.error('API error:', error.response?.data); // 오류 로그 추가
+    console.error('API error:', error.response?.data);
     throw error;
   }
 };
