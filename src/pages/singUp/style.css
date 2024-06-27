@@ -1,46 +1,100 @@
+/* Container for the entire signup form */
 .container {
-  padding-top: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  min-height: 100vh; /* Ensure the container takes the full height of the viewport */
+  padding: 20px; /* Adjust padding as needed */
+  box-sizing: border-box;
 }
 
 /* Centering the inner content */
-.login-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.login-content p {
-  margin: 10px 0;
-}
-
-.height-alignment {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.join-form {
-  width: 50%;
-  margin: auto;
+.signup-container {
+  width: 100%;
+  max-width: 600px; /* Set a maximum width for better appearance */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the items horizontally */
+  box-sizing: border-box;
+  margin: auto; /* Center the container horizontally */
+}
+
+/* Header of the signup form */
+.signup-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #0a2a0b;
+  text-align: center; /* Center the text */
+}
+
+/* Styling for each field */
+.signup-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.signup-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #0a2a0b;
+}
+
+.signup-field input,
+.signup-field select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  color: #0a2a0b;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.signup-field small {
+  display: block;
+  margin-top: 5px;
+  color: brown;
+  min-height: 18px;
+}
+
+.signup-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+}
+
+.signup-button {
+  padding: 10px 20px;
+  background-color: #0a2a0b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.signup-button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.signup-button:hover {
+  background-color: #055a0a;
 }
 
 .terms-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   margin-bottom: 20px;
-  margin-top: 300px;
 }
 
 .terms-header h2 {
@@ -59,6 +113,7 @@
 }
 
 .terms-content {
+  width: 100%;
   border: 1px solid #ccc;
   padding: 20px;
   margin-bottom: 20px;
@@ -78,80 +133,42 @@
   margin-top: 30px;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .agree-checkbox input {
   margin-right: 10px;
 }
 
-.auth-container {
-  background-color: white;
-  width: 600px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/* Email Authentication Section */
+.email-authentication {
+  width: 100%;
+  margin-top: 30px;
 }
 
-.auth-header {
+.email-option {
+  border: 1px solid #ccc;
   padding: 20px;
-  border-bottom: 1px solid #ddd;
-}
-
-.auth-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.auth-tabs {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #ddd;
-}
-
-.tab-button {
-  flex: 1;
-  padding: 15px;
-  border: none;
-  border-right: 1px solid #ddd;
-  background-color: white;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.tab-button:last-child {
-  border-right: none;
-}
-
-.tab-button.active {
-  background-color: #0a2a0b;
-  color: white;
-}
-
-.auth-content {
-  padding: 40px;
+  border-radius: 8px;
   text-align: center;
 }
 
-.auth-method {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.auth-icon {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 20px;
-}
-
-.auth-method h3 {
+.email-option h3 {
+  margin: 0;
   color: #0a2a0b;
-  margin-bottom: 10px;
 }
 
-.auth-method p {
+.email-option p {
+  margin: 10px 0;
   color: #666;
-  margin-bottom: 20px;
+}
+
+.email-input {
+  width: calc(100% - 40px);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .auth-button {
@@ -162,61 +179,19 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  margin-top: 10px;
+}
+
+.auth-button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
 }
 
 .auth-button:hover {
-  background-color: #0a2a0b;
+  background-color: #055a0a;
 }
 
-.signup-container {
-  width: 50%;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.signup-container h1 {
-  font-size: 3rem;
-  margin-bottom: 100px;
-  margin-top: 58px;
-  color: #0a2a0b;
-}
-
-.signup-field {
-  margin-bottom: 15px;
-  margin: 25px;
-}
-
-.signup-field label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #0a2a0b;
-}
-
-.signup-field input,
-.signup-field select {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  color: #0a2a0b;
-  border-radius: 4px;
-}
-
-.signup-field input[type="radio"] {
-  width: auto;
-  margin-right: 10px;
-}
-
-.signup-field small {
-  display: block;
-  margin-top: 5px;
-  color: brown;
-}
-
-.signup-field input[type="date"] {
-  padding-right: 30px; /* Adjust padding to fit date icon if needed */
+.message {
+  margin-top: 10px;
+  color: #d9534f;
 }
