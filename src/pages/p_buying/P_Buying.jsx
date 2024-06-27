@@ -91,12 +91,12 @@ const P_Buying = () => {
       }
       if (groupNum === "모든 조") {
         for (let i = 1; i <= 5; i++) {
-          data = [i, ...selectNumber];
+          data = [round, i, ...selectNumber];
           await selectNum(data); // selectNum이 비동기 함수로 가정
         }
       } else {
         const num = Number(groupNum.split("조")[0]);
-        data = [num, ...selectNumber];
+        data = [round, num, ...selectNumber];
         await selectNum(data);
       }
     } catch (error) {
@@ -148,7 +148,8 @@ const P_Buying = () => {
 
   const getSelected = async () => {
     try {
-      const response = await getSelectedTicket("abcd", round); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
+      const d = ["aaa", round];
+      const response = await getSelectedTicket(d); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
       setGetSelectedNum(response.data);
       console.log(response);
     } catch (error) {
@@ -183,7 +184,7 @@ const P_Buying = () => {
 
   const purchaseTicket = async () => {
     try {
-      const data = ["abcd", "aaa@aaa.com", 200000];
+      const data = ["aaa"];
       await purchase(data);
       alert("구매 완료");
       getSelected();
