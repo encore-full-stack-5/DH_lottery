@@ -23,13 +23,19 @@ const HeaderBar = () => {
               </a>
             </li>
             <li>
+              <a href="/login" className="header-button">
+                로그인
+              </a>
+              <a className="h-bar"> | </a>
+            </li>
+            <li>
               <a href="/logout" className="header-button">
                 로그아웃
               </a>
               <a className="h-bar"> | </a>
             </li>
             <li>
-              <a href="/logout" className="header-right-button">
+              <a href="/myPage" className="header-right-button">
                 마이페이지
               </a>
             </li>
