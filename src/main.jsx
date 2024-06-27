@@ -24,6 +24,9 @@ import PieChart from "./components/lotto-analytics/chart/PieChart.jsx";
 import VerticalBar from "./components/lotto-analytics/chart/VerticalBar.jsx";
 import P_statistics from "./pages/p_lottery/P_statistics.jsx";
 import MyPage from "./pages/myPage/MyPage.jsx";
+
+import UserModify from "./pages/userModify/UserModify.jsx";
+
 import { LottoHistoryPage } from "./pages/lotto/LottoHistoryPage.jsx";
 import EvenOddResult from "./components/lotto-analytics/chart/EvenOddResult.jsx";
 import LottoAnalyticsPage from "./pages/lotto/LottoAnalyticsPage.jsx";
@@ -31,6 +34,7 @@ import { CheckoutPage } from "./pages/payment/Checkout.jsx";
 import { SuccessPage } from "./pages/payment/Success.jsx";
 import { FailPage } from "./pages/payment/Fail.jsx";
 import P_PensionHistory from "./pages/p_lottery/P_pension_history.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -59,6 +63,7 @@ const router = createBrowserRouter([
       { path: "/even_odd", element: <EvenOddResult /> },
       { path: "/stat720", element: <P_statistics /> },
       { path: "/myPage", element: <MyPage /> },
+      { path: "/userModify", element: <UserModify /> },
     ],
   },
 ]);
