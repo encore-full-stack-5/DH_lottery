@@ -19,7 +19,6 @@ import Payment from "./pages/payment/Payment.jsx";
 import Lotto from "./components/lotto/lotto.jsx";
 import Transaction from "./pages/transaction/Transaction.jsx";
 import { LottoResultPage } from "./pages/lotto/LottoResultPage.jsx";
-import P_MyWin720 from "./pages/p_lottery/P_MyWin720.jsx";
 import HorizontalBar from "./components/lotto-analytics/chart/HoryzontalBar.jsx";
 import PieChart from "./components/lotto-analytics/chart/PieChart.jsx";
 import VerticalBar from "./components/lotto-analytics/chart/VerticalBar.jsx";
@@ -34,6 +33,7 @@ import LottoAnalyticsPage from "./pages/lotto/LottoAnalyticsPage.jsx";
 import { CheckoutPage } from "./pages/payment/Checkout.jsx";
 import { SuccessPage } from "./pages/payment/Success.jsx";
 import { FailPage } from "./pages/payment/Fail.jsx";
+import P_PensionHistory from "./pages/p_lottery/P_pension_history.jsx";
 
 
 const router = createBrowserRouter([
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       { path: "/lotto_result", element: <LottoResultPage /> },
       { path: "/lotto_history", element: <LottoHistoryPage /> },
       { path: "/withdraw", element: <Withdraw /> },
-      { path: "/myWin720", element: <P_MyWin720 /> },
+      { path: "/pension_history", element: <P_PensionHistory /> },
       { path: "/transaction", element: <Transaction /> },
       { path: "/lotto_analytics", element: <LottoAnalyticsPage /> },
       { path: "/horizontal", element: <HorizontalBar /> },
