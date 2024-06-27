@@ -98,3 +98,29 @@ background-color: #f2f2f2;
 font-size: 14px;
 color: #888;
 }
+
+.pension_pagination {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.pension_page-number {
+  padding: 6px 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.page-number.active, .page-number:hover {
+  background-color: #007bff;
+  color: black;
+  border: 1px solid #007bff;
+}
+
+.page-number:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
