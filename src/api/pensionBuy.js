@@ -5,7 +5,7 @@ export const selectNum = async (data) => {
   const d = [...data];
 
   const selectItem = {
-    userId: "aaa",//d[0], // userId가 없으므로 null로 설정
+    userId: "aaa", //d[0], // userId가 없으므로 null로 설정
     round: d[0],
     group: d[1],
     first: d[2],
@@ -20,8 +20,10 @@ export const selectNum = async (data) => {
 };
 
 export const getSelectedTicket = async (data) => {
-  console.log(data);
-  const res = await api("/api/v1/pension/selected?userId=" + data[0] + "&round=" + data[1], "get");
+  const res = await api(
+    "/api/v1/pension/selected?userId=" + data[0] + "&round=" + data[1],
+    "get"
+  );
   return res;
 };
 
@@ -40,10 +42,10 @@ export const purchase = async (data) => {
 export const getRound = async () => {
   const res = await api("/api/v1/pension/round", "get");
   return res;
-}
+};
 
 export const getAllTickets = async () => {
   const userId = "aaa";
   const res = await matchingApi("/api/v1/pension/" + userId, "get");
   return res;
-}
+};
