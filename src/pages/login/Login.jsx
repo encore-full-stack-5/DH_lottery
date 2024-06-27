@@ -1,18 +1,36 @@
 import React, { useState, useRef } from "react";
 import "./Login.css";
+import { loginRequest } from "../../api/auth";
 
 const Login = () => {
-  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
   const passwordInputRef = useRef(null);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      if (e.target.name === "username") {
+      if (e.target.name === "userEmail") {
         passwordInputRef.current.focus();
-      } else if (e.target.name === "password") {
-        console.log("Logging in...");
+      } else if (e.target.name === "userPassword") {
+        login();
       }
+    }
+  };
+
+  const login = async () => {
+    setLoading(true);
+    const data = { email, password };
+    try {
+      const response = await loginRequest(data);
+      setMessage(response);
+    } catch (error) {
+      console.error('Login error:', error);
+      setMessage("로그인 실패");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,16 +58,16 @@ const Login = () => {
         <div className="login-form">
           <div className="login-field">
             <input
-              name="username"
+              name="userEmail"
               placeholder="아이디"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               onKeyPress={handleKeyPress}
             />
           </div>
           <div className="login-field">
             <input
-              name="password"
+              name="userPassword"
               type="password"
               placeholder="비밀번호"
               value={password}
@@ -63,8 +81,15 @@ const Login = () => {
             <label htmlFor="remember-me">ID저장</label>
           </div>
           <div className="login-actions">
-            <button className="login-button">로그인</button>
+            <button 
+              className="login-button" 
+              onClick={login} 
+              disabled={loading}
+            >
+              {loading ? '로그인 중...' : '로그인'}
+            </button>
           </div>
+          {message && <p className="login-message">{message}</p>}
           <div className="login-links">
             <button className="link-button">회원가입</button>
             <button className="link-button">아이디/비밀번호 찾기</button>
