@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const BASE_URL = 'http://localhost:3000'; // Adjust the base URL if necessary
+import { authApi } from '../config/networkAuth';
 
 export const signUpRequest = async (data) => {
   const requestDto = {
@@ -11,18 +9,30 @@ export const signUpRequest = async (data) => {
     confirmationRequest: data.confirmationRequest,
   };
 
-  const res = await axios.post(`${BASE_URL}/users/signUp`, requestDto);
-  return res.data;
+  try {
+    const res = await authApi('/signUp', 'post', requestDto);
+    return res.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
 };
 
 export const certification = async (data) => {
-  const response = await axios.post(`${BASE_URL}/users/certification`, data, {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-  });
-  return response.data;
+  try {
+    const response = await authApi('/certification', 'post', data);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+export const emailCertification = async (data) => {
+  try {
+    const response = await authApi('/certification/request', 'post', data);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
 };
 
 export const loginRequest = async (data) => {
@@ -30,18 +40,27 @@ export const loginRequest = async (data) => {
     email: data.email,
     password: data.password,
   };
-  const res = await axios.post(`${BASE_URL}/users/login`, requestDto);
-  const token = res.headers['authorization'];
+  
+  try {
+    const res = await authApi('/login', 'post', requestDto);
+    const token = res.headers['authorization'];
 
-  if (token) {
-    localStorage.setItem("Authorization", token);
-    return "로그인성공";
-  } else {
-    throw new Error("Authorization token not found");
+    if (token) {
+      localStorage.setItem("Authorization", token);
+      return "로그인성공";
+    } else {
+      throw new Error("Authorization token not found");
+    }
+  } catch (error) {
+    throw error.response?.data || error.message;
   }
 };
 
 export const mypageResponse = async () => {
-  const res = await axios.get(`${BASE_URL}/users/mypage`);
-  return res.data;
+  try {
+    const res = await authApi('/mypage', 'get', null);
+    return res.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
 };
