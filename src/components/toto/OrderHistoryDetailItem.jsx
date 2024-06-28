@@ -2,7 +2,7 @@ import "./OrderHistoryDetailItem.css";
 
 const OrderHistoryDetailItem = (props) => {
     const resulttoText = ["경기전", "빗나감", "빗나감", "무승부", "경기취소"];
-console.log(props.data.result, props.data.team);
+    
     return (
         <div className="order-box-betting-detail-item">
             <div className="order-box-betting-detail-item-head">
