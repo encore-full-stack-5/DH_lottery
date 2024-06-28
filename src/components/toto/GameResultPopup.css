@@ -1,0 +1,97 @@
+.game-result-popup-back{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #00000020;
+    z-index: 1;
+}
+.game-result-popup-box{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 350px;
+    height: 360px;
+    padding: 20px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #aaa;
+}
+
+.game-result-winrate{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+}
+.game-result-winrate-team{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+.game-result-winrate-team > div{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12pt;
+    font-weight: bolder;
+}
+.game-result-winrate-rate{
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+}
+.game-result-winrate-rate > div{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28pt;
+}
+
+.game-result-popup-head{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.5px solid #00000020;
+}
+.game-result-popup-head > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.game-result-popup-body{
+    width: 100%;
+    height: 190px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-result-popup-item{
+    min-height: 32px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.5px solid #00000020;
+}
+.game-result-popup-item > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.game-result-popup-item-empty{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

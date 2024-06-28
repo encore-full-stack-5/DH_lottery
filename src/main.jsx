@@ -34,7 +34,7 @@ import { CheckoutPage } from "./pages/payment/Checkout.jsx";
 import { SuccessPage } from "./pages/payment/Success.jsx";
 import { FailPage } from "./pages/payment/Fail.jsx";
 import P_PensionHistory from "./pages/p_lottery/P_pension_history.jsx";
-
+import TotoMain from "./pages/toto/TotoMain.jsx";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +64,7 @@ const router = createBrowserRouter([
       { path: "/stat720", element: <P_statistics /> },
       { path: "/myPage", element: <MyPage /> },
       { path: "/userModify", element: <UserModify /> },
+      { path: "/toto", element: <TotoMain /> },
     ],
   },
 ]);

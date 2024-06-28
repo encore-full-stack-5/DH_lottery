@@ -18,7 +18,7 @@ const TotoMain = () => {
     const daytoText = ["일", "월", "화", "수", "목", "금", "토"];
     const serverAddr = "http://192.168.0.16:8000/api/v1/toto";
 
-    const testUUIDToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTk0MTU5OTF9.mzbQGv2YeM2HcYJDtGGmwoZ7keyChtafvf64trLz5CErfqoFtm8fo7oGkrD-xghy";
+    const testUUIDToken = "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTk1Nzg1NTF9.D11dgF4rO5eDHibR38zBi1n9CnAKB6OV_J9f1P8NdZVZfFxO7MuGaL1i3zjzM5ZU";
 
     const changeWeek = (e = 0) => {
         if(e != 0) changeDay(-1);
@@ -220,7 +220,7 @@ const TotoMain = () => {
     const getGameData = async (date = null, page = 0) => {
         try{
             let url = serverAddr + "/games?page=" + page;
-            url += date == null ? "" : "&date="+date;
+            if(date) url += "&date="+date;
             const response = await axios.get(url);
             if (page == 0) {
                 setGameData(response.data.content);
