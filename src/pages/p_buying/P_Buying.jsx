@@ -92,7 +92,7 @@ const P_Buying = () => {
         await selectNum(data);
       }
     } catch (error) {
-      alert("이미 선택/구매된 번호입니다.");
+      alert(error.response.data);
     }
     setSelectNumber(["", "", "", "", "", ""]);
     setSelectedIndex(null);
@@ -139,7 +139,7 @@ const P_Buying = () => {
 
   const getSelected = async () => {
     try {
-      const d = ["aaa", round]; // 토큰 처리 필요 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      const d = [round]; // 토큰 처리 필요 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       const response = await getSelectedTicket(d); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
       setGetSelectedNum(response.data);
     } catch (error) {
@@ -174,16 +174,14 @@ const P_Buying = () => {
 
   const purchaseTicket = async () => {
     try {
-      const data = ["aaa"]; // 토큰 처리 필요 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      await purchase(data);
+      await purchase();
       alert("구매 완료");
       getSelected();
     } catch (error) {
       if (error.response) {
         // 서버로부터의 응답이 있는 경우
         const { errorCode, errorMessage } = error.response.data;
-        console.log(`Error Code: ${errorCode}, Message: ${errorMessage}`);
-        alert(`Error: ${errorMessage}`);
+        alert(error.response.data);
       } else {
         // 서버로부터의 응답이 없는 경우
         console.log(error);

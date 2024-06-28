@@ -5,7 +5,7 @@ export const selectNum = async (data) => {
   const d = [...data];
 
   const selectItem = {
-    userId: "aaa", //d[0], // userId가 없으므로 null로 설정
+    //userId: "aaa", //d[0], // userId가 없으므로 null로 설정
     round: d[0],
     group: d[1],
     first: d[2],
@@ -20,10 +20,7 @@ export const selectNum = async (data) => {
 };
 
 export const getSelectedTicket = async (data) => {
-  const res = await api(
-    "/api/v1/pension/selected?userId=" + data[0] + "&round=" + data[1],
-    "get"
-  );
+  const res = await api("/api/v1/pension/selected", "get", data);
   return res;
 };
 
@@ -31,12 +28,12 @@ export const deleteSelectedTicket = async (selectedNumberId) => {
   await api("/api/v1/pension/selected/" + selectedNumberId, "delete");
 };
 
-export const purchase = async (data) => {
-  const purchaseItem = {
-    userId: "aaa", //data[0]
-  };
+export const purchase = async () => {
+  // const purchaseItem = {
+  //   userId: "aaa", //data[0]
+  // };
 
-  await api("/api/v1/pension/purchased", "post", purchaseItem);
+  await api("/api/v1/pension/purchased", "post");
 };
 
 export const getRound = async () => {
@@ -45,7 +42,7 @@ export const getRound = async () => {
 };
 
 export const getAllTickets = async () => {
-  const userId = "aaa";
-  const res = await matchingApi("/api/v1/pension/" + userId, "get");
+  // const userId = "aaa";
+  const res = await matchingApi("/api/v1/pension", "get");
   return res;
 };
