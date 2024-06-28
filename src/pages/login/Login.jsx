@@ -1,14 +1,36 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Login.css";
 import { loginRequest } from "../../api/auth";
+
+const Modal = ({ show, handleClose, message }) => {
+  return (
+    <div className={`modal ${show ? 'show' : ''}`}>
+      <div className="modal-content">
+        <span className="close" onClick={handleClose}>&times;</span>
+        <p>{message}</p>
+      </div>
+    </div>
+  );
+};
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const passwordInputRef = useRef(null);
+
+  useEffect(() => {
+    if (showModal) {
+      const timer = setTimeout(() => {
+        setShowModal(false);
+        window.location.href = 'http://localhost:5173/';
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [showModal]);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -25,13 +47,18 @@ const Login = () => {
     const data = { email, password };
     try {
       const response = await loginRequest(data);
-      setMessage(response);
+      setMessage("로그인 성공");
+      setShowModal(true);
     } catch (error) {
       console.error('Login error:', error);
       setMessage("로그인 실패");
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -96,6 +123,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Modal show={showModal} handleClose={handleCloseModal} message={message} />
     </div>
   );
 };

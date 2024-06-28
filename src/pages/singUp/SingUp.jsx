@@ -2,17 +2,37 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import { signUpRequest } from "../../api/auth";
 
+const Modal = ({ show, handleClose, message }) => {
+  return (
+    <div className={`modal ${show ? 'show' : ''}`}>
+      <div className="modal-content">
+        <span className="close" onClick={handleClose}>&times;</span>
+        <p>{message}</p>
+      </div>
+    </div>
+  );
+};
+
 const SignUp = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rePassword: "",
-    id: "",
+    name: "",
     dateOfBirth: ""
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const verifiedEmail = localStorage.getItem('verifiedEmail');
+    if (verifiedEmail) {
+      setFormData((prevData) => ({ ...prevData, email: verifiedEmail }));
+      localStorage.removeItem('verifiedEmail'); // Remove it after using
+    }
+  }, []);
 
   useEffect(() => {
     const formErrors = {};
@@ -38,7 +58,7 @@ const SignUp = () => {
       formErrors.rePassword = "비밀번호가 일치하지 않습니다.";
     }
 
-    if (!formData.id) formErrors.id = "아이디를 입력해주세요.";
+    if (!formData.name) formErrors.name = "아이디를 입력해주세요.";
     if (!formData.dateOfBirth) formErrors.dateOfBirth = "생년월일을 입력해주세요.";
 
     setErrors(formErrors);
@@ -79,31 +99,47 @@ const SignUp = () => {
     }
 
     setLoading(true);
-    const { email, password, id, dateOfBirth } = formData;
+    const { email, password, name, dateOfBirth } = formData;
 
     const age = calculateAge(dateOfBirth);
     if (age < 19) {
-      alert("만 19세 이상만 가입 가능합니다.");
+      setMessage("만 19세 이상만 가입 가능합니다.");
       setLoading(false);
       return;
     }
 
-    const data = { email, password, name: id, dateOfBirth };
+    const data = { email, password, name, dateOfBirth };
     try {
       const response = await signUpRequest(data);
-      alert(response);
+      setMessage("회원가입에 성공하였습니다.");
+      setShowModal(true);
     } catch (error) {
       console.error('SignUp error:', error);
-      alert("회원가입 실패");
+      setMessage("회원가입 실패");
     } finally {
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      const timer = setTimeout(() => {
+        setShowModal(false);
+        window.location.href = 'http://localhost:5173/';
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [showModal]);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
     <div className="container">
       <div className="signup-container">
         <h1>회원가입</h1>
+        {message && <div className="message">{message}</div>}
         <div className="signup-field">
           <label htmlFor="email">이메일 주소 *</label>
           <input
@@ -114,6 +150,7 @@ const SignUp = () => {
             onChange={handleChange}
             onKeyPress={handleKeyPress}
             required
+            readOnly
           />
           {errors.email && <small className="error-message">{errors.email}</small>}
         </div>
@@ -145,16 +182,16 @@ const SignUp = () => {
           {errors.rePassword && <small className="error-message">{errors.rePassword}</small>}
         </div>
         <div className="signup-field">
-          <label htmlFor="id">아이디 *</label>
+          <label htmlFor="name">아이디 *</label>
           <input
-            name="id"
+            name="name"
             placeholder="아이디"
-            value={formData.id}
+            value={formData.name}
             onChange={handleChange}
             onKeyPress={handleKeyPress}
             required
           />
-          {errors.id && <small className="error-message">{errors.id}</small>}
+          {errors.name && <small className="error-message">{errors.name}</small>}
         </div>
         <div className="signup-field">
           <label htmlFor="dateOfBirth">생년월일</label>
@@ -176,6 +213,7 @@ const SignUp = () => {
           </button>
         </div>
       </div>
+      <Modal show={showModal} handleClose={handleCloseModal} message={message} />
     </div>
   );
 };
