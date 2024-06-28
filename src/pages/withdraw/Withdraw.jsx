@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Withdraw = () => {
-  const serverAddr = "http://localhost:8083/api/v1/accounts";
+  const serverAddr = "http://localhost:8080/api/v1/accounts";
   const [accountHolderName, setAccountHolderName] = useState("");
   const [selectedBank, setSelectedBank] = useState("국민은행");
   const [fee, setFee] = useState("300원");
