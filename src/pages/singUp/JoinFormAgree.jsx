@@ -5,6 +5,7 @@ import { certification } from '../../api/auth'; // Adjust the import path as nee
 const JoinFormAgree = () => {
   const [agree, setAgree] = useState(false);
   const [email, setEmail] = useState("");
+  const [emailCertification, setEmailCertification] = useState(""); // Added state for emailCertification
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -13,7 +14,11 @@ const JoinFormAgree = () => {
   };
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    if (e.target.name === "email") {
+      setEmail(e.target.value);
+    } else if (e.target.name === "emailCertification") {
+      setEmailCertification(e.target.value); // Handle emailCertification change
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -28,9 +33,9 @@ const JoinFormAgree = () => {
       return;
     }
     setLoading(true);
-    const data = { email };
+    const data = { email, confirmationRequest: emailCertification }; // Include emailCertification in the data
     try {
-      const response = await certification(data);
+      const response = await emailCertification(data);
       setMessage(response.message || "이메일이 성공적으로 발송되었습니다.");
     } catch (error) {
       console.error('error:', error);
@@ -79,6 +84,22 @@ const JoinFormAgree = () => {
               onKeyPress={handleKeyPress}
               required
               className="email-input" 
+              disabled={!agree}
+              
+            />
+              <button className="auth-button" onClick={sendEmail} disabled={!agree || loading}> {/* <--- className */}
+              {loading ? "인증 중..." : "인증하기"}
+            </button>
+            <div></div>
+            <input
+              name="emailCertification"
+              type="text" // Changed to text to match input type <----
+              placeholder="인증문자를 입력해주세요"
+              value={emailCertification}
+              onChange={handleEmailChange}
+              onKeyPress={handleKeyPress}
+              required
+              className="emailCertification-input" 
               disabled={!agree}
             />
             <button className="auth-button" onClick={sendEmail} disabled={!agree || loading}> {/* <--- className */}

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const authApi = async (url, method, body) => {
-  axios.defaults.baseURL = "http://192.168.0.20:3000";
+  axios.defaults.baseURL = "http://192.168.0.20:3000/auth";
   const token = localStorage.getItem("Authorization");
 
   const headers = {
