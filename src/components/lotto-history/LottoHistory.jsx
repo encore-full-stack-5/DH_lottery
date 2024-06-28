@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom"; // useNavigate로 변경
 import "./LottoHistory.css";
 import axios from "axios";
 
 const LottoHistory = () => {
+  const location = useLocation();
+  const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
   const [selectedOption, setSelectedOption] = useState("전체보기");
-  const [startDate, setStartDate] = useState("2024-06-10");
+  const [startDate, setStartDate] = useState("2024-01-10");
   const [endDate, setEndDate] = useState("2024-06-10");
   const [orderBy, setOrderBy] = useState("recent");
   const [userId, setUserId] = useState("daniel");
-  const [allHistory, setAllHistory] = useState([]); // Initialize as an empty array
+  const [allHistory, setAllHistory] = useState([]);
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
+  const [totalPages, setTotalPages] = useState(0);
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
@@ -28,9 +34,16 @@ const LottoHistory = () => {
 
   const fetchAllHistory = () => {
     axios
-      .get(`http://localhost:8080/api/v1/lotto-history/${userId}`)
+      .get(`http://localhost:8080/api/v1/lotto-history/${userId}`, {
+        params: {
+          page: page,
+          pageSize: pageSize,
+        },
+      })
       .then((response) => {
-        setAllHistory(response.data);
+        setAllHistory(response.data.content);
+        setTotalPages(response.data.pageInfo.totalPages);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("에러 발생:", error);
@@ -38,10 +51,24 @@ const LottoHistory = () => {
   };
 
   useEffect(() => {
-    fetchAllHistory();
-  }, [userId]);
+    const searchParams = new URLSearchParams(location.search);
+    const pageParam = searchParams.get("page");
+    const pageValue = pageParam ? parseInt(pageParam) : 0;
+    setPage(pageValue);
+  }, [location.search]);
 
-  const handleSearch = () => {};
+  useEffect(() => {
+    fetchAllHistory();
+  }, [userId, page, pageSize]);
+
+  const handleSearch = () => {
+    setPage(0); // 검색 버튼을 누르면 첫 페이지로 이동
+    fetchAllHistory();
+  };
+
+  const handlePageChange = (newPage) => {
+    navigate(`/lotto_history?page=${newPage}`); // useNavigate 사용
+  };
 
   return (
     <div className="history_container">
@@ -121,8 +148,8 @@ const LottoHistory = () => {
         <tbody>
           {allHistory.length > 0 ? (
             allHistory.map((history) => (
-              <tr key={history.id}>
-                <td>{new Date(history.createdAt).toLocaleDateString()}</td>
+              <tr key={history.payId}>
+                <td>{new Date(history.payCreatedAt).toLocaleDateString()}</td>
                 <td>로또</td>
                 <td>{history.roundId}</td>
                 <td>{history.lotteryId}</td>
@@ -139,6 +166,23 @@ const LottoHistory = () => {
           )}
         </tbody>
       </table>
+      <div className="pagination">
+        <button
+          onClick={() => handlePageChange(page - 1)}
+          disabled={page === 0}
+        >
+          이전
+        </button>
+        <span>
+          {page + 1} / {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(page + 1)}
+          disabled={page + 1 >= totalPages}
+        >
+          다음
+        </button>
+      </div>
     </div>
   );
 };
