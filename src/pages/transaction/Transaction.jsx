@@ -12,7 +12,7 @@ const Transaction = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const serverAddr = "http://localhost:8083/api/v1/accounts";
+  const serverAddr = "http://localhost:8080/api/v1/accounts";
 
   const fetchData = async () => {
     const token = localStorage.getItem("Authorization");
