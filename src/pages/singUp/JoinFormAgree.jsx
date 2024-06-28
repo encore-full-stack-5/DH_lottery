@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './style.css';
 import { certification } from '../../api/auth'; // Adjust the import path as needed
 
@@ -7,10 +7,16 @@ const JoinFormAgree = () => {
   const [email, setEmail] = useState("");
   const [emailCertification, setEmailCertification] = useState(""); // Added state for emailCertification
   const [loading, setLoading] = useState(false);
+  const [verificationLoading, setVerificationLoading] = useState(false); // Added state for verification loading
   const [message, setMessage] = useState("");
+  const [verificationMessage, setVerificationMessage] = useState(""); // Added state for verification message
+  const [isEmailSent, setIsEmailSent] = useState(false); // Added state to track if email is sent
+
+  const authButtonRef = useRef(null); // Ref for the "Authenticate" button
 
   const handleAgreeChange = (e) => {
     setAgree(e.target.checked);
+    setIsEmailSent(false); // Reset email sent status when terms are changed
   };
 
   const handleEmailChange = (e) => {
@@ -21,27 +27,41 @@ const JoinFormAgree = () => {
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter" && agree) {
-      sendEmail();
-    }
-  };
-
   const sendEmail = async () => {
     if (!agree) {
       setMessage("이용약관에 동의해야 합니다.");
       return;
     }
     setLoading(true);
-    const data = { email, confirmationRequest: emailCertification }; // Include emailCertification in the data
+    const data = { email };
     try {
-      const response = await emailCertification(data);
+      const response = await certification(data);
       setMessage(response.message || "이메일이 성공적으로 발송되었습니다.");
+      setIsEmailSent(true); // Set email sent status to true
     } catch (error) {
       console.error('error:', error);
       setMessage("이메일 발송 실패");
+      setIsEmailSent(false); // Ensure email sent status is false on failure
     } finally {
       setLoading(false);
+    }
+  };
+
+  const verifyCode = async () => {
+    if (!agree) {
+      setVerificationMessage("이용약관에 동의해야 합니다.");
+      return;
+    }
+    setVerificationLoading(true);
+    const data = { email, confirmationRequest: emailCertification };
+    try {
+      const response = await certification(data);
+      setVerificationMessage(response.message || "인증에 성공하였습니다.");
+    } catch (error) {
+      console.error('error:', error);
+      setVerificationMessage("인증 실패");
+    } finally {
+      setVerificationLoading(false);
     }
   };
 
@@ -81,31 +101,28 @@ const JoinFormAgree = () => {
               placeholder="이메일 주소"
               value={email}
               onChange={handleEmailChange}
-              onKeyPress={handleKeyPress}
               required
               className="email-input" 
               disabled={!agree}
-              
             />
-              <button className="auth-button" onClick={sendEmail} disabled={!agree || loading}> {/* <--- className */}
-              {loading ? "인증 중..." : "인증하기"}
+            <button className="auth-button" onClick={sendEmail} disabled={!agree || loading}> {/* <--- className */}
+              {loading ? "인증 코드 보내는 중..." : "인증 코드 보내기"}
             </button>
-            <div></div>
+            {message && <p className="message">{message}</p>} {/* <--- className */}
             <input
               name="emailCertification"
               type="text" // Changed to text to match input type <----
               placeholder="인증문자를 입력해주세요"
               value={emailCertification}
               onChange={handleEmailChange}
-              onKeyPress={handleKeyPress}
               required
-              className="emailCertification-input" 
-              disabled={!agree}
+              className="email-input" // Ensure same className as email input <----
+              disabled={!isEmailSent}
             />
-            <button className="auth-button" onClick={sendEmail} disabled={!agree || loading}> {/* <--- className */}
-              {loading ? "인증 중..." : "인증하기"}
+            <button className="auth-button" ref={authButtonRef} onClick={verifyCode} disabled={!isEmailSent || verificationLoading}> {/* <--- className */}
+              {verificationLoading ? "인증 중..." : "인증하기"}
             </button>
-            {message && <p className="message">{message}</p>} {/* <--- className */}
+            {verificationMessage && <p className="message">{verificationMessage}</p>} {/* <--- className */}
           </div>
         </div>
       </div>
