@@ -1,26 +1,50 @@
+import React, { useEffect, useState } from "react";
 import MyPageSideBar from "../../components/sidebar/MyPageSideBar";
 import "./Transaction.css";
-import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const Transaction = () => {
-  const [accountHolderName, setAccountHolderName] = useState("동행복권_박현서");
+  const [accountHolderName, setAccountHolderName] = useState("name");
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const data = [
-    {
-      requestDate: "2024/06/09",
-      bank: "로또구매",
-      inAmount: "1,000,000",
-    },
-    {
-      requestDate: "2024/06/09",
-      bank: "환급",
-      outAmount: "500,000",
-    },
-  ];
+  const userId = "1";
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      let url = `http://localhost:8080/api/v1/accounts/${userId}/histories`;
+      if (selectedStartDate && selectedEndDate) {
+        const startDate = selectedStartDate.toISOString().split("T")[0];
+        const endDate = selectedEndDate.toISOString().split("T")[0];
+        url += `?startDate=${startDate}&endDate=${endDate}`;
+      }
+      const response = await axios.get(url);
+      setData(response.data);
+    } catch (err) {
+      setError(err);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSearch = () => {
+    fetchData();
+  };
+
+  const formatPrice = (price) => {
+    return `${price.toLocaleString()}원`;
+  };
+
   return (
     <>
       <main>
@@ -38,7 +62,14 @@ const Transaction = () => {
                     <div className="start-datepicker-container">
                       <DatePicker
                         selected={selectedStartDate}
-                        onChange={(date) => setSelectedStartDate(date)}
+                        onChange={(date) => {
+                          // 시작일이 종료일보다 늦어지지 않도록 조정
+                          if (selectedEndDate && date > selectedEndDate) {
+                            alert("시작일은 종료일보다 빨라야 합니다.");
+                            return;
+                          }
+                          setSelectedStartDate(date);
+                        }}
                         dateFormat="yyyy/MM/dd"
                         className="startDatepicker"
                         placeholderText="시작일"
@@ -57,7 +88,14 @@ const Transaction = () => {
                     <div className="end-datepicker-container">
                       <DatePicker
                         selected={selectedEndDate}
-                        onChange={(date) => setSelectedEndDate(date)}
+                        onChange={(date) => {
+                          // 종료일이 시작일보다 빨라지지 않도록 조정
+                          if (selectedStartDate && date < selectedStartDate) {
+                            alert("종료일은 시작일보다 늦어야 합니다.");
+                            return;
+                          }
+                          setSelectedEndDate(date);
+                        }}
                         dateFormat="yyyy/MM/dd"
                         className="endDatepicker"
                         placeholderText="종료일"
@@ -78,37 +116,56 @@ const Transaction = () => {
             </tbody>
           </table>
           <div className="transaction_btn_wrapper">
-            <button className="btn_common" id="submit_btn">
+            <button
+              className="btn_common"
+              id="submit_btn"
+              onClick={handleSearch}
+            >
               조회
             </button>
           </div>
           <h4 className="transaction_title">예치금 조회내역</h4>
-          <table className="transaction_table">
-            <thead className="transaction_thead">
-              <tr>
-                <th>적립/사용일자</th>
-                <th>내용</th>
-                <th>입금액</th>
-                <th>출금액</th>
-              </tr>
-            </thead>
-            <tbody className="transaction_tbody">
-              {data.length === 0 ? (
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>Error occurred: {error.message}</p>
+          ) : (
+            <table className="transaction_table">
+              <thead className="transaction_thead">
                 <tr>
-                  <td colSpan="5">데이터가 없습니다.</td>
+                  <th>적립/사용일자</th>
+                  <th>내용</th>
+                  <th>입금액</th>
+                  <th>출금액</th>
                 </tr>
-              ) : (
-                data.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.requestDate}</td>
-                    <td>{item.bank}</td>
-                    <td>{item.inAmount}</td>
-                    <td>{item.outAmount}</td>
+              </thead>
+              <tbody className="transaction_tbody">
+                {data.length === 0 ? (
+                  <tr>
+                    <td colSpan="4">데이터가 없습니다.</td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                      <td>{item.transactionStatus}</td>
+                      <td>
+                        {item.transactionStatus.includes("입금") ||
+                        item.transactionStatus.includes("당첨금 수령")
+                          ? formatPrice(item.price)
+                          : "-"}
+                      </td>
+                      <td>
+                        {item.transactionStatus === "출금"
+                          ? formatPrice(item.price)
+                          : "-"}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          )}
         </div>
       </main>
     </>

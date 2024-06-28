@@ -296,3 +296,9 @@
 .buying_payment-info div {
   text-align: right;
 }
+
+
+.buying_btn.selected {
+  border: 1px solid blue;
+  background-color: #f0f0f0;
+}

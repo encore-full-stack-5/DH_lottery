@@ -94,7 +94,7 @@ const TotoMain = () => {
             result: Math.round(document.getElementById("betting-amount").value * sumRtp)
         });
     }
-
+    
     const SetGameCalender = () => {
         return (
             <div className="game-calender-games">
