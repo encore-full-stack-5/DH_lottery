@@ -30,11 +30,12 @@ const JoinFormAgree = ({ setEmail }) => {
     if (showModal) {
       const timer = setTimeout(() => {
         setShowModal(false);
+        localStorage.setItem('verifiedEmail', localEmail); // Store email in localStorage
         window.location.href = 'http://localhost:5173/singUp';
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [showModal]);
+  }, [showModal, localEmail]);
 
   const handleAgreeChange = (e) => {
     setAgree(e.target.checked);
