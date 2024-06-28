@@ -12,20 +12,25 @@ const Transaction = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const userId = "1";
+  const serverAddr = "http://localhost:8083/api/v1/accounts";
 
   const fetchData = async () => {
+    const token = localStorage.getItem("Authorization");
+
     setLoading(true);
     setError(null);
     try {
-      let url = `http://localhost:8080/api/v1/accounts/${userId}/histories`;
+      let url = `${serverAddr}/histories`;
       if (selectedStartDate && selectedEndDate) {
         const startDate = selectedStartDate.toISOString().split("T")[0];
         const endDate = selectedEndDate.toISOString().split("T")[0];
         url += `?startDate=${startDate}&endDate=${endDate}`;
       }
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: token,
+        },
+      });
       setData(response.data);
     } catch (err) {
       setError(err);
