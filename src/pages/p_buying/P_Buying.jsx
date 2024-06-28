@@ -7,7 +7,7 @@ import {
 } from "../../api/pensionBuy";
 import "./P_Buying.css";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const P_Buying = () => {
   const [drawDate, setDrawDate] = useState("2024.06.13");
@@ -28,19 +28,11 @@ const P_Buying = () => {
 
   // 자동 번호 생성 로직
   const generateAutoNumber = () => {
-    // const groupNum = "모든 조";
-    // const randomSelect = ["모든 조", "1조", "2조", "3조", "4조", "5조"];
-    // const selectedGroup =
-    //   randomSelect[getRandomNumber(0, randomSelect.length - 1)];
-
     const randomNumbers = Array.from({ length: 6 }, () =>
       getRandomNumber(0, 9)
     );
 
     setSelectNumber([...randomNumbers]);
-
-    // setAutoNumber([selectedGroup, ...randomNumbers]);
-    // setAutoNumber([groupNum, ...randomNumbers]);
   };
 
   // 자동번호 버튼 클릭 시 동작
@@ -91,17 +83,16 @@ const P_Buying = () => {
       }
       if (groupNum === "모든 조") {
         for (let i = 1; i <= 5; i++) {
-          data = [i, ...selectNumber];
+          data = [round, i, ...selectNumber];
           await selectNum(data); // selectNum이 비동기 함수로 가정
         }
       } else {
         const num = Number(groupNum.split("조")[0]);
-        data = [num, ...selectNumber];
+        data = [round, num, ...selectNumber];
         await selectNum(data);
       }
     } catch (error) {
-      setErrorMessage(error.response.data.message);
-      alert(errorMessage);
+      alert(error.response.data);
     }
     setSelectNumber(["", "", "", "", "", ""]);
     setSelectedIndex(null);
@@ -148,9 +139,9 @@ const P_Buying = () => {
 
   const getSelected = async () => {
     try {
-      const response = await getSelectedTicket("abcd", round); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
+      const d = [round]; // 토큰 처리 필요 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      const response = await getSelectedTicket(d); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
       setGetSelectedNum(response.data);
-      console.log(response);
     } catch (error) {
       console.error(error);
     } finally {
@@ -183,12 +174,19 @@ const P_Buying = () => {
 
   const purchaseTicket = async () => {
     try {
-      const data = ["abcd", "aaa@aaa.com", 200000];
-      await purchase(data);
+      await purchase();
       alert("구매 완료");
       getSelected();
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        // 서버로부터의 응답이 있는 경우
+        const { errorCode, errorMessage } = error.response.data;
+        alert(error.response.data);
+      } else {
+        // 서버로부터의 응답이 없는 경우
+        console.log(error);
+        alert("구매 중 오류가 발생했습니다.");
+      }
     }
   };
 
@@ -197,13 +195,12 @@ const P_Buying = () => {
   };
 
   const goToPayment = () => {
-    navigate('/payment');
+    navigate("/payment");
   };
 
   const goToHistory = () => {
-    navigate('/pension_history');
+    navigate("/pension_history");
   };
-  
 
   return (
     <div className="buying_container">

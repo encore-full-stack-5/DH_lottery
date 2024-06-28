@@ -1,44 +1,48 @@
-import { api } from "../config/network";
+import { api, matchingApi } from "../config/network2";
 
 export const selectNum = async (data) => {
   console.log(data);
   const d = [...data];
 
   const selectItem = {
-    userId: d[0], // userId가 없으므로 null로 설정
-    round: d[1],
-    group: d[2],
-    first: d[3],
-    second: d[4],
-    third: d[5],
-    fourth: d[6],
-    fifth: d[7],
-    sixth: d[8],
+    //userId: "aaa", //d[0], // userId가 없으므로 null로 설정
+    round: d[0],
+    group: d[1],
+    first: d[2],
+    second: d[3],
+    third: d[4],
+    fourth: d[5],
+    fifth: d[6],
+    sixth: d[7],
   };
 
   await api("/api/v1/pension/selected", "post", selectItem);
 };
 
-export const getSelectedTicket = async (userId) => {
-  const res = await api("/api/v1/pension/selected?userId=" + userId, "get");
+export const getSelectedTicket = async (data) => {
+  const res = await api("/api/v1/pension/selected", "get", data);
   return res;
 };
 
 export const deleteSelectedTicket = async (selectedNumberId) => {
-  await api("/api/v1/pension/" + selectedNumberId, "delete");
+  await api("/api/v1/pension/selected/" + selectedNumberId, "delete");
 };
 
-export const purchase = async (data) => {
-  const purchaseItem = {
-    userId: data[0],
-    userEmail: data[1],
-    balance: data[2],
-  };
+export const purchase = async () => {
+  // const purchaseItem = {
+  //   userId: "aaa", //data[0]
+  // };
 
-  await api("/api/v1/pension/purchased", "post", purchaseItem);
+  await api("/api/v1/pension/purchased", "post");
 };
 
 export const getRound = async () => {
   const res = await api("/api/v1/pension/round", "get");
   return res;
-}
+};
+
+export const getAllTickets = async () => {
+  // const userId = "aaa";
+  const res = await matchingApi("/api/v1/pension", "get");
+  return res;
+};
