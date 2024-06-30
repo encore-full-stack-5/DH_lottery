@@ -16,7 +16,7 @@ const TotoMain = () => {
     const [pageData, setPageData] = useState();
     const [bettingData, setBettingData] = useState();
     const daytoText = ["일", "월", "화", "수", "목", "금", "토"];
-    const serverAddr = "http://server-service:8080/api/v1/toto";
+    const serverAddr = "http://34.31.167.92:31000/api/v1/toto";
 
     const testUUIDToken = "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTk1Nzg1NTF9.D11dgF4rO5eDHibR38zBi1n9CnAKB6OV_J9f1P8NdZVZfFxO7MuGaL1i3zjzM5ZU";
 
