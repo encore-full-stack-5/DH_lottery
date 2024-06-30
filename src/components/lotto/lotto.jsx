@@ -208,9 +208,9 @@ const Lotto = () => {
       fifth: set[4],
       sixth: set[5],
     }));
-  
+
     console.log("Sending payment data to server:", paymentData);
-  
+
     try {
       const response = await axios.post(
         "http://localhost:8081/api/v1/lotto/pay",
@@ -222,10 +222,20 @@ const Lotto = () => {
         }
       );
       console.log("Payment successful:", response.data);
-      // Handle successful payment, e.g., display a success message
+      alert("구매가 완료되었습니다");
+
+      // Reset the state
+      setIsChecked(Array(45).fill(false));
+      setQuantity(1);
+      setTentativeAutoSelectedNumbers([]);
+      setGeneratedSets([[], [], [], [], []]);
+      setSetLabels(["미지정", "미지정", "미지정", "미지정", "미지정"]);
+      setAutoSelectActive(false);
+      setCurrentEditIndex(null);
+      setTotalAmount(0);
     } catch (error) {
       console.error("Payment failed:", error);
-      // Handle failed payment, e.g., display an error message
+      alert("구매에 실패했습니다. 다시 시도해주세요.");
     }
   };
 
