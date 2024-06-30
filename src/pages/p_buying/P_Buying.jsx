@@ -97,13 +97,11 @@ const P_Buying = () => {
     setSelectNumber(["", "", "", "", "", ""]);
     setSelectedIndex(null);
     setGroupNum("모든 조");
-    // setAutoNumber(["모든 조", "", "", "", "", "", ""]);
     getSelected(); // getSelected 함수가 있어야 함
   };
 
   useEffect(() => {
     setSelectNumber(["", "", "", "", "", ""]);
-    // setAutoNumber(["모든 조", "", "", "", "", "", ""]);
   }, [errorMessage]);
 
   const calculateTimeLeft = () => {
@@ -139,8 +137,8 @@ const P_Buying = () => {
 
   const getSelected = async () => {
     try {
-      const d = [round]; // 토큰 처리 필요 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      const response = await getSelectedTicket(d); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
+      const d = [round];
+      const response = await getSelectedTicket(d);
       setGetSelectedNum(response.data);
     } catch (error) {
       console.error(error);

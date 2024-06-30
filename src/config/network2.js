@@ -20,7 +20,6 @@ export const api = async (url, method, body) => {
       data: body,
       headers,
     });
-    // console.log("API response:", res); // API 응답 로그 추가
     return res;
   } catch (error) {
     console.error("API error:", error.response?.data); // 오류 로그 추가
