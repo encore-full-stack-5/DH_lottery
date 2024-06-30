@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = async (url, method, body) => {
-    axios.defaults.baseURL = "http://analytics:30001";
+    axios.defaults.baseURL = "http://34.136.172.224:30002";
     
     const headers = {
         "Content-Type": "application/json",
