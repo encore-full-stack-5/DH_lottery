@@ -237,7 +237,7 @@ const TotoMain = () => {
     const getBettingData = async () => {
         try{
             const response = await axios.get(
-                "http://localhost:8000/api/v1/toto/betting",
+                serverAddr + "/betting",
                 { headers: { Authorization: testUUIDToken }}
             );
             setBettingData(response.data);
@@ -261,7 +261,7 @@ const TotoMain = () => {
                 })
             }
             await axios.post(
-                "http://localhost:8000/api/v1/toto/betting",
+                serverAddr + "/betting",
                 bettingList,
                 { headers: { Authorization: testUUIDToken }}
             );

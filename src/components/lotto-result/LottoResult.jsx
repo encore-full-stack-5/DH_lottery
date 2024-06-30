@@ -1,17 +1,19 @@
+import { getDrawByRound } from "../../api/lottoResult";
 import "./LottoResult.css";
+import React, { useEffect, useState } from "react";
 
-const data = {
-  id: 1111,
-  number: [1, 20, 31, 14, 45, 26],
-  bonus: 7,
-  result: [11, 99, 2932, 151473, 2540890],
-  result_data: [28118926506, 4686487839, 4686488276, 7573650000, 12704450000],
-  result_money: [2556266046, 47338261, 1598393, 50000, 5000],
-  totalMoney: 115083786000,
-  createAt: "2024-06-01",
-};
 
 export const LottoResult = () => {
+  const [data, setData] = useState(null);
+
+  const data1 = {
+    result: [11, 99, 2932, 151473, 2540890],
+    result_data: [28118926506, 4686487839, 4686488276, 7573650000, 12704450000],
+    result_money: [2556266046, 47338261, 1598393, 50000, 5000],
+    totalMoney: 115083786000,
+    createAt: "2024-06-01",
+  };
+
   const getColorClass = (num) => {
     if (num < 10) {
       return "color-1";
@@ -43,6 +45,23 @@ export const LottoResult = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getDrawByRound(); // API 호출
+        setData(res.data); // 가져온 데이터를 상태에 저장
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div style={{ marginTop: "67px" }}>
       <h1 style={{ marginBottom: "5%", marginLeft: "50px" }}>로또 당첨번호</h1>
@@ -60,7 +79,7 @@ export const LottoResult = () => {
           </div>
 
           <div className="base-lr">
-            {data.number.map((num, index) => {
+            {[data.first, data.second, data.third, data.fourth, data.fifth, data.sixth].map((num, index) => {
               const colorClass = getColorClass(num);
 
               return (
@@ -120,12 +139,12 @@ export const LottoResult = () => {
               </tr>
             </thead>
             <tbody>
-              {data.result_data.map((d, index) => (
+              {data1.result_data.map((d, index) => (
                 <tr id={index}>
                   <td>{index + 1}</td>
                   <td>{d} 원</td>
-                  <td>{data.result[index]}</td>
-                  <td>{data.result_money[index]} 원</td>
+                  <td>{data1.result[index]}</td>
+                  <td>{data1.result_money[index]} 원</td>
                   <td>{getRankCriteria(index)}</td>
                 </tr>
               ))}
@@ -133,7 +152,7 @@ export const LottoResult = () => {
           </table>
         </div>
         <div className="end_line-lr">
-          <p>- 총판매금액 : {data.totalMoney} 원</p>
+          <p>- 총판매금액 : {data1.totalMoney} 원</p>
         </div>
       </div>
     </div>
