@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = async (url, method, body) => {
-  axios.defaults.baseURL = "http://localhost:8081";
+  axios.defaults.baseURL = "http://34.44.4.146:31792";
   const token = localStorage.getItem("Authorization");
 
   const headers = {
@@ -20,7 +20,6 @@ export const api = async (url, method, body) => {
       data: body,
       headers,
     });
-    // console.log("API response:", res); // API 응답 로그 추가
     return res;
   } catch (error) {
     console.error("API error:", error.response?.data); // 오류 로그 추가
@@ -29,7 +28,7 @@ export const api = async (url, method, body) => {
 };
 
 export const matchingApi = async (url, method, body) => {
-  axios.defaults.baseURL = "http://localhost:8082";
+  axios.defaults.baseURL = "http://34.44.4.146:31000";
   const token = localStorage.getItem("Authorization");
 
   const headers = {
