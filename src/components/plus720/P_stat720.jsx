@@ -134,73 +134,6 @@ const P_stat720 = () => {
         <div style={{ marginLeft: "20px" }}>
           <h2>연금복권720+ 당첨통계</h2>
         </div>
-        <div style={{ padding: "20px", textAlign: "center" }}>
-          <table style={{ borderCollapse: "collapse", width: "100%" }}>
-            <tbody>
-              <tr>
-                <td style={headerStyle}>등위 선택</td>
-                <td style={cellStyle}>
-                  <div style={{ display: "flex" }}>
-                    <input type="checkbox" style={checkboxStyle} />
-                    <p>1등</p>
-                    <input type="checkbox" style={checkboxStyle} />
-                    <p>보너스</p>
-                  </div>
-                </td>
-                <td style={headerStyle}>조회 구분</td>
-                <td style={cellStyle}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <input
-                      type="radio"
-                      name="radioGroup"
-                      value="회차 선택"
-                      onChange={handleRadioChange}
-                      style={radioStyle}
-                    />
-                    <p style={labelStyle}>회차 선택</p>
-                    <input
-                      type="radio"
-                      name="radioGroup"
-                      value="구간 선택"
-                      onChange={handleRadioChange}
-                      style={radioStyle}
-                    />
-                    <p style={labelStyle}>구간(기간) 선택</p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style={headerStyle}>{selectedOption}</td>
-                <td style={cellStyle} colSpan="3">
-                  {selectedOption === "회차 선택" ? (
-                    <div style={{ display: "flex" }}>
-                      <select style={selectStyle}>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                      </select>
-                      <p>~</p>
-                      <select style={selectStyle}>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                      </select>
-                    </div>
-                  ) : selectedOption === "구간 선택" ? (
-                    <>
-                      <select style={selectStyle2}>
-                        <option>최근 5주간</option>
-                        <option>최근 10주간</option>
-                        <option>최근 15주간</option>
-                      </select>
-                    </>
-                  ) : null}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button style={btnStyle}>조회</button>
-        </div>
       </div>
 
       <div>
@@ -229,7 +162,7 @@ const P_stat720 = () => {
                       <div
                         style={{
                           ...groupBarStyle,
-                          width: `${item.당첨횟수 * 5}%`,
+                          width: `${item.당첨횟수 * 3}%`,
                         }}
                       />
                     </div>
@@ -266,7 +199,7 @@ const P_stat720 = () => {
                       <div
                         style={{
                           ...hundredThouBarStyle,
-                          width: `${item.당첨횟수 * 10}%`,
+                          width: `${item.당첨횟수 * 5}%`,
                         }}
                       />
                     </div>
@@ -303,7 +236,7 @@ const P_stat720 = () => {
                       <div
                         style={{
                           ...tenThouBarStyle,
-                          width: `${item.당첨횟수 * 10}%`,
+                          width: `${item.당첨횟수 * 5}%`,
                         }}
                       />
                     </div>
@@ -339,8 +272,8 @@ const P_stat720 = () => {
                     <div style={barContainerStyle}>
                       <div
                         style={{
-                          ...tenThouBarStyle,
-                          width: `${item.당첨횟수 * 10}%`,
+                          ...ThouBarStyle,
+                          width: `${item.당첨횟수 * 5}%`,
                         }}
                       />
                     </div>
@@ -376,8 +309,8 @@ const P_stat720 = () => {
                     <div style={barContainerStyle}>
                       <div
                         style={{
-                          ...tenThouBarStyle,
-                          width: `${item.당첨횟수 * 10}%`,
+                          ...hundBarStyle,
+                          width: `${item.당첨횟수 * 5}%`,
                         }}
                       />
                     </div>
@@ -413,8 +346,8 @@ const P_stat720 = () => {
                     <div style={barContainerStyle}>
                       <div
                         style={{
-                          ...tenThouBarStyle,
-                          width: `${item.당첨횟수 * 10}%`,
+                          ...tenBarStyle,
+                          width: `${item.당첨횟수 * 5}%`,
                         }}
                       />
                     </div>
@@ -450,8 +383,8 @@ const P_stat720 = () => {
                     <div style={barContainerStyle}>
                       <div
                         style={{
-                          ...tenThouBarStyle,
-                          width: `${item.당첨횟수 * 10}%`,
+                          ...oneBarStyle,
+                          width: `${item.당첨횟수 * 5}%`,
                         }}
                       />
                     </div>
@@ -528,7 +461,7 @@ const barContainerStyle = {
   borderRadius: "5px",
   padding: "2px",
   display: "inline-block",
-  width: "100px",
+  width: "100%",
   height: "20px",
 };
 
@@ -545,7 +478,29 @@ const hundredThouBarStyle = {
 };
 
 const tenThouBarStyle = {
-  backgroundColor: "skyblue",
+  backgroundColor: "orange",
+  height: "100%",
+  borderRadius: "5px",
+};
+
+const ThouBarStyle = {
+  backgroundColor: "yellow",
+  height: "100%",
+  borderRadius: "5px",
+};
+
+const hundBarStyle = {
+  backgroundColor: "green",
+  height: "100%",
+  borderRadius: "5px",
+};
+const tenBarStyle = {
+  backgroundColor: "blue",
+  height: "100%",
+  borderRadius: "5px",
+};
+const oneBarStyle = {
+  backgroundColor: "purple",
   height: "100%",
   borderRadius: "5px",
 };

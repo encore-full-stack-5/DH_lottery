@@ -6,8 +6,8 @@ export function SuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [userId, setUserId] = useState("1");
-  const [paymentDetails, setPaymentDetails] = useState(null); // 상태 추가
-
+  const [paymentDetails, setPaymentDetails] = useState(null);
+  const serverAddr = "http://localhost:8080/api/v1/payments/success";
   useEffect(() => {
     const requestData = {
       orderId: searchParams.get("orderId"),
@@ -17,12 +17,15 @@ export function SuccessPage() {
 
     async function confirm() {
       const { orderId, amount, paymentKey } = requestData;
+      const token = localStorage.getItem("Authorization"); // 로컬 스토리지에서 토큰 가져오기
+      console.log("token==================", token);
       const response = await fetch(
-        `http://localhost:8080/api/v1/payments/success/${userId}?orderId=${orderId}&amount=${amount}&paymentKey=${paymentKey}`,
+        `${serverAddr}?orderId=${orderId}&amount=${amount}&paymentKey=${paymentKey}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token, // 헤더에 토큰 추가
           },
         }
       );

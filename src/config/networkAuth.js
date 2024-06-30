@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const authApi = async (url, method, body) => {
-  axios.defaults.baseURL = "http://192.168.0.20:3000";
+  axios.defaults.baseURL = "http://192.168.0.18:3000/auth";
   const token = localStorage.getItem("Authorization");
 
   const headers = {
@@ -10,7 +10,7 @@ export const authApi = async (url, method, body) => {
   };
 
   if (token) {
-    headers['Authorization'] = token; // Bearer prefix is already included
+    headers['Authorization'] = token; 
   }
 
   try {
@@ -20,10 +20,10 @@ export const authApi = async (url, method, body) => {
       data: body,
       headers,
     });
-    console.log('API response:', res); // API 응답 로그 추가
+    console.log('API response:', res);
     return res;
   } catch (error) {
-    console.error('API error:', error.response?.data); // 오류 로그 추가
+    console.error('API error:', error.response?.data);
     throw error;
   }
 };
