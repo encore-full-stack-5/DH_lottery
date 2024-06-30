@@ -5,7 +5,7 @@ import axios from "axios";
 const GameResultPopup = (props) => {
     const daytoText = ["일", "월", "화", "수", "목", "금", "토"];
     const [resultData, setResultData] = useState();
-    const serverAddr = "http://192.168.0.16:8000/api/v1/toto"
+    const serverAddr = "http://34.31.167.92:31000/api/v1/toto"
 
     const ResultList = () => {
         if (!resultData) {
