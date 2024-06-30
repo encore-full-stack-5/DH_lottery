@@ -8,8 +8,8 @@ const LottoHistory = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("전체보기");
-  const [startDate, setStartDate] = useState("2024-01-10");
-  const [endDate, setEndDate] = useState("2024-06-10");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
   const [userId, setUserId] = useState("");
   const [allHistory, setAllHistory] = useState([]);
