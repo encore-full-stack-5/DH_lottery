@@ -20,10 +20,15 @@ body {
 
 .left {
   border-color: #f56d6d;
+  min-width: 484px;
+  min-height: 501px;
+
 }
 
 .right {
   border-color: #4f93e5;
+  min-width: 484px;
+  min-height: 510px;
 }
 
 .picknumber {
