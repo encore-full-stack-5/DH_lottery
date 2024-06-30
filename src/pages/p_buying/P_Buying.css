@@ -83,9 +83,6 @@
     -2px 2px 0 #fff;
   margin-bottom: 30px;
 }
-/* .buying_numbers button {
-  flex: 1;
-} */
 .buying_line {
   content: "";
   width: 100%;
@@ -153,7 +150,6 @@
   width: 80%;
 
   height: 70px;
-  /* flex-direction: column; */
   align-items: center;
   gap: 10px;
 }
@@ -163,19 +159,12 @@
   height: 70px;
   width: 76px;
   padding: 23px 0px;
-  /* gap: 10px;
-  flex-direction: column;
-  align-items: center;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px; */
   background-color: rgba(219, 231, 244, 1);
   text-align: center;
   white-space: nowrap;
 }
 
 .buying_btn {
-  /* min-width: 10px; */
   border: 1px solid #ddd;
   font-size: 2rem;
   text-align: center;
