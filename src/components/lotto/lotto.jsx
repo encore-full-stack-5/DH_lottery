@@ -266,7 +266,7 @@ const Lotto = () => {
 
     try {
       const response = await axios.post(
-        "http://34.136.172.224:30003/api/v1/lotto/pay",
+        "http://34.136.172.224:30001/api/v1/lotto/pay",
         paymentData,
         {
           headers: {
