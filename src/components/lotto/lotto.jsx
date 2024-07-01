@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode"; // Correct import for jwt-decode
+
 import "./Lotto.css";
 
 const Lotto = () => {
@@ -19,13 +21,64 @@ const Lotto = () => {
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
   const [totalAmount, setTotalAmount] = useState(0);
   const [authValue, setAuthValue] = useState("");
+  const [balance, setBalance] = useState(0);
+  const [userId, setUserId] = useState("");
+
+
 
   useEffect(() => {
-    const storedAuthValue = localStorage.getItem("Authorization");
-    if (storedAuthValue) {
-      setAuthValue(storedAuthValue);
+    const token = localStorage.getItem("Authorization")?.split(" ")[1];
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log(decoded);
+        setUserId(decoded.id);
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    } else {
+      console.error("No token found");
     }
   }, []);
+
+  // useEffect(() => {
+  //   const storedAuthValue = localStorage.getItem("Authorization");
+  //   if (storedAuthValue) {
+  //     setAuthValue(storedAuthValue);
+  //     const token = storedAuthValue?.split(" ")[1];
+  //     if (token) {
+  //       try {
+  //         const decoded = jwtDecode(token);
+  //         setUserId(decoded.id);
+  //       } catch (error) {
+  //         console.error("Invalid token", error);
+  //       }
+  //     } else {
+  //       console.error("No token found");
+  //     }
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      if (!userId) {
+        console.error("User ID is not set");
+        return;
+      }
+
+      try {
+        const url = `http://34.46.237.231:30421/api/v1/accounts/${userId}`;
+        console.log("Fetching balance from URL:", url);
+        const response = await axios.get(url);
+        console.log(`response is ${response}`);
+        setBalance(response.data.point);
+        console.log("Fetched balance:", response.data.point);
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    };
+    fetchUserBalance();
+  }, [userId]);
 
   const handleButtonClick = (index) => {
     setIsChecked((prevState) => {
@@ -341,7 +394,7 @@ const Lotto = () => {
           </div>
           <div className="footer">
             <div className="amount-info">
-              <div>보유예치금 0원</div>
+              <div>보유예치금 {balance}원</div>
               <div>결제금액 {totalAmount}원</div>
             </div>
             <button className="buy-button" onClick={handlePurchase}>
