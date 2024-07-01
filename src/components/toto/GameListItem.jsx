@@ -15,7 +15,7 @@ const GameListItem = (props) => {
             state: e,
             teamName: e==1 ? props.teamHome : props.teamAway,
             teamRtp: e==1 ? props.rtpHome : props.rtpAway,
-            isEnd: () => {return new Date().getTime() > props.bettingEnd.getTime()}
+            isEnd: () => {return new Date(new Date().setHours(new Date().getHours-9)).getTime() > props.bettingEnd.getTime() > props.bettingEnd.getTime()}
         };
         props.setBetting(bettingTeam);
     }
