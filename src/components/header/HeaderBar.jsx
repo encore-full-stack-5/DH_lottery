@@ -15,34 +15,34 @@ const HeaderBar = () => {
             <li className="money">
               <span className="won">￦ 예치금</span>
               <a className="price">0원</a>
-              <a href="/payment" className="header-button">
+              <Link to="/payment" className="header-button">
                 충전
-              </a>
-              <a href="/withdraw" className="header-button">
+              </Link>
+              <Link to="/withdraw" className="header-button">
                 출금
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/login" className="header-button">
+              <Link to="/login" className="header-button">
                 로그인
-              </a>
+              </Link>
               <a className="h-bar"> | </a>
             </li>
             <li>
-              <a href="/logout" className="header-button">
+              <Link to="/login" className="header-button">
                 로그아웃
-              </a>
+              </Link>
               <a className="h-bar"> | </a>
             </li>
             <li>
-              <a href="/myPage" className="header-right-button">
+              <Link to="/myPage" className="header-right-button">
                 마이페이지
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/logout" className="header-right-button">
+              <Link to="/myPage" className="header-right-button">
                 고객센터
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

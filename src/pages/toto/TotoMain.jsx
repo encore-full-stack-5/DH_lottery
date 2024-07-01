@@ -18,8 +18,6 @@ const TotoMain = () => {
     const daytoText = ["일", "월", "화", "수", "목", "금", "토"];
     const serverAddr = "http://34.31.167.92:31000/api/v1/toto";
 
-    const testUUIDToken = "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTk1Nzg1NTF9.D11dgF4rO5eDHibR38zBi1n9CnAKB6OV_J9f1P8NdZVZfFxO7MuGaL1i3zjzM5ZU";
-
     const changeWeek = (e = 0) => {
         if(e != 0) changeDay(-1);
 
@@ -49,6 +47,11 @@ const TotoMain = () => {
         }
     }
     const changeCart = (e) => {
+        if (e == 1 && localStorage.getItem("Authorization") == null) {
+            alert("로그인이 필요합니다.");
+            return;
+        }
+
         const orderBoxHeader = document.getElementById("o-box-header");
         setSelectedCart(e);
 
@@ -176,42 +179,6 @@ const TotoMain = () => {
                         amount={e.pointAmount}
                         bettingGames={e.bettingGames}
                     />
-                // {
-                //     const buyDate = new Date(e.createdAt);
-                //     return (
-                //         <div key={i}>
-                //             <div>
-                //                 {`${buyDate.getMonth()+1}.${buyDate.getDate()}(${daytoText[buyDate.getDay()]})`}
-                //             </div>
-                //             <div>
-                //                 {e.pointAmount}
-                //             </div>
-                //             <div>
-                //                 {e.bettingGames.map((e,i) => {
-                //                     const startDate = new Date(e.gameStartAt);
-                //                     return (
-                //                     <div key={i}>
-                //                         <div>
-                //                             {`${startDate.getMonth()}.${startDate.getDate()}`}
-                //                         </div>
-                //                         <div>
-                //                             {`${e.teamHome}vs${e.teamAway}`}
-                //                         </div>
-                //                         <div>
-                //                             {e.gameRtp}
-                //                         </div>
-                //                         <div>
-                //                             {e.team == 1 ? e.teamHome : e.teamAway}
-                //                         </div>
-                //                         <div>
-                //                             {e.result}
-                //                         </div>
-                //                     </div>
-                //                 )})}
-                //             </div>
-                //         </div>
-                //     )
-                // }
                 )}
             </div>
         )
@@ -236,9 +203,10 @@ const TotoMain = () => {
     }
     const getBettingData = async () => {
         try{
+            const uuid = localStorage.getItem("Authorization");
             const response = await axios.get(
                 serverAddr + "/betting",
-                { headers: { Authorization: testUUIDToken }}
+                { headers: { Authorization: uuid }}
             );
             setBettingData(response.data);
             // console.log(response.data);
@@ -248,6 +216,11 @@ const TotoMain = () => {
     }
     const sendBettingData = async () => {
         try {
+            const uuid = localStorage.getItem("Authorization");
+            if (uuid == null) {
+                alert("로그인이 필요합니다.");
+                return;
+            }
             if (Object.keys(bettingOrder).length == 0) throw new Error("선택한 경기가 없습니다.");
             if (document.getElementById("betting-amount").value < 1000) throw new Error("1000원 이상 배팅해 주세요.");
             const bettingList = {
@@ -263,7 +236,7 @@ const TotoMain = () => {
             await axios.post(
                 serverAddr + "/betting",
                 bettingList,
-                { headers: { Authorization: testUUIDToken }}
+                { headers: { Authorization: uuid }}
             );
             alert("구매가 완료되었습니다.");
             setBettingOrder({});

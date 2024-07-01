@@ -269,7 +269,6 @@ const PensionHistory = () => {
               <tr key={index}>
                 <td>{item.createAt}</td>
                 <td>연금복권720</td>{" "}
-                {/* 복권명은 data에서 없으므로 임의로 넣음 */}
                 <td>{item.round}</td>
                 <td>
                   {`${item.groupNum}조 ${item.first}${item.second}${item.third}${item.fourth}${item.fifth}${item.sixth}`}

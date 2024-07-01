@@ -7,7 +7,7 @@ export function SuccessPage() {
   const [searchParams] = useSearchParams();
   const [userId, setUserId] = useState("1");
   const [paymentDetails, setPaymentDetails] = useState(null);
-  const serverAddr = "http://localhost:8080/api/v1/payments/success";
+  const serverAddr = "http://34.46.237.231:30421/api/v1/payments/success";
   useEffect(() => {
     const requestData = {
       orderId: searchParams.get("orderId"),
