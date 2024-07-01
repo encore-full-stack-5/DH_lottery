@@ -10,8 +10,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const P_Buying = () => {
-  const [drawDate, setDrawDate] = useState("2024.06.13");
-  const [drawEndDate, setDrawEndDate] = useState("2025.06.13");
+  const today = new Date();
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
+  };
+
+  const [drawDate, setDrawDate] = useState(formatDate(today));
+  const [drawEndDate, setDrawEndDate] = useState(formatDate(today));
   const [groupNum, setGroupNum] = useState("모든 조");
   const [autoNumber, setAutoNumber] = useState(["모든 조"]);
   const [selectNumber, setSelectNumber] = useState(["", "", "", "", "", ""]);
@@ -107,21 +116,29 @@ const P_Buying = () => {
   }, [errorMessage]);
 
   const calculateTimeLeft = () => {
-    const targetDate = new Date("2024-07-01T00:00:00");
     const now = new Date();
+    let targetDate = new Date();
+  
+    // 현재 시간이 0~29분 사이이면, 다음 정각으로 설정
+    if (now.getMinutes() < 30) {
+      targetDate.setMinutes(30, 0, 0); // 다음 30분
+    } else {
+      targetDate.setHours(now.getHours() + 1, 0, 0, 0); // 다음 정각
+    }
+  
     const difference = targetDate - now;
-
+  
     let timeLeft = {};
-
+  
     if (difference > 0) {
       timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
       };
     }
     return timeLeft;
   };
+  
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   useEffect(() => {
     const timer = setInterval(() => {
