@@ -38,7 +38,7 @@ const OrderHistoryItem = (props) => {
         });
         if (isWin == 0) setBettingResult("두근두근");
         else if (isWin == 1) setBettingResult("적☆중");
-        else setBettingResult("꽝~!");
+        else setBettingResult("꽝ㅋㅋ");
         setRtp(Math.round(rtpCalc*100)/100);
     }
 

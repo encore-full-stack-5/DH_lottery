@@ -43,10 +43,6 @@ body {
   justify-content: center;
 }
 
-.action {
-  /* padding-top: 40px; */
-}
-
 .auto-button-checked,
 .auto-button-unchecked,
 .reset-button {

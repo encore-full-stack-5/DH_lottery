@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import {jwtDecode} from "jwt-decode"; // Correct import for jwt-decode
 import "./LottoHistory.css";
 import axios from "axios";
 
@@ -49,18 +49,22 @@ const LottoHistory = () => {
 
   const fetchAllHistory = () => {
     axios
-      .get(`http://localhost:8080/api/v1/lotto-history/${userId}`, {
+      .get(`http://34.136.172.224:30003/api/v1/lotto-history/${userId}`, {
         params: {
-          page: page,
-          pageSize: pageSize,
           startDate: startDate,
           endDate: endDate,
           orderBy: orderBy,
         },
       })
       .then((response) => {
-        setAllHistory(response.data.content);
-        setTotalPages(response.data.pageInfo.totalPages);
+        let sortedHistory = [...response.data.content];
+        sortedHistory = sortedHistory.sort((a, b) => {
+          const dateA = new Date(a.payCreatedAt);
+          const dateB = new Date(b.payCreatedAt);
+          return orderBy === "recent" ? dateB - dateA : dateA - dateB;
+        });
+        setAllHistory(sortedHistory);
+        setTotalPages(Math.ceil(sortedHistory.length / pageSize));
       })
       .catch((error) => {
         console.error("에러 발생:", error);
@@ -87,28 +91,33 @@ const LottoHistory = () => {
 
   const handlePageChange = (newPage) => {
     navigate(`/lotto_history?page=${newPage}`);
+    setPage(newPage);
   };
 
   const handleTodayClick = () => {
-    const today = new Date().toISOString().split("T")[0];
-    setStartDate(today);
-    setEndDate(today);
+    const today = new Date();
+    const koreanTime = new Date(today.getTime() + 9 * 60 * 60 * 1000); // Add 9 hours to convert to KST
+    const todayDate = koreanTime.toISOString().split("T")[0];
+    setStartDate(todayDate);
+    setEndDate(todayDate);
   };
 
   const handleWeekClick = () => {
     const today = new Date();
-    const lastWeek = new Date(today);
-    lastWeek.setDate(today.getDate() - 7);
+    const koreanTime = new Date(today.getTime() + 9 * 60 * 60 * 1000); // Add 9 hours to convert to KST
+    const lastWeek = new Date(koreanTime);
+    lastWeek.setDate(koreanTime.getDate() - 7);
     setStartDate(lastWeek.toISOString().split("T")[0]);
-    setEndDate(today.toISOString().split("T")[0]);
+    setEndDate(koreanTime.toISOString().split("T")[0]);
   };
 
   const handleMonthClick = () => {
     const today = new Date();
-    const lastMonth = new Date(today);
-    lastMonth.setMonth(today.getMonth() - 1);
+    const koreanTime = new Date(today.getTime() + 9 * 60 * 60 * 1000); // Add 9 hours to convert to KST
+    const lastMonth = new Date(koreanTime);
+    lastMonth.setMonth(koreanTime.getMonth() - 1);
     setStartDate(lastMonth.toISOString().split("T")[0]);
-    setEndDate(today.toISOString().split("T")[0]);
+    setEndDate(koreanTime.toISOString().split("T")[0]);
   };
 
   return (
@@ -187,20 +196,19 @@ const LottoHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {allHistory.length > 0 ? (
-            allHistory.map((history) => (
-              <tr key={history.payId}>
-                <td>{new Date(history.payCreatedAt).toLocaleDateString()}</td>
-                <td>로또</td>
-                <td>{history.roundId}</td>
-                <td>{history.lotteryId}</td>
-                <td>{history.lotteryCount}</td>
-                <td>{history.result}</td>
-                <td>{history.resultMoney}</td>
-                <td></td>
-              </tr>
-            ))
-          ) : (
+          {allHistory.slice(page * pageSize, (page + 1) * pageSize).map((history) => (
+            <tr key={history.payId}>
+              <td>{new Date(history.payCreatedAt).toLocaleDateString()}</td>
+              <td>로또</td>
+              <td>{history.roundId}</td>
+              <td>{history.lotteryId}</td>
+              <td>{history.lotteryCount}</td>
+              <td>{history.result}</td>
+              <td>{history.resultMoney}</td>
+              <td></td>
+            </tr>
+          ))}
+          {allHistory.length === 0 && (
             <tr>
               <td colSpan="8">조회 결과가 없습니다.</td>
             </tr>
