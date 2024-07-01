@@ -33,7 +33,6 @@ const TotoMain = () => {
     const changeDay = (e) => {
         const gameCalender = document.getElementById("g-calender-head");
         setSelectedDay(e);
-        getGameData(new Date(new Date(selectedWeek).setDate(selectedWeek.getDate() + e - 1)).toISOString().split('T')[0]);
 
         if (e != selectedDay && selectedDay != -1) {
             gameCalender.children[selectedDay].style.backgroundColor = null;
@@ -41,6 +40,7 @@ const TotoMain = () => {
             gameCalender.children[selectedDay].style.fontWeight = 'normal';
         }
         if(e != -1) {
+            getGameData(new Date(new Date(selectedWeek).setDate(selectedWeek.getDate() + e - 1)).toISOString().split('T')[0]);
             gameCalender.children[e].style.backgroundColor = 'white';
             gameCalender.children[e].style.color = 'black';
             gameCalender.children[e].style.fontWeight = 'bold';
