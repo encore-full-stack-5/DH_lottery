@@ -318,7 +318,7 @@ const Lotto = () => {
                   )
                 )}
               </div>
-              <div className="action">
+              <div>
                 <button
                   onClick={handleAutoSelect}
                   className={
