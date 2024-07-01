@@ -47,6 +47,11 @@ const TotoMain = () => {
         }
     }
     const changeCart = (e) => {
+        if (localStorage.getItem("Authorization") == null) {
+            alert("로그인이 필요합니다.");
+            return;
+        }
+
         const orderBoxHeader = document.getElementById("o-box-header");
         setSelectedCart(e);
 
@@ -174,42 +179,6 @@ const TotoMain = () => {
                         amount={e.pointAmount}
                         bettingGames={e.bettingGames}
                     />
-                // {
-                //     const buyDate = new Date(e.createdAt);
-                //     return (
-                //         <div key={i}>
-                //             <div>
-                //                 {`${buyDate.getMonth()+1}.${buyDate.getDate()}(${daytoText[buyDate.getDay()]})`}
-                //             </div>
-                //             <div>
-                //                 {e.pointAmount}
-                //             </div>
-                //             <div>
-                //                 {e.bettingGames.map((e,i) => {
-                //                     const startDate = new Date(e.gameStartAt);
-                //                     return (
-                //                     <div key={i}>
-                //                         <div>
-                //                             {`${startDate.getMonth()}.${startDate.getDate()}`}
-                //                         </div>
-                //                         <div>
-                //                             {`${e.teamHome}vs${e.teamAway}`}
-                //                         </div>
-                //                         <div>
-                //                             {e.gameRtp}
-                //                         </div>
-                //                         <div>
-                //                             {e.team == 1 ? e.teamHome : e.teamAway}
-                //                         </div>
-                //                         <div>
-                //                             {e.result}
-                //                         </div>
-                //                     </div>
-                //                 )})}
-                //             </div>
-                //         </div>
-                //     )
-                // }
                 )}
             </div>
         )
@@ -235,10 +204,6 @@ const TotoMain = () => {
     const getBettingData = async () => {
         try{
             const uuid = localStorage.getItem("Authorization");
-            if (uuid == null) {
-                alert("로그인이 필요합니다.");
-                return;
-            }
             const response = await axios.get(
                 serverAddr + "/betting",
                 { headers: { Authorization: uuid }}
