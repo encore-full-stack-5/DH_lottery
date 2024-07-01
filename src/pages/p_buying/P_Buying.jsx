@@ -21,6 +21,8 @@ const P_Buying = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [round, setRound] = useState(0);
   const navigate = useNavigate();
+  const [balance, setBalance] = useState(0);
+  const [userId, setUserId] = useState("");
 
   const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -160,6 +162,42 @@ const P_Buying = () => {
     getSelected();
     getCurrentRound();
   }, []);
+  
+  useEffect(() => {
+    const token = localStorage.getItem("Authorization")?.split(" ")[1];
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log(decoded);
+        setUserId(decoded.id);
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    } else {
+      console.error("No token found");
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      if (!userId) {
+        console.error("User ID is not set");
+        return;
+      }
+
+      try {
+        const url = `http://34.46.237.231:30421/api/v1/accounts/${userId}`;
+        console.log("Fetching balance from URL:", url);
+        const response = await axios.get(url);
+        console.log(`response is ${response}`);
+        setBalance(response.data.point);
+        console.log("Fetched balance:", response.data.point);
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    };
+    fetchUserBalance();
+  }, [userId]);
 
   const getCurrentRound = async () => {
     try {
@@ -362,7 +400,7 @@ const P_Buying = () => {
             <p>보유중인 예치금</p>
             <button onClick={goToPayment}>충전</button>
           </div>
-          <p>0원</p>
+          <p>{balance}원</p>
         </div>
         <div className="buying_footer-section buying_payment-info">
           <div>
