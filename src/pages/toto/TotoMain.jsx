@@ -47,7 +47,7 @@ const TotoMain = () => {
         }
     }
     const changeCart = (e) => {
-        if (localStorage.getItem("Authorization") == null) {
+        if (e == 1 && localStorage.getItem("Authorization") == null) {
             alert("로그인이 필요합니다.");
             return;
         }
