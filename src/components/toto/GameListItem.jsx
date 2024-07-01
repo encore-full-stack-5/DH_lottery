@@ -21,7 +21,7 @@ const GameListItem = (props) => {
     }
 
     useEffect(() => {
-        if(new Date().getTime() > props.bettingEnd.getTime()) {
+        if(new Date(new Date().setHours(new Date().getHours-9)).getTime() > props.bettingEnd.getTime()) {
             document.getElementById("rtp-home"+props.gameId).style.backgroundColor = "#ddd";
             document.getElementById("rtp-away"+props.gameId).style.backgroundColor = "#ddd";
             document.getElementById("rtp-home"+props.gameId).style.cursor = "default";
