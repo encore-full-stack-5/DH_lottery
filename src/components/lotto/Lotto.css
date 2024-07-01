@@ -6,17 +6,29 @@ body {
   padding: 0 18px;
   display: flex;
   justify-content: space-between;
-  flex-direction: inherit;
-  margin-top: 10px;
+  margin: 10px auto; /* Center the container horizontally */
   height: 500px;
+  max-width: 1200px; /* Set a max-width to control the container's width */
+}
+
+.left, .right {
+  border: solid 5px;
+  border-radius: 5px;
+  width: 48%; /* Slightly less than 50% to add space between boxes */
+  min-height: fit-content;
 }
 
 .left {
-  border: solid 5px #f56d6d;
-  border-radius: 5px;
-  width: 50%;
-  margin-right: 10px;
-  max-height: 100%;
+  border-color: #f56d6d;
+  min-width: 484px;
+  min-height: 501px;
+
+}
+
+.right {
+  border-color: #4f93e5;
+  min-width: 484px;
+  min-height: 510px;
 }
 
 .picknumber {
@@ -29,10 +41,6 @@ body {
   align-content: space-around;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.action {
-  padding-top: 40px;
 }
 
 .auto-button-checked,
@@ -130,13 +138,6 @@ body {
 
 .button-checked {
   background-color: lightgreen;
-}
-
-.right {
-  border: solid 5px #4f93e5;
-  width: 50%;
-  border-radius: 5px;
-  margin-top: 150px;
 }
 
 .header {

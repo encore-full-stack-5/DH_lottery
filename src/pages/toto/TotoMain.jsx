@@ -16,9 +16,7 @@ const TotoMain = () => {
     const [pageData, setPageData] = useState();
     const [bettingData, setBettingData] = useState();
     const daytoText = ["일", "월", "화", "수", "목", "금", "토"];
-    const serverAddr = "http://192.168.0.16:8000/api/v1/toto";
-
-    const testUUIDToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE3MTk0MTU5OTF9.mzbQGv2YeM2HcYJDtGGmwoZ7keyChtafvf64trLz5CErfqoFtm8fo7oGkrD-xghy";
+    const serverAddr = "http://34.31.167.92:31000/api/v1/toto";
 
     const changeWeek = (e = 0) => {
         if(e != 0) changeDay(-1);
@@ -35,7 +33,6 @@ const TotoMain = () => {
     const changeDay = (e) => {
         const gameCalender = document.getElementById("g-calender-head");
         setSelectedDay(e);
-        getGameData(new Date(new Date(selectedWeek).setDate(selectedWeek.getDate() + e - 1)).toISOString().split('T')[0]);
 
         if (e != selectedDay && selectedDay != -1) {
             gameCalender.children[selectedDay].style.backgroundColor = null;
@@ -43,12 +40,18 @@ const TotoMain = () => {
             gameCalender.children[selectedDay].style.fontWeight = 'normal';
         }
         if(e != -1) {
+            getGameData(new Date(new Date(selectedWeek).setDate(selectedWeek.getDate() + e - 1)).toISOString().split('T')[0]);
             gameCalender.children[e].style.backgroundColor = 'white';
             gameCalender.children[e].style.color = 'black';
             gameCalender.children[e].style.fontWeight = 'bold';
         }
     }
     const changeCart = (e) => {
+        if (e == 1 && localStorage.getItem("Authorization") == null) {
+            alert("로그인이 필요합니다.");
+            return;
+        }
+
         const orderBoxHeader = document.getElementById("o-box-header");
         setSelectedCart(e);
 
@@ -176,42 +179,6 @@ const TotoMain = () => {
                         amount={e.pointAmount}
                         bettingGames={e.bettingGames}
                     />
-                // {
-                //     const buyDate = new Date(e.createdAt);
-                //     return (
-                //         <div key={i}>
-                //             <div>
-                //                 {`${buyDate.getMonth()+1}.${buyDate.getDate()}(${daytoText[buyDate.getDay()]})`}
-                //             </div>
-                //             <div>
-                //                 {e.pointAmount}
-                //             </div>
-                //             <div>
-                //                 {e.bettingGames.map((e,i) => {
-                //                     const startDate = new Date(e.gameStartAt);
-                //                     return (
-                //                     <div key={i}>
-                //                         <div>
-                //                             {`${startDate.getMonth()}.${startDate.getDate()}`}
-                //                         </div>
-                //                         <div>
-                //                             {`${e.teamHome}vs${e.teamAway}`}
-                //                         </div>
-                //                         <div>
-                //                             {e.gameRtp}
-                //                         </div>
-                //                         <div>
-                //                             {e.team == 1 ? e.teamHome : e.teamAway}
-                //                         </div>
-                //                         <div>
-                //                             {e.result}
-                //                         </div>
-                //                     </div>
-                //                 )})}
-                //             </div>
-                //         </div>
-                //     )
-                // }
                 )}
             </div>
         )
@@ -220,7 +187,7 @@ const TotoMain = () => {
     const getGameData = async (date = null, page = 0) => {
         try{
             let url = serverAddr + "/games?page=" + page;
-            url += date == null ? "" : "&date="+date;
+            if(date) url += "&date="+date;
             const response = await axios.get(url);
             if (page == 0) {
                 setGameData(response.data.content);
@@ -236,9 +203,10 @@ const TotoMain = () => {
     }
     const getBettingData = async () => {
         try{
+            const uuid = localStorage.getItem("Authorization");
             const response = await axios.get(
-                "http://localhost:8000/api/v1/toto/betting",
-                { headers: { Authorization: testUUIDToken }}
+                serverAddr + "/betting",
+                { headers: { Authorization: uuid }}
             );
             setBettingData(response.data);
             // console.log(response.data);
@@ -248,6 +216,11 @@ const TotoMain = () => {
     }
     const sendBettingData = async () => {
         try {
+            const uuid = localStorage.getItem("Authorization");
+            if (uuid == null) {
+                alert("로그인이 필요합니다.");
+                return;
+            }
             if (Object.keys(bettingOrder).length == 0) throw new Error("선택한 경기가 없습니다.");
             if (document.getElementById("betting-amount").value < 1000) throw new Error("1000원 이상 배팅해 주세요.");
             const bettingList = {
@@ -261,9 +234,9 @@ const TotoMain = () => {
                 })
             }
             await axios.post(
-                "http://localhost:8000/api/v1/toto/betting",
+                serverAddr + "/betting",
                 bettingList,
-                { headers: { Authorization: testUUIDToken }}
+                { headers: { Authorization: uuid }}
             );
             alert("구매가 완료되었습니다.");
             setBettingOrder({});

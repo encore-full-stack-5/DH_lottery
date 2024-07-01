@@ -20,8 +20,8 @@ const NavBar = () => {
               <Link to="/winResult" className="nav-list">
                 연금복권 당첨결과
               </Link>
-              <Link to="/" className="nav-list">
-                통계
+              <Link to="/toto" className="nav-list">
+                스포츠 토토
               </Link>
             </ul>
           </nav>

@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {jwtDecode} from "jwt-decode"; // Correct import for jwt-decode
+
 import "./Lotto.css";
 
 const Lotto = () => {
@@ -16,6 +19,66 @@ const Lotto = () => {
   ]);
   const [autoSelectActive, setAutoSelectActive] = useState(false);
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [authValue, setAuthValue] = useState("");
+  const [balance, setBalance] = useState(0);
+  const [userId, setUserId] = useState("");
+
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("Authorization")?.split(" ")[1];
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log(decoded);
+        setUserId(decoded.id);
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    } else {
+      console.error("No token found");
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   const storedAuthValue = localStorage.getItem("Authorization");
+  //   if (storedAuthValue) {
+  //     setAuthValue(storedAuthValue);
+  //     const token = storedAuthValue?.split(" ")[1];
+  //     if (token) {
+  //       try {
+  //         const decoded = jwtDecode(token);
+  //         setUserId(decoded.id);
+  //       } catch (error) {
+  //         console.error("Invalid token", error);
+  //       }
+  //     } else {
+  //       console.error("No token found");
+  //     }
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      if (!userId) {
+        console.error("User ID is not set");
+        return;
+      }
+
+      try {
+        const url = `http://34.46.237.231:30421/api/v1/accounts/${userId}`;
+        console.log("Fetching balance from URL:", url);
+        const response = await axios.get(url);
+        console.log(`response is ${response}`);
+        setBalance(response.data.point);
+        console.log("Fetched balance:", response.data.point);
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    };
+    fetchUserBalance();
+  }, [userId]);
 
   const handleButtonClick = (index) => {
     setIsChecked((prevState) => {
@@ -54,6 +117,10 @@ const Lotto = () => {
     setAutoSelectActive((prevState) => !prevState);
   };
 
+  const calculateTotalAmount = (sets) => {
+    return sets.filter((set) => set.length > 0).length * 1000;
+  };
+
   const handleConfirm = () => {
     const selectedNumbers = isChecked
       .map((checked, index) => (checked ? index + 1 : null))
@@ -70,7 +137,7 @@ const Lotto = () => {
       return;
     }
 
-    let newLabel = "수동"; // 기본값을 수동으로 설정
+    let newLabel = "수동";
 
     if (autoSelectActive) {
       newLabel = selectedNumbers.length > 0 ? "반자동" : "자동";
@@ -99,6 +166,7 @@ const Lotto = () => {
       setGeneratedSets(sets);
       setSetLabels(labels);
       setCurrentEditIndex(null);
+      setTotalAmount(calculateTotalAmount(sets));
       return;
     }
 
@@ -123,6 +191,7 @@ const Lotto = () => {
 
     setGeneratedSets(sets);
     setSetLabels(labels);
+    setTotalAmount(calculateTotalAmount(sets));
   };
 
   const handleLeftReset = () => {
@@ -134,6 +203,7 @@ const Lotto = () => {
   const handleRightReset = () => {
     setGeneratedSets([[], [], [], [], []]);
     setSetLabels(["미지정", "미지정", "미지정", "미지정", "미지정"]);
+    setTotalAmount(0);
   };
 
   const handleEditSet = (index) => {
@@ -159,6 +229,7 @@ const Lotto = () => {
 
     setGeneratedSets(sets);
     setSetLabels(labels);
+    setTotalAmount(calculateTotalAmount(sets));
   };
 
   const getColorClass = (number) => {
@@ -180,8 +251,45 @@ const Lotto = () => {
     return quantity * 1000;
   };
 
-  const calculateTotalAmount = () => {
-    return generatedSets.filter((set) => set.length > 0).length * 1000;
+  const handlePurchase = async () => {
+    const setsToSend = generatedSets.filter((set) => set.length === 6);
+    const paymentData = setsToSend.map((set) => ({
+      first: set[0],
+      second: set[1],
+      third: set[2],
+      fourth: set[3],
+      fifth: set[4],
+      sixth: set[5],
+    }));
+
+    console.log("Sending payment data to server:", paymentData);
+
+    try {
+      const response = await axios.post(
+        "http://34.136.172.224:30001/api/v1/lotto/pay",
+        paymentData,
+        {
+          headers: {
+            Authorization: authValue,
+          },
+        }
+      );
+      console.log("Payment successful:", response.data);
+      alert("구매가 완료되었습니다");
+
+      // Reset the state
+      setIsChecked(Array(45).fill(false));
+      setQuantity(1);
+      setTentativeAutoSelectedNumbers([]);
+      setGeneratedSets([[], [], [], [], []]);
+      setSetLabels(["미지정", "미지정", "미지정", "미지정", "미지정"]);
+      setAutoSelectActive(false);
+      setCurrentEditIndex(null);
+      setTotalAmount(0);
+    } catch (error) {
+      console.error("Payment failed:", error);
+      alert("구매에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
@@ -210,7 +318,7 @@ const Lotto = () => {
                   )
                 )}
               </div>
-              <div className="action">
+              <div>
                 <button
                   onClick={handleAutoSelect}
                   className={
@@ -286,10 +394,12 @@ const Lotto = () => {
           </div>
           <div className="footer">
             <div className="amount-info">
-              <div>보유예치금 0원</div>
-              <div>결제금액 {calculateTotalAmount()}원</div>
+              <div>보유예치금 {balance}원</div>
+              <div>결제금액 {totalAmount}원</div>
             </div>
-            <button className="buy-button">구매하기</button>
+            <button className="buy-button" onClick={handlePurchase}>
+              구매하기
+            </button>
           </div>
         </div>
       </div>

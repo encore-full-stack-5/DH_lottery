@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   ArcElement,
   CategoryScale,
@@ -8,6 +9,7 @@ import {
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { getPie } from "../../../api/lottoResult";
 
 Chart.register(
   CategoryScale,
@@ -18,37 +20,50 @@ Chart.register(
   ChartDataLabels
 );
 
-const labels = ["1번~10번", "11번~20번", "21번~30번", "31번~40번", "41번~45번"];
-
-const count = [];
-for (let i = 0; i < 5; i++) {
-  count.push(Math.floor(Math.random() * 100));
-}
-
 const PieChart = () => {
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: "test",
-        data: count,
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-        ],
-        hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-        ],
-      },
-    ],
-  };
+  const [data, setData] = useState({ labels: [], datasets: [] });
+  const labels = ["1번~10번", "11번~20번", "21번~30번", "31번~40번", "41번~45번"];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getPie();
+        const fetchedData = res.data.pie;
+        
+        const values = fetchedData;
+
+        const chartData = {
+          labels: labels,
+          datasets: [
+            {
+              label: "test",
+              data: values,
+              backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                "#4BC0C0",
+                "#9966FF",
+              ],
+              hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                "#4BC0C0",
+                "#9966FF",
+              ],
+            },
+          ],
+        };
+
+        setData(chartData); // Set the processed data to the state
+      } catch (error) {
+        console.error("Error fetching data:", error); // Handle potential errors
+      }
+    };
+
+    fetchData(); // Call fetchData when component mounts
+  }, []);
 
   const options = {
     responsive: true,

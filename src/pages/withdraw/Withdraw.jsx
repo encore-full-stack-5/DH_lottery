@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Withdraw = () => {
+  const serverAddr = "http://34.46.237.231:30421/api/v1/accounts";
   const [accountHolderName, setAccountHolderName] = useState("");
   const [selectedBank, setSelectedBank] = useState("국민은행");
   const [fee, setFee] = useState("300원");
@@ -38,8 +39,16 @@ const Withdraw = () => {
   };
 
   const fetchTotalDeposit = () => {
+    // 로컬 스토리지에서 토큰 가져오기
+    const token = localStorage.getItem("Authorization");
+
+    // Axios 요청 설정
     axios
-      .get(`http://localhost:8080/api/v1/accounts/${userId}`)
+      .get(serverAddr, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((response) => {
         setTotalDeposit(response.data.point);
       })
@@ -60,12 +69,13 @@ const Withdraw = () => {
       accountNum: accountHolderName,
       accountOwnerName: "박현서", // 예금주명 (고정값 또는 별도 처리)
     };
-
+    const token = localStorage.getItem("Authorization");
     axios
-      .put(
-        `http://localhost:8080/api/v1/accounts/${userId}/withdraw`,
-        withdrawData
-      )
+      .put(`${serverAddr}/withdraw`, withdrawData, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((response) => {
         console.log("출금 요청 성공:", response);
         fetchTotalDeposit(); // 출금 후 총 예치금 다시 가져오기
@@ -94,12 +104,14 @@ const Withdraw = () => {
       startDate: startDateString?.split("T")[0],
       endDate: endDateString?.split("T")[0],
     };
-
+    const token = localStorage.getItem("Authorization");
     axios
-      .get(
-        `http://localhost:8080/api/v1/accounts/${userId}/histories/withdraw`,
-        { params }
-      )
+      .get(`${serverAddr}/histories/withdraw`, {
+        params: params,
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((response) => {
         console.log(response.data);
         setWithdrawHistory(response.data);

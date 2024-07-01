@@ -26,7 +26,7 @@ const Login = () => {
     if (showModal) {
       const timer = setTimeout(() => {
         setShowModal(false);
-        window.location.href = 'http://localhost:5173/';
+        window.location.href = 'http://34.31.167.92';
       }, 500);
       return () => clearTimeout(timer);
     }

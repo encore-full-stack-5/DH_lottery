@@ -7,11 +7,20 @@ import {
 } from "../../api/pensionBuy";
 import "./P_Buying.css";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const P_Buying = () => {
-  const [drawDate, setDrawDate] = useState("2024.06.13");
-  const [drawEndDate, setDrawEndDate] = useState("2025.06.13");
+  const today = new Date();
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
+  };
+
+  const [drawDate, setDrawDate] = useState(formatDate(today));
+  const [drawEndDate, setDrawEndDate] = useState(formatDate(today));
   const [groupNum, setGroupNum] = useState("모든 조");
   const [autoNumber, setAutoNumber] = useState(["모든 조"]);
   const [selectNumber, setSelectNumber] = useState(["", "", "", "", "", ""]);
@@ -21,6 +30,8 @@ const P_Buying = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [round, setRound] = useState(0);
   const navigate = useNavigate();
+  const [balance, setBalance] = useState(0);
+  const [userId, setUserId] = useState("");
 
   const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -28,19 +39,11 @@ const P_Buying = () => {
 
   // 자동 번호 생성 로직
   const generateAutoNumber = () => {
-    // const groupNum = "모든 조";
-    // const randomSelect = ["모든 조", "1조", "2조", "3조", "4조", "5조"];
-    // const selectedGroup =
-    //   randomSelect[getRandomNumber(0, randomSelect.length - 1)];
-
     const randomNumbers = Array.from({ length: 6 }, () =>
       getRandomNumber(0, 9)
     );
 
     setSelectNumber([...randomNumbers]);
-
-    // setAutoNumber([selectedGroup, ...randomNumbers]);
-    // setAutoNumber([groupNum, ...randomNumbers]);
   };
 
   // 자동번호 버튼 클릭 시 동작
@@ -91,46 +94,51 @@ const P_Buying = () => {
       }
       if (groupNum === "모든 조") {
         for (let i = 1; i <= 5; i++) {
-          data = [i, ...selectNumber];
+          data = [round, i, ...selectNumber];
           await selectNum(data); // selectNum이 비동기 함수로 가정
         }
       } else {
         const num = Number(groupNum.split("조")[0]);
-        data = [num, ...selectNumber];
+        data = [round, num, ...selectNumber];
         await selectNum(data);
       }
     } catch (error) {
-      setErrorMessage(error.response.data.message);
-      alert(errorMessage);
+      alert(error.response.data);
     }
     setSelectNumber(["", "", "", "", "", ""]);
     setSelectedIndex(null);
     setGroupNum("모든 조");
-    // setAutoNumber(["모든 조", "", "", "", "", "", ""]);
     getSelected(); // getSelected 함수가 있어야 함
   };
 
   useEffect(() => {
     setSelectNumber(["", "", "", "", "", ""]);
-    // setAutoNumber(["모든 조", "", "", "", "", "", ""]);
   }, [errorMessage]);
 
   const calculateTimeLeft = () => {
-    const targetDate = new Date("2024-07-01T00:00:00");
     const now = new Date();
+    let targetDate = new Date();
+  
+    // 현재 시간이 0~29분 사이이면, 다음 정각으로 설정
+    if (now.getMinutes() < 30) {
+      targetDate.setMinutes(30, 0, 0); // 다음 30분
+    } else {
+      targetDate.setHours(now.getHours() + 1, 0, 0, 0); // 다음 정각
+    }
+  
     const difference = targetDate - now;
-
+  
     let timeLeft = {};
-
+  
     if (difference > 0) {
       timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
       };
     }
     return timeLeft;
   };
+  
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   useEffect(() => {
     const timer = setInterval(() => {
@@ -148,9 +156,9 @@ const P_Buying = () => {
 
   const getSelected = async () => {
     try {
-      const response = await getSelectedTicket("abcd", round); // 토큰에서 유저 아이디 꺼내서 넣어줘야함
+      const d = [round];
+      const response = await getSelectedTicket(d);
       setGetSelectedNum(response.data);
-      console.log(response);
     } catch (error) {
       console.error(error);
     } finally {
@@ -171,6 +179,42 @@ const P_Buying = () => {
     getSelected();
     getCurrentRound();
   }, []);
+  
+  useEffect(() => {
+    const token = localStorage.getItem("Authorization")?.split(" ")[1];
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log(decoded);
+        setUserId(decoded.id);
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    } else {
+      console.error("No token found");
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      if (!userId) {
+        console.error("User ID is not set");
+        return;
+      }
+
+      try {
+        const url = `http://34.46.237.231:30421/api/v1/accounts/${userId}`;
+        console.log("Fetching balance from URL:", url);
+        const response = await axios.get(url);
+        console.log(`response is ${response}`);
+        setBalance(response.data.point);
+        console.log("Fetched balance:", response.data.point);
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    };
+    fetchUserBalance();
+  }, [userId]);
 
   const getCurrentRound = async () => {
     try {
@@ -183,12 +227,19 @@ const P_Buying = () => {
 
   const purchaseTicket = async () => {
     try {
-      const data = ["abcd", "aaa@aaa.com", 200000];
-      await purchase(data);
+      await purchase();
       alert("구매 완료");
       getSelected();
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        // 서버로부터의 응답이 있는 경우
+        const { errorCode, errorMessage } = error.response.data;
+        alert(error.response.data);
+      } else {
+        // 서버로부터의 응답이 없는 경우
+        console.log(error);
+        alert("구매 중 오류가 발생했습니다.");
+      }
     }
   };
 
@@ -197,13 +248,12 @@ const P_Buying = () => {
   };
 
   const goToPayment = () => {
-    navigate('/payment');
+    navigate("/payment");
   };
 
   const goToHistory = () => {
-    navigate('/pension_history');
+    navigate("/pension_history");
   };
-  
 
   return (
     <div className="buying_container">
@@ -367,7 +417,7 @@ const P_Buying = () => {
             <p>보유중인 예치금</p>
             <button onClick={goToPayment}>충전</button>
           </div>
-          <p>0원</p>
+          <p>{balance}원</p>
         </div>
         <div className="buying_footer-section buying_payment-info">
           <div>
