@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode"; // Correct import for jwt-decode
+import {jwtDecode} from "jwt-decode";
 import "./LottoHistory.css";
 import axios from "axios";
 
@@ -23,6 +23,7 @@ const LottoHistory = () => {
       try {
         const decoded = jwtDecode(token);
         setUserId(decoded.id);
+        console.log(`아이디${decoded.id}`);
       } catch (error) {
         console.error("Invalid token", error);
       }
@@ -47,28 +48,43 @@ const LottoHistory = () => {
     setOrderBy(e.target.value);
   };
 
-  const fetchAllHistory = () => {
-    axios
-      .get(`http://34.136.172.224:30003/api/v1/lotto-history/${userId}`, {
-        params: {
-          startDate: startDate,
-          endDate: endDate,
-          orderBy: orderBy,
-        },
-      })
-      .then((response) => {
-        let sortedHistory = [...response.data.content];
-        sortedHistory = sortedHistory.sort((a, b) => {
-          const dateA = new Date(a.payCreatedAt);
-          const dateB = new Date(b.payCreatedAt);
-          return orderBy === "recent" ? dateB - dateA : dateA - dateB;
-        });
-        setAllHistory(sortedHistory);
-        setTotalPages(Math.ceil(sortedHistory.length / pageSize));
-      })
-      .catch((error) => {
-        console.error("에러 발생:", error);
+  const fetchAllHistory = async () => {
+    if (!userId) {
+      console.error("User ID is not set");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `http://34.136.172.224:30003/api/v1/lotto-history/${userId}`,
+        {
+          params: {
+            startDate: startDate,
+            endDate: endDate,
+            orderBy: orderBy,
+          },
+          timeout: 10000, // 예시로 10초 타임아웃 설정
+        }
+      );
+
+      let sortedHistory = [...response.data.content];
+      sortedHistory = sortedHistory.sort((a, b) => {
+        const dateA = new Date(a.payCreatedAt);
+        const dateB = new Date(b.payCreatedAt);
+        return orderBy === "recent" ? dateB - dateA : dateA - dateB;
       });
+
+      setAllHistory(sortedHistory);
+      setTotalPages(Math.ceil(sortedHistory.length / pageSize));
+    } catch (error) {
+      if (error.response) {
+        console.error("서버 응답 없음:", error.response.data);
+      } else if (error.request) {
+        console.error("응답 없음:", error.request);
+      } else {
+        console.error("요청 설정 오류:", error.message);
+      }
+    }
   };
 
   useEffect(() => {
@@ -79,9 +95,12 @@ const LottoHistory = () => {
   }, [location.search]);
 
   useEffect(() => {
-    if (userId) {
-      fetchAllHistory();
-    }
+    const fetchHistoryWhenUserIdIsSet = async () => {
+      if (userId) {
+        await fetchAllHistory();
+      }
+    };
+    fetchHistoryWhenUserIdIsSet();
   }, [userId, page, pageSize, startDate, endDate, orderBy]);
 
   const handleSearch = () => {
