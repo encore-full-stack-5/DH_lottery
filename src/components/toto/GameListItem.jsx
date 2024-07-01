@@ -8,20 +8,20 @@ const GameListItem = (props) => {
     const resulttoText = ["홈 승", "원정 승", "무승부", "경기취소"];
 
     const setBetting = (e) => {
-        if(new Date().getTime()+(1000*60*60*14) > props.bettingEnd.getTime()) return;
+        if(new Date().getTime() > props.bettingEnd.getTime()) return;
         if (e == props.bettingState) e = 0;
         const bettingTeam = {
             gameId: props.gameId,
             state: e,
             teamName: e==1 ? props.teamHome : props.teamAway,
             teamRtp: e==1 ? props.rtpHome : props.rtpAway,
-            isEnd: () => {return new Date().getTime()+(1000*60*60*14) > props.bettingEnd.getTime()}
+            isEnd: () => {return new Date().getTime() > props.bettingEnd.getTime()}
         };
         props.setBetting(bettingTeam);
     }
 
     useEffect(() => {
-        if(new Date().getTime()+(1000*60*60*14) > props.bettingEnd.getTime()) {
+        if(new Date().getTime() > props.bettingEnd.getTime()) {
             document.getElementById("rtp-home"+props.gameId).style.backgroundColor = "#ddd";
             document.getElementById("rtp-away"+props.gameId).style.backgroundColor = "#ddd";
             document.getElementById("rtp-home"+props.gameId).style.cursor = "default";
