@@ -289,11 +289,8 @@ const TotoMain = () => {
                     <SetGameCalender />
                 </div>
                 <div id="g-list" className="game-list">
-                    {/* <div className="game-list-head">
-                        날짜
-                    </div> */}
                     <div className="game-list-head">
-                        test1
+                        날짜
                     </div>
                     <div className="game-list-box">
                         <div className="game-list-box-head">
