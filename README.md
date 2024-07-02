@@ -2,7 +2,9 @@
 연금 복권 + 복권 +  스포츠 토토 
 
 ## 📃 프로젝트 소개
-동행복권 사이트를 모티브로 구현한 복권 + 토토 사이트입니다. 
+동행복권 사이트를 모티브로 복권, 연금 복권, 토토, 결제를 구현한 사이트입니다.
+
+게임 당첨 시 당첨 결과를 사용자 이메일로 발신하는 서비스를 구현했습니다.
 
 
 ## ⚙️ 기술스택
@@ -47,13 +49,33 @@
 
 
 ## 📌 주요기능
-  - 로그인
+  - 로그인 (소성민)
+   
+    - https://github.com/encore-full-stack-5/NODAJI_AUTH
+    - https://github.com/encore-full-stack-5/NODAJI-automatic-email-notification
 
-  - 로또
+  - 결제 (박현서)
 
-  - 연금 복권
+    - https://github.com/encore-full-stack-5/NODAJI_PAYMENT
+    - https://github.com/encore-full-stack-5/NODAJI_WIN_RESULT
+  
+  - 로또 (박분도, 이진석)
+    
+    - https://github.com/encore-full-stack-5/NODAJU_Lotto_Perchase
+    - https://github.com/encore-full-stack-5/NODAJI_LOTTO_ANALITICS_BE
+    - https://github.com/encore-full-stack-5/NODAJI_LOTTO_HISTORY_BE
+    
+  
+  - 연금 복권 (김재민, 정희서)
 
-  - 토토
+    - https://github.com/encore-full-stack-5/NODAJI_Pension_Buy_BE
+    - https://github.com/encore-full-stack-5/NODAJI_PENSION_LOTTERY_DRAW
+    - https://github.com/encore-full-stack-5/NODAJI_Pension_Matching
+
+  - 토토 (이수진)
+
+    - https://github.com/encore-full-stack-5/nodaji_toto_server
+   <br>
 
 ## 🖥️ 화면 구성도
 
