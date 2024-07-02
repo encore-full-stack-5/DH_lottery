@@ -59,6 +59,8 @@
 ### 로또 페이지
 ![화면-녹화-중-2024-07-02-122437](https://github.com/encore-full-stack-5/DH_lottery/assets/76871728/5ad54f45-e12b-4222-a1b8-de06ecb3fdee)
 
+### 연금 복권 페이지
+![화면-녹화-중-2024-07-02-142049](https://github.com/encore-full-stack-5/DH_lottery/assets/76871728/b2fe916d-0d69-4ccc-8984-f1917f5e77bf)
 
 
 
