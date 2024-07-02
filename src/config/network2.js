@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = async (url, method, body) => {
-  axios.defaults.baseURL = "http://34.44.4.146:31792";
+  axios.defaults.baseURL = "http://34.27.157.104:31792";
   const token = localStorage.getItem("Authorization");
 
   const headers = {
@@ -28,7 +28,7 @@ export const api = async (url, method, body) => {
 };
 
 export const matchingApi = async (url, method, body) => {
-  axios.defaults.baseURL = "http://34.44.4.146:31000";
+  axios.defaults.baseURL = "http://34.27.157.104:31000";
   const token = localStorage.getItem("Authorization");
 
   const headers = {
