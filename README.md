@@ -12,6 +12,10 @@
 - MYSQL
 - POSTGRES
 - REDIS
+- JENKINS
+- KUBERNETES
+- GOOGLE CLOUD PLATFORM
+    
 
 
 ## 🧑🏻‍💻 멤버구성
