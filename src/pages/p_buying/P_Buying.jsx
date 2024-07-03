@@ -121,8 +121,10 @@ const P_Buying = () => {
     let targetDate = new Date();
   
     // 현재 시간이 0~29분 사이이면, 다음 정각으로 설정
-    if (now.getMinutes() < 30) {
-      targetDate.setMinutes(30, 0, 0); // 다음 30분
+    if (now.getMinutes() < 20) {
+      targetDate.setMinutes(20, 0, 0); // 다음 30분
+    } else if(now.getMinutes() < 40){
+      targetDate.setMinutes(20, 0, 0);
     } else {
       targetDate.setHours(now.getHours() + 1, 0, 0, 0); // 다음 정각
     }
