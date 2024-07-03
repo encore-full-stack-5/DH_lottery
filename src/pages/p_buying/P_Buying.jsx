@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import {
   deleteSelectedTicket,
   getRound,
@@ -159,6 +160,8 @@ const P_Buying = () => {
       const d = [round];
       const response = await getSelectedTicket(d);
       setGetSelectedNum(response.data);
+      console.log(response.data);
+      setUserId(response.data[0].userId);
     } catch (error) {
       console.error(error);
     } finally {
@@ -180,27 +183,28 @@ const P_Buying = () => {
     getCurrentRound();
   }, []);
   
-  useEffect(() => {
-    const token = localStorage.getItem("Authorization")?.split(" ")[1];
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        console.log(decoded);
-        setUserId(decoded.id);
-      } catch (error) {
-        console.error("Invalid token", error);
-      }
-    } else {
-      console.error("No token found");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("Authorization")?.split(" ")[1];
+  //   console.log(token);
+  //   if (token) {
+  //     try {
+  //       const decoded = jwtDecode(token);
+  //       console.log(decoded);
+  //       setUserId(decoded.id);
+  //     } catch (error) {
+  //       console.error("Invalid token", error);
+  //     }
+  //   } else {
+  //     console.error("No token found");
+  //   }
+  // }, []);
 
   useEffect(() => {
     const fetchUserBalance = async () => {
-      if (!userId) {
-        console.error("User ID is not set");
-        return;
-      }
+      // if (!userId) {
+      //   console.error("User ID is not set");
+      //   return;
+      // }
 
       try {
         const url = `http://34.46.237.231:30421/api/v1/accounts/${userId}`;
@@ -261,7 +265,7 @@ const P_Buying = () => {
       <div className="buying_header">
         <div className="buying_header-left">
           <a href="/winResult" className="buying_result_btn">
-            제 {round}회 당첨결과 →
+            제 {round-1}회 당첨결과 →
           </a>
         </div>
         <div className="buying_header-center">
