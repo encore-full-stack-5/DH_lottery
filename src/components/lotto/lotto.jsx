@@ -33,6 +33,7 @@ const Lotto = () => {
         const decoded = jwtDecode(token);
         console.log(decoded);
         setUserId(decoded.id);
+        console.log(`userId:${userId}`)
       } catch (error) {
         console.error("Invalid token", error);
       }
@@ -50,6 +51,7 @@ const Lotto = () => {
   //       try {
   //         const decoded = jwtDecode(token);
   //         setUserId(decoded.id);
+  //         console.log(`userId:${userId}`)
   //       } catch (error) {
   //         console.error("Invalid token", error);
   //       }
