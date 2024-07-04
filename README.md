@@ -85,6 +85,12 @@
 ### 연금 복권 페이지
 ![화면-녹화-중-2024-07-02-142049](https://github.com/encore-full-stack-5/DH_lottery/assets/76871728/b2fe916d-0d69-4ccc-8984-f1917f5e77bf)
 
+### 스포츠 토토 페이지
+![화면-녹화-중-2024-07-03-140411](https://github.com/encore-full-stack-5/DH_lottery/assets/76871728/5297ec3d-2d24-47a5-b067-877cc79796f9)
+
+### 결제 페이지
+![화면-녹화-중-2024-07-03-162710](https://github.com/encore-full-stack-5/DH_lottery/assets/76871728/88c09a2b-497b-4d39-9ecc-a5eddf07722b)
+
 ## 느낀점
 - 정희서
 
@@ -98,6 +104,5 @@
 
 - 소성민
 
-- 박분도도
-- 
+- 박분도
 
