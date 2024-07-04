@@ -58,13 +58,11 @@ const JoinFormAgree = ({ setEmail }) => {
     setLoading(true);
     const data = { email: localEmail };
     try {
-      console.log("Sending email to:", data);  // 디버깅 로그 추가
       const response = await certification(data);
-      console.log("Email sent response:", response);  // 디버깅 로그 추가
-      setMessage(response || "이메일이 성공적으로 발송되었습니다.");
+      setMessage(response.message || "이메일이 성공적으로 발송되었습니다.");
       setIsEmailSent(true);
     } catch (error) {
-      console.error('error:', error);  // 에러 로그 추가
+      console.error('error:', error);
       setMessage("이메일 발송 실패");
       setIsEmailSent(false);
     } finally {
@@ -80,16 +78,14 @@ const JoinFormAgree = ({ setEmail }) => {
     setVerificationLoading(true);
     const data = { email: localEmail, confirmationRequest: emailCertificationCode };
     try {
-      console.log("Verifying code with data:", data);  // 디버깅 로그 추가
       const response = await emailCertification(data);
-      console.log("Verification response:", response);  // 디버깅 로그 추가
-      setVerificationMessage(response || "인증에 성공하였습니다.");
+      setVerificationMessage(response.message || "인증에 성공하였습니다.");
       setShowModal(true);
       if (typeof setEmail === 'function') {
         setEmail(localEmail);  // Update the parent component's email state
       }
     } catch (error) {
-      console.error('error:', error);  // 에러 로그 추가
+      console.error('error:', error);
       setVerificationMessage("인증 실패");
     } finally {
       setVerificationLoading(false);
