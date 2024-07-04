@@ -63,7 +63,7 @@ const LottoHistory = () => {
             endDate: endDate,
             orderBy: orderBy,
           },
-          timeout: 10000, // 예시로 10초 타임아웃 설정
+          timeout: 20000, // 예시로 10초 타임아웃 설정
         }
       );
 
