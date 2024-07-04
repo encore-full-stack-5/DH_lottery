@@ -61,6 +61,10 @@ const Login = () => {
     setShowModal(false);
   };
 
+  const handleSignUpClick = () => {
+    window.location.href = 'http://34.31.167.92/JoinFormAgree';
+  };
+
   return (
     <div className="login-page-container">
       <div className="sidebar">
@@ -74,7 +78,7 @@ const Login = () => {
           <div className="menu-item">
             <p>아이디/비밀번호 찾기</p>
           </div>
-          <div className="menu-item">
+          <div className="menu-item" onClick={handleSignUpClick}>
             <p>회원가입</p>
           </div>
         </div>
@@ -118,7 +122,7 @@ const Login = () => {
           </div>
           {message && <p className="login-message">{message}</p>}
           <div className="login-links">
-            <button className="link-button">회원가입</button>
+            <button className="link-button" onClick={handleSignUpClick}>회원가입</button>
             <button className="link-button">아이디/비밀번호 찾기</button>
           </div>
         </div>
