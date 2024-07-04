@@ -31,7 +31,9 @@ const JoinFormAgree = ({ setEmail }) => {
       const timer = setTimeout(() => {
         setShowModal(false);
         localStorage.setItem('verifiedEmail', localEmail); // Store email in localStorage
+
         window.location.href = 'http://34.31.167.92/SingUp';
+
       }, 500);
       return () => clearTimeout(timer);
     }
