@@ -79,6 +79,9 @@
 
 ## 🖥️ 화면 구성도
 
+### Auth 페이지
+![화면-녹화-중-2024-07-05-195938](https://github.com/encore-full-stack-5/DH_lottery/assets/76871728/4ac4c3f0-c7ff-478e-a291-17167c7c681e)
+
 ### 로또 페이지
 ![화면-녹화-중-2024-07-02-122437](https://github.com/encore-full-stack-5/DH_lottery/assets/76871728/5ad54f45-e12b-4222-a1b8-de06ecb3fdee)
 
