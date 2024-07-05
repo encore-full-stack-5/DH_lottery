@@ -49,7 +49,7 @@
 
 
 ## 📌 주요기능
-  - 로그인 (소성민)
+  - 로그인/이메일 (소성민)
    
     - https://github.com/encore-full-stack-5/NODAJI_AUTH
     - https://github.com/encore-full-stack-5/NODAJI-automatic-email-notification
