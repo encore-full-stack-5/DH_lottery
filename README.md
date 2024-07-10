@@ -64,6 +64,8 @@
     - https://github.com/encore-full-stack-5/NODAJU_Lotto_Perchase
     - https://github.com/encore-full-stack-5/NODAJI_LOTTO_ANALITICS_BE
     - https://github.com/encore-full-stack-5/NODAJI_LOTTO_HISTORY_BE
+![로또 시퀀스다이어그램](https://github.com/encore-full-stack-5/DH_lottery/assets/88492548/c8bcef40-a7ef-4750-89b9-08aefe9e93e8)
+
     
   
   - 연금 복권 (김재민, 정희서)
