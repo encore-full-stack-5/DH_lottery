@@ -96,7 +96,7 @@
 ### 결제 페이지
 ![화면-녹화-중-2024-07-03-162710](https://github.com/encore-full-stack-5/DH_lottery/assets/76871728/88c09a2b-497b-4d39-9ecc-a5eddf07722b)
 
-## 느낀점
+## 회고
 - 정희서
 
 - 김재민
